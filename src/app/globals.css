@@ -1,26 +1,155 @@
+@custom-variant dark (&:is(.dark *));
+
 @import "tailwindcss";
 
+@theme {
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-surface: var(--bg-surface);
+  --color-text-main: var(--color-text);
+  --color-text-muted: var(--color-text-secondary);
+  --color-accent: var(--color-accent);
+  --color-border-color: var(--color-border);
+  --color-bg-hover: var(--bg-hover);
+
+  /* Legacy fonts configuration */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-heading: var(--font-space-grotesk), ui-sans-serif, system-ui,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji";
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo,
+    Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-body: var(--font-inter);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* DARK THEME (Hacker/Cyberpunk Default) */
+  --bg-primary: #0a0a0f;
+  --bg-surface: #111118;
+  --color-text: #f0f0f5;
+  --color-text-secondary: #a0a0b0;
+  --color-accent: #00ff88;
+  --color-accent-rgb: 0, 255, 136;
+  --color-border: rgba(255, 255, 255, 0.05);
+  --bg-hover: rgba(255, 255, 255, 0.05);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.light {
+  /* LIGHT THEME (Bloomberg Terminal / Minimalist Finance) */
+  --bg-primary: #0d0d0d;
+  --bg-surface: #1a1a1a;
+  --color-text: #ff8c00;
+  --color-text-secondary: #e0e0e0;
+  --color-accent: #ff6600;
+  --color-accent-rgb: 255, 102, 0;
+  --color-border: rgba(255, 140, 0, 0.2);
+  --bg-hover: rgba(255, 140, 0, 0.1);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--color-text);
+  font-family: var(--font-body), sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+  z-index: 0;
+}
+
+@media (min-width: 769px) {
+  body {
+    cursor: none;
+  }
+}
+
+main {
+  position: relative;
+  z-index: 1;
+}
+
+footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* TERMINAL GRID BACKGROUND */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    linear-gradient(rgba(var(--color-accent-rgb), 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--color-accent-rgb), 0.03) 1px, transparent 1px);
+  background-size: 30px 30px;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Custom Animation Utils */
+@keyframes pulseGold {
+  0% {
+    box-shadow: 0 0 5px rgba(var(--color-accent-rgb), 0.2);
+  }
+
+  50% {
+    box-shadow: 0 0 15px rgba(var(--color-accent-rgb), 0.6);
+  }
+
+  100% {
+    box-shadow: 0 0 5px rgba(var(--color-accent-rgb), 0.2);
+  }
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 5px rgba(var(--color-accent-rgb), 0.2);
+  }
+
+  50% {
+    box-shadow: 0 0 15px rgba(var(--color-accent-rgb), 0.6);
+  }
+
+  100% {
+    box-shadow: 0 0 5px rgba(var(--color-accent-rgb), 0.2);
+  }
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+.cursor-blink {
+  animation: blink 800ms infinite;
+}
+
+@utility animate-pulse-gold {
+  animation: pulseGold 2s infinite;
+}
+
+@utility animate-pulse-glow {
+  animation: pulseGlow 2s infinite;
+}
+
+@keyframes ping {
+
+  75%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.animate-ping {
+  animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
