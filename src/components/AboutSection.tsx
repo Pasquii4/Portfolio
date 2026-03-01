@@ -3,8 +3,20 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import ScanReveal from "./ui/ScanReveal";
+import { useTheme } from "next-themes";
+import { useState, useEffect } from "react";
 
 export default function AboutSection() {
+    const { theme, resolvedTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    const currentTheme = theme === 'system' ? resolvedTheme : theme;
+    const avatarSrc = mounted && currentTheme === 'bloomberg' ? '/avatar2.png' : '/avatar.png';
+
     return (
         <section id="about" className="py-[100px]">
             <ScanReveal className="w-[90%] max-w-[1200px] mx-auto">
@@ -40,7 +52,7 @@ export default function AboutSection() {
                     <div className="relative rounded-xl overflow-hidden border border-[rgba(var(--color-accent-rgb),0.2)] group cursor-default">
                         <div className="absolute inset-0 bg-gradient-to-br from-[rgba(var(--color-accent-rgb),0.1)] to-transparent pointer-events-none z-10" />
                         <Image
-                            src="/avatar.png"
+                            src={avatarSrc}
                             alt="Pau Pascual"
                             width={600}
                             height={600}
