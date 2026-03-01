@@ -141,10 +141,10 @@ body::before {
 
 @media (prefers-reduced-motion: reduce) {
 
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
+  .animate-ping,
+  .cursor-blink,
+  .animate-pulse-gold,
+  .animate-pulse-glow {
+    animation: none !important;
   }
 }

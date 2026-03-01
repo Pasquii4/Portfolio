@@ -10,20 +10,22 @@ import FinTechTicker from "@/components/FinTechTicker";
 
 export default function Home() {
   return (
-    <main className="w-full flex justify-center mt-[10vh]">
+    <>
       <Navbar />
-      <article className="max-w-[1200px] w-full px-5">
-        <HeroDashboard />
-        <TerminalStats />
-        <AboutSection />
-        <ProjectsGrid />
-        <TechStack />
-        <ContactSection />
-        <Footer />
-      </article>
-      <div className="fixed bottom-0 left-0 w-full z-50">
-        <FinTechTicker />
-      </div>
-    </main>
+      <main className="w-full flex justify-center mt-[10vh]">
+        <article className="max-w-[1200px] w-full px-5">
+          <HeroDashboard />
+          <TerminalStats />
+          <AboutSection />
+          <ProjectsGrid />
+          <TechStack />
+          <ContactSection />
+          <Footer />
+        </article>
+        <div className="fixed bottom-0 left-0 w-full z-50">
+          <FinTechTicker />
+        </div>
+      </main>
+    </>
   );
 }
