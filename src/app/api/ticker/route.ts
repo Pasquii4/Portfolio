@@ -19,8 +19,8 @@ export async function GET() {
             return NextResponse.json(mockData);
         }
 
-        // Polygon API allows 5 calls/minute on free tier.
-        // For production we'd use WebSockets or batching. For this demo we'll fetch a group snapshot.
+        // Polygon API free tier recently restricted the Snapshot endpoint for new keys.
+        // We will attempt to fetch. If it returns 403 or fails, we will gracefully fallback to mock data.
         const response = await fetch(`https://api.polygon.io/v2/snapshot/locale/us/markets/stocks/tickers?tickers=${tickers.filter(t => !t.includes('-')).join(',')}&apiKey=${apiKey}`, { next: { revalidate: 60 } });
         const cryptoResponse = await fetch(`https://api.polygon.io/v2/snapshot/locale/global/markets/crypto/tickers?tickers=X:BTCUSD,X:ETHUSD&apiKey=${apiKey}`, { next: { revalidate: 60 } });
 
@@ -51,12 +51,23 @@ export async function GET() {
         }
 
         if (results.length === 0) {
-            throw new Error("No data fetched from Polygon");
+            // Fallback to mock data if Polygon rejects (e.g. 403 Not Authorized for Free Tier)
+            console.warn("Polygon API rejected the snapshot request (likely free tier limit). Falling back to mock data.");
+            const mockData = tickers.map(symbol => {
+                const basePrice = symbol.includes('BTC') ? 64000 : symbol.includes('ETH') ? 3500 : 150 + Math.random() * 100;
+                const mockChange = (Math.random() * 4) - 2;
+                return {
+                    symbol,
+                    price: basePrice + (basePrice * (mockChange / 100)),
+                    changePercent: mockChange
+                };
+            });
+            return NextResponse.json(mockData);
         }
 
         return NextResponse.json(results);
     } catch (error) {
-        console.error("Ticker API Error:", error);
+        console.error("Ticker API Error Details:", error);
         return NextResponse.json({ error: 'Failed to fetch ticker data' }, { status: 500 });
     }
 }
