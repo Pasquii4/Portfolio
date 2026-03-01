@@ -54,7 +54,14 @@ export default function ProjectsGrid() {
 
                             <div className="relative z-10 flex flex-col h-full pointer-events-none">
                                 <div className="flex flex-col xl:flex-row justify-between xl:items-start mb-6 gap-3">
-                                    <h3 className="text-2xl text-[var(--color-text)] font-heading group-hover:text-[var(--color-accent)] transition-colors">{proj.title}</h3>
+                                    <div>
+                                        <h3 className="text-2xl text-[var(--color-text)] font-heading group-hover:text-[var(--color-accent)] transition-colors">{proj.title}</h3>
+                                        {(proj.title === "Trading Scanner" || proj.title === "Bet Tracker") && (
+                                            <p className="font-mono text-[var(--color-text-secondary)] text-[0.75rem] opacity-80 mt-1">
+                                                Demo disponible bajo solicitud
+                                            </p>
+                                        )}
+                                    </div>
                                     <div className="flex flex-wrap gap-2 items-center">
                                         {proj.status && (
                                             <span className={`font-mono text-[0.65rem] px-3 py-1 rounded-full uppercase font-bold shrink-0 ${proj.status.type === 'in-dev' ? 'bg-[rgba(var(--color-accent-rgb),0.1)] text-[var(--color-accent)] border border-[rgba(var(--color-accent-rgb),0.3)] animate-pulse-gold' :
@@ -103,6 +110,11 @@ export default function ProjectsGrid() {
                                             {link.label}
                                         </a>
                                     ))}
+                                    {(proj.title === "Casino Python" || proj.title === "Fútbol Manager") && (
+                                        <span className="text-[var(--color-text-secondary)] text-[0.8rem] opacity-70 mt-1 w-full xl:w-auto xl:mt-0 font-mono xl:ml-auto">
+                                            {proj.title === "Casino Python" ? "Proyecto académico · Sin deploy" : "Solo backend · Sin interfaz web"}
+                                        </span>
+                                    )}
                                 </div>
                             </div>
                         </motion.div>

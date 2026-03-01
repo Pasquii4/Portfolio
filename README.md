@@ -34,3 +34,12 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Animated Backgrounds
+
+To export the canvas backgrounds as MP4 videos, use Remotion:
+
+```bash
+npx remotion render src/index.ts MatrixRain out/matrix-rain.mp4 --fps=20
+npx remotion render src/index.ts CandlestickScroll out/bloomberg-bg.mp4 --fps=30
+```

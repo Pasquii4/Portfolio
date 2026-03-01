@@ -48,9 +48,9 @@ export default function CustomCursor() {
                 ringRef.current.style.height = `${size}px`;
                 ringRef.current.style.borderColor = hovering.current
                     ? "rgba(255,255,255,0.7)"
-                    : "rgba(0,255,136,0.6)";
+                    : "rgba(var(--color-accent-rgb),0.6)";
                 ringRef.current.style.backgroundColor = hovering.current
-                    ? "rgba(0,255,136,0.08)"
+                    ? "rgba(var(--color-accent-rgb),0.08)"
                     : "transparent";
             }
 
@@ -86,7 +86,7 @@ export default function CustomCursor() {
                     top: -100,
                     zIndex: 9999,
                     pointerEvents: "none",
-                    backgroundColor: "#00ff88",
+                    backgroundColor: "var(--color-accent)",
                 }}
             />
             <div
@@ -95,7 +95,7 @@ export default function CustomCursor() {
                     width: "24px",
                     height: "24px",
                     borderRadius: "50%",
-                    border: "1.5px solid rgba(0,255,136,0.6)",
+                    border: "1.5px solid rgba(var(--color-accent-rgb),0.6)",
                     position: "fixed",
                     transform: "translate(-50%, -50%)",
                     left: -100,

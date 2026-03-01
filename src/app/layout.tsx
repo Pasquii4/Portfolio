@@ -22,31 +22,22 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "Pau Pascual | Backend & FinTech Developer",
-  description: "Desarrollador enfocado en Python, FastAPI, React y Arquitecturas FinTech.",
+  description: "Desarrollador backend especializado en FinTech y sistemas de trading en tiempo real. Python, FastAPI, Next.js. Basado en Barcelona.",
   authors: [{ name: "Pau Pascual" }],
   metadataBase: new URL("https://pasquii4.github.io/personal-2/"),
   robots: { index: true, follow: true },
   openGraph: {
-    title: "Pau Pascual | FinTech Developer",
-    description: "Portfolio de Pau Pascual. Desarrollador Full-Stack especializado en FinTech, algoritmos de trading, Python y FastAPI.",
+    title: "Pau Pascual | Backend & FinTech Developer",
+    description: "Desarrollador backend especializado en FinTech y sistemas de trading en tiempo real. Python, FastAPI, Next.js. Basado en Barcelona.",
     url: "https://pasquii4.github.io/personal-2/",
     siteName: "Pau Pascual Portfolio",
-    images: [
-      {
-        url: "/avatar.png",
-        width: 400,
-        height: 400,
-        alt: "Pau Pascual - FinTech Developer",
-      },
-    ],
     locale: "es_ES",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pau Pascual | FinTech & Full-Stack Developer",
-    description: "Portfolio de Pau Pascual. Desarrollador Full-Stack especializado en FinTech, algoritmos de trading, Python y FastAPI.",
-    images: ["/avatar.png"],
+    title: "Pau Pascual | Backend & FinTech Developer",
+    description: "Desarrollador backend especializado en FinTech y sistemas de trading en tiempo real. Python, FastAPI, Next.js. Basado en Barcelona.",
   },
   alternates: {
     canonical: "https://pasquii4.github.io/personal-2/",

@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Linkedin, Github } from "lucide-react";
 import ScanReveal from "./ui/ScanReveal";
 
@@ -24,8 +25,13 @@ export default function ContactSection() {
                     transition={{ duration: 0.8 }}
                     className="bg-[var(--bg-surface)] p-[3rem] rounded-xl text-center border border-[var(--color-border)] max-w-[800px] mx-auto"
                 >
-                    <p className="text-[1.2rem] text-[var(--color-text-secondary)] mb-12">
-                        ¿Buscas un desarrollador FinTech para tu equipo o tienes un proyecto técnico interesante? Escríbeme directamente — respondo en menos de 24h.
+                    <p className="font-mono text-[var(--color-accent)] text-sm mb-6 flex items-center justify-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse"></span>
+                        Disponible para nuevos proyectos · Respuesta en &lt; 24h
+                    </p>
+
+                    <p className="text-[1.2rem] text-[var(--color-text-secondary)] mb-10">
+                        ¿Buscas un desarrollador FinTech para tu equipo o tienes un proyecto técnico interesante? Escríbeme directamente.
                     </p>
 
                     <div className="flex justify-center gap-6 flex-wrap">

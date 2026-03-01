@@ -43,6 +43,28 @@ const COMMANDS: Record<string, React.ReactNode> = {
     contact: "Contactando... pascualpau04@gmail.com | github.com/Pasquii4",
     clear: "Limpiando terminal...",
     "sudo rm -rf /": "Permiso denegado. Este incidente será reportado.",
+    "ls proyectos/": (
+        <div className="whitespace-pre font-mono">
+            {`> Trading Scanner/   [EN DESARROLLO]
+> RL Boosting ES/    [LIVE]
+> Bet Tracker/       [EN DESARROLLO]
+> Tu Espacio Ideal/  [LIVE]
+> Casino Python/     [ACADÉMICO]
+> Fútbol Manager/    [ACADÉMICO]`}
+        </div>
+    ),
+    "cat skills.txt": (
+        <div className="whitespace-pre font-mono">
+            {`> ── Languages ─────────────────────
+>   Python, JavaScript/TypeScript, SQL, Java
+>
+> ── Frameworks ────────────────────
+>   FastAPI, Next.js, Astro, React
+>
+> ── Infra & Tools ─────────────────
+>   Docker, PostgreSQL, MongoDB, Redis, AWS, GCP`}
+        </div>
+    ),
     experience: (
         <div className="whitespace-pre font-mono">
             {`> Proyectos destacados:
@@ -177,8 +199,12 @@ export default function InteractiveTerminal() {
     const [input, setInput] = useState("");
     const [isFocused, setIsFocused] = useState(false);
     const [isBooting, setIsBooting] = useState(true);
+    const [cmdHistory, setCmdHistory] = useState<string[]>([]);
+    const [historyIndex, setHistoryIndex] = useState(-1);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
+
+    const VALID_COMMANDS = ["help", "clear", "contact", "social", "ask", "ls proyectos/", "cat skills.txt", "open linkedin", "open github", "download cv"];
 
     const scrollToBottom = () => {
         if (scrollContainerRef.current) {
@@ -254,7 +280,7 @@ export default function InteractiveTerminal() {
                 if (!question) {
                     setHistory(prev => [...prev, { command: trimmed, output: <div className="text-red-400">bash: ask: uso correcto → ask [pregunta sobre mí]</div>, type: "error" }]);
                 } else {
-                    setHistory(prev => [...prev, { command: trimmed, output: <div className="whitespace-pre font-mono text-[var(--color-text)]">{getAskResponse(question)}</div>, type: "output" }]);
+                    setHistory(prev => [...prev, { command: trimmed, output: <div className="break-words whitespace-pre-wrap w-full font-mono text-[var(--color-text)]">{getAskResponse(question)}</div>, type: "output" }]);
                 }
             } else if (COMMANDS[trimmed]) {
                 if (trimmed === "contact") {
@@ -283,8 +309,43 @@ export default function InteractiveTerminal() {
 
     const handleKeyDown = (e: ReactKeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter" && !isBooting) {
+            if (input.trim()) {
+                setCmdHistory(prev => [...prev, input.trim()]);
+            }
+            setHistoryIndex(-1);
             handleCommand(input);
             setInput("");
+        } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            if (cmdHistory.length > 0) {
+                const newIndex = historyIndex === -1 ? cmdHistory.length - 1 : Math.max(0, historyIndex - 1);
+                setHistoryIndex(newIndex);
+                setInput(cmdHistory[newIndex]);
+            }
+        } else if (e.key === "ArrowDown") {
+            e.preventDefault();
+            if (historyIndex !== -1) {
+                const newIndex = historyIndex + 1;
+                if (newIndex >= cmdHistory.length) {
+                    setHistoryIndex(-1);
+                    setInput("");
+                } else {
+                    setHistoryIndex(newIndex);
+                    setInput(cmdHistory[newIndex]);
+                }
+            }
+        } else if (e.key === "Tab") {
+            e.preventDefault();
+            const matches = VALID_COMMANDS.filter(cmd => cmd.startsWith(input.toLowerCase()));
+            if (matches.length === 1) {
+                setInput(matches[0]);
+            } else if (matches.length > 1) {
+                setHistory(prev => [...prev, {
+                    command: input,
+                    output: <div className="text-[var(--color-accent)] font-mono whitespace-pre-wrap">{matches.join("  ")}</div>,
+                    type: "system"
+                }]);
+            }
         }
     };
 
@@ -358,7 +419,7 @@ export default function InteractiveTerminal() {
                         </div>
                     </div>
                 </motion.div>
-                <p className="text-[10px] font-mono opacity-30 mt-3 text-right hidden md:block">
+                <p className="text-[10px] font-mono opacity-30 mt-3 text-right hidden md:block animate-[pulse_2s_ease-in-out_infinite]">
                     Press <kbd className="border border-white/20 rounded px-1">/</kbd> to focus terminal
                 </p>
             </div>

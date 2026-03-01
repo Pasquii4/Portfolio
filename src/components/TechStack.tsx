@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 import Marquee from "react-fast-marquee";
 import ScanReveal from "./ui/ScanReveal";
 import HolographicHUD from "@/components/ui/HolographicHUD";
@@ -40,8 +41,11 @@ const Row2Stack = [
 ];
 
 export default function TechStack() {
+    const sectionRef = useRef<HTMLDivElement>(null);
+    const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+
     return (
-        <section id="stack" className="py-[100px] overflow-hidden">
+        <section id="stack" ref={sectionRef} className="py-[100px] overflow-hidden">
             <ScanReveal className="w-[90%] max-w-[1200px] mx-auto mb-16">
                 <motion.h2
                     initial={{ opacity: 0, y: 30 }}
@@ -79,9 +83,8 @@ export default function TechStack() {
                                 </div>
                                 <div className="w-full h-1.5 bg-[var(--bg-surface)] rounded-full overflow-hidden">
                                     <motion.div
-                                        initial={{ width: 0 }}
-                                        whileInView={{ width: skill.pct }}
-                                        viewport={{ once: true, amount: 0.5 }}
+                                        initial={{ width: "0%" }}
+                                        animate={isInView ? { width: skill.pct } : { width: "0%" }}
                                         transition={{ duration: 1.5, delay: skill.delay + 0.3, type: "tween", ease: [0.4, 0, 0.2, 1] }}
                                         className="h-full bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent)] rounded-full"
                                     />

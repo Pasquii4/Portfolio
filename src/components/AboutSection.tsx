@@ -37,10 +37,39 @@ export default function AboutSection() {
                     className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
                 >
                     <div className="flex flex-col gap-6 text-[1.1rem] text-[var(--color-text-secondary)]">
-                        <p>Soy un desarrollador de software enfocado en construir herramientas fiables, escalables y optimizadas. Actualmente estoy cursando el <strong className="text-[var(--color-text)]">CFGS de Desarrollo de Aplicaciones Web</strong> en el Centre d&apos;Estudis Politècnics en Barcelona, ampliando y estructurando mi base de ingeniería de software.</p>
-                        <p>Mi principal área de interés y especialización es la industria <strong className="text-[var(--color-text)]">FinTech y los algoritmos de trading</strong>. Empleo tecnologías modernas como <strong className="text-[var(--color-text)]">Python, FastAPI y SQL</strong> para diseñar arquitecturas de microservicios resilientes, capturar datos en tiempo real mediante integraciones de APIs (como Alpha Vantage o Polygon), y desarrollar sistemas automatizados de análisis de mercados.</p>
-                        <p>A lo largo de los años he fortalecido mis habilidades trabajando tanto en el Back-end (arquitectura de bases de datos, APIs RESTful) como en el Front-end (UI atractivas y funcionales en vanilla y con frameworks modernos), asegurando que los requerimientos técnicos y de negocio se cumplan siempre al más alto nivel.</p>
-                        <p>Actualmente <strong className="text-[var(--color-text)]">disponible para Prácticas o Parcial Remoto</strong> en el sector FinTech/trading. Si buscas un perfil técnico con visión de producto, escríbeme directamente.</p>
+                        <div>
+                            <span className="font-mono text-[var(--color-accent)] text-sm mb-2 block font-bold">// Formación</span>
+                            <p>Soy un desarrollador de software enfocado en construir herramientas fiables, escalables y optimizadas. Actualmente estoy cursando el <strong className="text-[var(--color-text)]">CFGS de Desarrollo de Aplicaciones Web</strong> en el Centre d&apos;Estudis Politècnics en Barcelona, ampliando y estructurando mi base de ingeniería de software.</p>
+                        </div>
+
+                        <div>
+                            <span className="font-mono text-[var(--color-accent)] text-sm mb-2 block font-bold">// Especialización</span>
+                            <p>Mi principal área de interés y especialización es la industria <strong className="text-[var(--color-text)]">FinTech y los algoritmos de trading</strong>. Empleo tecnologías modernas como <strong className="text-[var(--color-text)]">Python, FastAPI y SQL</strong> para diseñar arquitecturas de microservicios resilientes, capturar datos en tiempo real mediante integraciones de APIs (como Alpha Vantage o Polygon), y desarrollar sistemas automatizados de análisis de mercados.</p>
+                        </div>
+
+                        <div>
+                            <span className="font-mono text-[var(--color-accent)] text-sm mb-2 block font-bold">// Experiencia</span>
+                            <p>A lo largo de los años he fortalecido mis habilidades trabajando tanto en el Back-end (arquitectura de bases de datos, APIs RESTful) como en el Front-end (UI atractivas y funcionales en vanilla y con frameworks modernos), asegurando que los requerimientos técnicos y de negocio se cumplan siempre al más alto nivel.</p>
+                        </div>
+
+                        <div className="pt-2 border-t border-[var(--color-border)]">
+                            <p className="mb-4">Actualmente <strong className="text-[var(--color-text)]">disponible para Prácticas o Parcial Remoto</strong> en el sector FinTech/trading. Si buscas un perfil técnico con visión de producto, escríbeme directamente.</p>
+
+                            <div className="flex flex-wrap gap-2">
+                                <span className="font-mono text-[0.7rem] px-3 py-1.5 rounded-full uppercase font-bold shrink-0 bg-[rgba(var(--color-accent-rgb),0.1)] text-[var(--color-accent)] border border-[rgba(var(--color-accent-rgb),0.3)] flex items-center gap-1.5">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] animate-pulse"></span> Disponible ahora
+                                </span>
+                                <span className="font-mono text-[0.7rem] px-3 py-1.5 rounded-full uppercase font-bold shrink-0 bg-[rgba(var(--color-accent-rgb),0.1)] text-[var(--color-accent)] border border-[rgba(var(--color-accent-rgb),0.3)]">
+                                    📍 Barcelona, ES
+                                </span>
+                                <span className="font-mono text-[0.7rem] px-3 py-1.5 rounded-full uppercase font-bold shrink-0 bg-[rgba(var(--color-accent-rgb),0.1)] text-[var(--color-accent)] border border-[rgba(var(--color-accent-rgb),0.3)]">
+                                    Presencial / Remoto
+                                </span>
+                                <span className="font-mono text-[0.7rem] px-3 py-1.5 rounded-full uppercase font-bold shrink-0 bg-[rgba(var(--color-accent-rgb),0.1)] text-[var(--color-accent)] border border-[rgba(var(--color-accent-rgb),0.3)]">
+                                    Prácticas · Freelance
+                                </span>
+                            </div>
+                        </div>
 
                         <div className="flex flex-wrap gap-2 mt-4">
                             <span className="font-mono text-[0.8rem] text-[var(--color-accent)] bg-[rgba(var(--color-accent-rgb),0.1)] px-2 py-1 rounded">🇪🇸 Español</span>

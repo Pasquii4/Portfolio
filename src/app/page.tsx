@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import HeroDashboard from "@/components/HeroDashboard";
+import { AppBackground } from "@/components/AppBackground";
 import TerminalStats from "@/components/TerminalStats";
 import AboutSection from "@/components/AboutSection";
 import TechStack from "@/components/TechStack";
@@ -11,6 +12,9 @@ import FinTechTicker from "@/components/FinTechTicker";
 export default function Home() {
   return (
     <>
+      <div className="fixed inset-0 w-full h-full z-[-1] pointer-events-none">
+        <AppBackground />
+      </div>
       <Navbar />
       <main className="w-full flex justify-center mt-[10vh]">
         <article className="max-w-[1200px] w-full px-5">

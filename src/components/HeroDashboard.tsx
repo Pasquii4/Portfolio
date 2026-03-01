@@ -17,12 +17,12 @@ export default function HeroDashboard() {
         "FinTech Integrator"
     ];
 
-    const { displayedTexts, activeIndex, isFinished } = useTypewriter([fullTitle, titles[0]]);
+    const { displayedTexts, activeIndex, isFinished } = useTypewriter([fullTitle]);
     const [showCursor, setShowCursor] = useState(true);
 
     useEffect(() => {
         if (isFinished) {
-            const timer = setTimeout(() => setShowCursor(false), 1000);
+            const timer = setTimeout(() => setShowCursor(false), 2000);
             return () => clearTimeout(timer);
         }
     }, [isFinished]);
@@ -67,27 +67,18 @@ export default function HeroDashboard() {
                             )}
                         </h1>
                         <div className="h-[36px] mb-6 overflow-hidden relative">
-                            {isFinished ? (
-                                <AnimatePresence mode="wait">
-                                    <motion.h2
-                                        key={currentTitleIndex}
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -10 }}
-                                        transition={{ duration: 0.3 }}
-                                        className="font-heading text-xl md:text-[1.5rem] text-[var(--color-accent)] absolute left-0 top-0"
-                                    >
-                                        {titles[currentTitleIndex]}
-                                    </motion.h2>
-                                </AnimatePresence>
-                            ) : (
-                                <h2 className="font-heading text-xl md:text-[1.5rem] text-[var(--color-accent)]">
-                                    {displayedTexts[1]}
-                                    {activeIndex === 1 && showCursor && (
-                                        <span className="inline-block text-[var(--color-accent)] cursor-blink ml-[2px] font-normal">_</span>
-                                    )}
-                                </h2>
-                            )}
+                            <AnimatePresence mode="wait">
+                                <motion.h2
+                                    key={currentTitleIndex}
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -10 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="font-heading text-xl md:text-[1.5rem] text-[var(--color-accent)] absolute left-0 top-0"
+                                >
+                                    {titles[currentTitleIndex]}
+                                </motion.h2>
+                            </AnimatePresence>
                         </div>
                         <p className="text-[var(--color-text-secondary)] text-[1.1rem] mb-8 max-w-[500px]">
                             Construyo sistemas FinTech escalables — Python, FastAPI y algoritmos de

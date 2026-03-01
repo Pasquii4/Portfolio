@@ -11,6 +11,7 @@
   "dependencies": {
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
+    "@remotion/cli": "^4.0.431",
     "@tsparticles/react": "^3.0.0",
     "@types/three": "^0.183.1",
     "framer-motion": "^12.34.3",
@@ -21,6 +22,7 @@
     "react-dom": "19.2.3",
     "react-fast-marquee": "^1.6.5",
     "react-icons": "^5.5.0",
+    "remotion": "^4.0.431",
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.183.2",
     "tsparticles": "^3.9.1"
