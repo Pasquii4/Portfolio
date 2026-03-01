@@ -18,15 +18,16 @@ export default function ThemeToggle() {
 
     return (
         <button
-            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            onClick={() => setTheme(theme === 'dark' ? 'bloomberg' : 'dark')}
             className="h-10 px-4 flex items-center justify-center rounded bg-[var(--bg-surface)] border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all duration-300 overflow-hidden relative group font-mono text-sm font-bold"
             aria-label="Toggle Theme"
+            title="Toggle Theme"
         >
             <div className={`absolute flex items-center gap-2 transition-all duration-500 ease-spring ${theme === 'dark' ? 'scale-100 opacity-100 rotate-0' : 'scale-75 opacity-0 -translate-y-4'}`}>
                 <Terminal className="w-4 h-4 text-[#00ff88]" />
                 <span className="text-[#00ff88]">DARK</span>
             </div>
-            <div className={`absolute flex items-center gap-2 transition-all duration-500 ease-spring ${theme === 'light' ? 'scale-100 opacity-100 rotate-0' : 'scale-75 opacity-0 translate-y-4'}`}>
+            <div className={`absolute flex items-center gap-2 transition-all duration-500 ease-spring ${theme === 'bloomberg' ? 'scale-100 opacity-100 rotate-0' : 'scale-75 opacity-0 translate-y-4'}`}>
                 <BarChart2 className="w-4 h-4 text-[#ff8c00]" />
                 <span className="text-[#ff8c00]">BLOOMBERG</span>
             </div>

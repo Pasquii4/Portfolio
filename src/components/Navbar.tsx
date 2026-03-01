@@ -56,7 +56,8 @@ export default function Navbar() {
                     <button
                         className="md:hidden flex flex-col gap-[5px] p-2 bg-transparent border-none cursor-pointer"
                         onClick={() => setIsOpen(!isOpen)}
-                        aria-label="Abrir menú"
+                        aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
+                        title={isOpen ? "Cerrar menú" : "Abrir menú"}
                         aria-expanded={isOpen}
                     >
                         <span className={`w-[25px] h-[2px] bg-[var(--color-accent)] transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-[7px]' : ''}`} />

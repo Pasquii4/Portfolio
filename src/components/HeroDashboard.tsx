@@ -1,22 +1,23 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import InteractiveTerminal from "./InteractiveTerminal";
-import { useTypewriter } from "../hooks/useTypewriter";
+import { useTypewriter } from "@/hooks/useTypewriter";
 
 export default function HeroDashboard() {
 
+    const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
+
+    const fullTitle = "Pau Pascual";
     const titles = [
+        "FinTech & Full-Stack Developer",
         "Backend Developer",
         "Frontend Developer",
         "FinTech Integrator"
     ];
 
-    const fullTitle = "Pau Pascual";
-    const fullSubtitle = "FinTech & Full-Stack Developer";
-
-    const { displayedTexts, activeIndex, isFinished } = useTypewriter([fullTitle, fullSubtitle]);
+    const { displayedTexts, activeIndex, isFinished } = useTypewriter([fullTitle, titles[0]]);
     const [showCursor, setShowCursor] = useState(true);
 
     useEffect(() => {
@@ -25,6 +26,16 @@ export default function HeroDashboard() {
             return () => clearTimeout(timer);
         }
     }, [isFinished]);
+
+    useEffect(() => {
+        if (!isFinished) return;
+
+        const interval = setInterval(() => {
+            setCurrentTitleIndex((prev) => (prev + 1) % titles.length);
+        }, 3000);
+
+        return () => clearInterval(interval);
+    }, [isFinished, titles.length]);
 
     return (
         <section id="dashboard" className="py-[100px] min-h-[calc(100vh-70px)] pt-[40px] flex items-center relative z-[1]">
@@ -55,12 +66,29 @@ export default function HeroDashboard() {
                                 <span className="inline-block text-[var(--color-accent)] cursor-blink ml-[2px] font-normal">_</span>
                             )}
                         </h1>
-                        <h2 className="font-heading text-xl md:text-[1.5rem] text-[var(--color-accent)] mb-6 h-[36px]">
-                            {displayedTexts[1]}
-                            {activeIndex === 1 && showCursor && (
-                                <span className="inline-block text-[var(--color-accent)] cursor-blink ml-[2px] font-normal">_</span>
+                        <div className="h-[36px] mb-6 overflow-hidden relative">
+                            {isFinished ? (
+                                <AnimatePresence mode="wait">
+                                    <motion.h2
+                                        key={currentTitleIndex}
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -10 }}
+                                        transition={{ duration: 0.3 }}
+                                        className="font-heading text-xl md:text-[1.5rem] text-[var(--color-accent)] absolute left-0 top-0"
+                                    >
+                                        {titles[currentTitleIndex]}
+                                    </motion.h2>
+                                </AnimatePresence>
+                            ) : (
+                                <h2 className="font-heading text-xl md:text-[1.5rem] text-[var(--color-accent)]">
+                                    {displayedTexts[1]}
+                                    {activeIndex === 1 && showCursor && (
+                                        <span className="inline-block text-[var(--color-accent)] cursor-blink ml-[2px] font-normal">_</span>
+                                    )}
+                                </h2>
                             )}
-                        </h2>
+                        </div>
                         <p className="text-[var(--color-text-secondary)] text-[1.1rem] mb-8 max-w-[500px]">
                             Construyo sistemas FinTech escalables — Python, FastAPI y algoritmos de
                             trading en tiempo real. Basado en Barcelona, disponible para prácticas o proyectos

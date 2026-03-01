@@ -24,10 +24,12 @@ export const metadata: Metadata = {
   title: "Pau Pascual | Backend & FinTech Developer",
   description: "Desarrollador enfocado en Python, FastAPI, React y Arquitecturas FinTech.",
   authors: [{ name: "Pau Pascual" }],
+  metadataBase: new URL("https://pasquii4.github.io/personal-2/"),
+  robots: { index: true, follow: true },
   openGraph: {
     title: "Pau Pascual | FinTech Developer",
     description: "Portfolio de Pau Pascual. Desarrollador Full-Stack especializado en FinTech, algoritmos de trading, Python y FastAPI.",
-    url: "https://pasquii4.github.io/personal/",
+    url: "https://pasquii4.github.io/personal-2/",
     siteName: "Pau Pascual Portfolio",
     images: [
       {
@@ -47,7 +49,7 @@ export const metadata: Metadata = {
     images: ["/avatar.png"],
   },
   alternates: {
-    canonical: "https://pasquii4.github.io/personal/",
+    canonical: "https://pasquii4.github.io/personal-2/",
   },
 };
 
@@ -63,7 +65,7 @@ export default function RootLayout({
     "alternateName": "Pau Pascual Vallverdú",
     "jobTitle": "FinTech & Full-Stack Developer",
     "description": "Desarrollador Full-Stack especializado en FinTech, Python, FastAPI y algoritmos de trading. Basado en Barcelona, España.",
-    "url": "https://pasquii4.github.io/personal/",
+    "url": "https://pasquii4.github.io/personal-2/",
     "email": "pascualpau04@gmail.com",
     "address": {
       "@type": "PostalAddress",
@@ -100,9 +102,11 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased font-sans bg-[var(--bg-primary)] text-[var(--color-text)] overflow-x-hidden min-h-screen relative">
-        <GrainOverlay />
-        <CustomCursor />
-        {children}
+        <ThemeProvider>
+          <GrainOverlay />
+          <CustomCursor />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

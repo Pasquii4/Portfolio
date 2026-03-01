@@ -1,68 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import ScanReveal from "./ui/ScanReveal";
+import { projects, ProjectBadge, ProjectLink } from "@/data/projects";
 
-const projects: any[] = [
-    {
-        title: "Trading Scanner",
-        status: { label: "En Desarrollo", type: "in-dev" },
-        desc: "Escanea múltiples activos con indicadores RSI, MACD y volumen en tiempo real. Arquitectura modular con FastAPI + WebSockets + PostgreSQL. Latencia <300ms en entorno local.",
-        tags: ["Python", "FastAPI", "SQL", "Docker"],
-        links: [
-            { url: "mailto:pascualpau04@gmail.com?subject=Solicitud%20acceso%20repo%20Trading%20Scanner", label: "🔒 Privado · Solicitar acceso", style: { opacity: 0.6 } }
-        ]
-    },
-    {
-        title: "RL Boosting ES",
-        badges: [{ label: "Público", type: "public" }, { label: "Live 🟢", type: "live" }],
-        desc: "Landing page de servicio de boosting para Rocket League. Desplegada en Cloudflare Pages · TypeScript + Astro · Optimizada para conversión y Core Web Vitals.",
-        tags: ["TypeScript", "Next.js / Astro"],
-        links: [
-            { url: "https://github.com/Pasquii4/RLBoosting_es", label: "Ver Código", icon: "github" },
-            { url: "https://rlboosting-es.pages.dev/", label: "🌐 Ver Web" }
-        ]
-    },
-    {
-        title: "Bet Tracker",
-        status: { label: "Privado", type: "private" },
-        desc: "Dashboard de seguimiento de apuestas deportivas con estadísticas de ROI, racha y Kelly Criterion. Vanilla JS + Chart.js, sin dependencias externas.",
-        tags: ["HTML", "CSS", "JavaScript"],
-        links: [
-            { url: "mailto:pascualpau04@gmail.com?subject=Solicitud%20acceso%20repo%20Bet%20Tracker", label: "🔒 Privado · Solicitar acceso", style: { opacity: 0.6 } }
-        ]
-    },
-    {
-        title: "Tu Espacio Ideal",
-        badges: [{ label: "Público", type: "public" }, { label: "Live 🟢", type: "live" }],
-        desc: "Storefront aesthetic de productos para escritorio. SSG con Astro + Cloudflare Workers. SEO-first y optimizado para conversión.",
-        tags: ["Astro", "SSG"],
-        links: [
-            { url: "https://github.com/Pasquii4/storefront", label: "Ver Código", icon: "github" },
-            { url: "https://storefront.pasqui.workers.dev/", label: "🌐 Ver Web" }
-        ]
-    },
-    {
-        title: "Casino Python",
-        status: { label: "Público", type: "public" },
-        desc: "Juego de casino multi-modal con lógica de apuestas complejas desarrollado enteramente en Python usando estado y concurrencia simple.",
-        tags: ["Python", "Game Logic"],
-        links: [
-            { url: "https://github.com/Pasquii4/Casino", label: "Ver Código", icon: "github" }
-        ]
-    },
-    {
-        title: "Fútbol Manager",
-        status: { label: "Público", type: "public" },
-        desc: "Ejercicio académico de gestión de equipos y jugadores. Arquitectura orientada a objetos avanzada (OOP) — herencia, polimorfismo, encapsulación — en Java puro.",
-        tags: ["Java", "OOP"],
-        links: [
-            { url: "https://github.com/Pasquii4/futbol_manager", label: "Ver Código", icon: "github" }
-        ]
-    }
-];
-
-const containerVariants: any = {
+const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,
@@ -72,7 +14,7 @@ const containerVariants: any = {
     }
 };
 
-const itemVariants: any = {
+const itemVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
         opacity: 1,
@@ -122,7 +64,7 @@ export default function ProjectsGrid() {
                                                 {proj.status.label}
                                             </span>
                                         )}
-                                        {proj.badges && proj.badges.map((b: any) => (
+                                        {proj.badges && proj.badges.map((b: ProjectBadge) => (
                                             <span key={b.label} className={`font-mono text-[0.65rem] px-3 py-1 rounded-full uppercase font-bold shrink-0 ${b.type === 'live' ? 'bg-[rgba(var(--color-accent-rgb),0.15)] text-[var(--color-accent)] border border-[rgba(var(--color-accent-rgb),0.3)] animate-pulse-glow' :
                                                 'bg-[rgba(var(--color-accent-rgb),0.1)] text-[var(--color-accent)]'
                                                 }`}>
@@ -144,7 +86,7 @@ export default function ProjectsGrid() {
                                 </div>
 
                                 <div className="flex flex-wrap items-center gap-5 mt-auto pointer-events-auto pt-4 border-t border-[var(--color-border)]">
-                                    {proj.links.map((link: any) => (
+                                    {proj.links.map((link: ProjectLink) => (
                                         <a
                                             key={link.url}
                                             href={link.url}

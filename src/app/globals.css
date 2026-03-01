@@ -34,7 +34,7 @@
   --bg-hover: rgba(255, 255, 255, 0.05);
 }
 
-.light {
+.bloomberg {
   /* LIGHT THEME (Bloomberg Terminal / Minimalist Finance) */
   --bg-primary: #0d0d0d;
   --bg-surface: #1a1a1a;
@@ -88,21 +88,6 @@ body::before {
   pointer-events: none;
 }
 
-/* Custom Animation Utils */
-@keyframes pulseGold {
-  0% {
-    box-shadow: 0 0 5px rgba(var(--color-accent-rgb), 0.2);
-  }
-
-  50% {
-    box-shadow: 0 0 15px rgba(var(--color-accent-rgb), 0.6);
-  }
-
-  100% {
-    box-shadow: 0 0 5px rgba(var(--color-accent-rgb), 0.2);
-  }
-}
-
 @keyframes pulseGlow {
   0% {
     box-shadow: 0 0 5px rgba(var(--color-accent-rgb), 0.2);
@@ -134,7 +119,7 @@ body::before {
 }
 
 @utility animate-pulse-gold {
-  animation: pulseGold 2s infinite;
+  animation: pulseGlow 2s infinite;
 }
 
 @utility animate-pulse-glow {
@@ -152,4 +137,14 @@ body::before {
 
 .animate-ping {
   animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -287,7 +287,7 @@ export default function InteractiveTerminal() {
     };
 
     return (
-        <section id="terminal" className="py-[100px]">
+        <section id="terminal" className="py-[100px]" role="region" aria-label="Interactive terminal">
             <div className="w-[90%] max-w-[800px] mx-auto">
                 <motion.h2
                     initial={{ opacity: 0, y: 30 }}
@@ -348,7 +348,7 @@ export default function InteractiveTerminal() {
                                 onKeyDown={handleKeyDown}
                                 onFocus={() => setIsFocused(true)}
                                 onBlur={() => setIsFocused(false)}
-                                className="bg-transparent border-none outline-none text-[var(--color-text)] w-full font-mono placeholder-gray-700"
+                                className="bg-transparent border-none outline-none focus-visible:outline-2 focus-visible:outline-[var(--color-accent)] text-[var(--color-text)] w-full font-mono placeholder-gray-700"
                                 spellCheck="false"
                                 autoComplete="off"
                                 disabled={isBooting}
