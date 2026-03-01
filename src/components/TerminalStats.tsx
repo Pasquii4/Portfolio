@@ -44,13 +44,13 @@ export default function TerminalStats() {
                 <div className="stat-card flex items-start gap-4">
                     <div className="stat-icon mt-1.5" aria-hidden="true">
                         <span className="relative flex h-3 w-3">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00ff88] opacity-75" />
-                            <span className="relative inline-flex rounded-full h-3 w-3 bg-[#00ff88]" />
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-accent)] opacity-75" />
+                            <span className="relative inline-flex rounded-full h-3 w-3 bg-[var(--color-accent)]" />
                         </span>
                     </div>
                     <div className="stat-info">
                         <h3 className="font-mono text-[0.7rem] text-[var(--color-text-secondary)] uppercase tracking-wider mb-2">Estado</h3>
-                        <p className="stat-value font-heading text-3xl mb-1 text-[#00ff88]">
+                        <p className="stat-value font-heading text-3xl mb-1 text-[var(--color-accent)]">
                             Disponible
                         </p>
                         <p className="text-xs opacity-70 font-mono text-[var(--color-text-secondary)]">
@@ -105,7 +105,7 @@ export default function TerminalStats() {
                                 {typeof stat.value === "number" ? (
                                     <AnimatedCounter to={stat.value} duration={1.5} />
                                 ) : (
-                                    stat.value
+                                    <span className="text-[var(--color-text)]">{stat.value}</span>
                                 )}
                                 <span className="text-[var(--color-accent)]">{stat.suffix}</span>
                             </div>
