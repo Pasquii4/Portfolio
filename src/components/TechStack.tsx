@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Marquee from "react-fast-marquee";
 import ScanReveal from "./ui/ScanReveal";
+import HolographicHUD from "@/components/ui/HolographicHUD";
 import { SiPython, SiPytorch, SiReact, SiNextdotjs, SiTailwindcss, SiVite, SiDocker, SiNodedotjs, SiFastapi, SiPostgresql, SiMongodb, SiRedis, SiRust, SiGo, SiAmazonwebservices, SiGooglecloud } from "react-icons/si";
 
 const skills = [
@@ -38,12 +39,6 @@ const Row2Stack = [
     { name: "Rust", icon: SiRust }
 ];
 
-import dynamic from "next/dynamic";
-
-const TechGlobe = dynamic(() => import("./TechGlobe"), { ssr: false });
-
-// ... rest of imports
-
 export default function TechStack() {
     return (
         <section id="stack" className="py-[100px] overflow-hidden">
@@ -58,20 +53,16 @@ export default function TechStack() {
                 </motion.h2>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    {/* Interactive 3D Globe */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 1 }}
-                        className="w-full h-full min-h-[400px] flex items-center justify-center relative lg:order-2"
+                        className="w-full h-full flex items-center justify-center relative lg:order-2"
                     >
-                        {/* Background glow effect for the globe */}
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] aspect-square bg-[var(--color-accent)] rounded-full blur-[100px] opacity-10 pointer-events-none"></div>
-                        <TechGlobe />
+                        <HolographicHUD />
                     </motion.div>
 
-                    {/* Skills Grid */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:order-1">
                         {skills.map((skill) => (
                             <motion.div
@@ -101,7 +92,6 @@ export default function TechStack() {
                 </div>
             </ScanReveal>
 
-            {/* Marquee Tickers - Infinite parallel rows */}
             <div className="w-full flex flex-col gap-6 opacity-60 mt-[80px]">
                 <Marquee
                     gradient={true}
