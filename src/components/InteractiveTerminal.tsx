@@ -177,11 +177,13 @@ export default function InteractiveTerminal() {
     const [input, setInput] = useState("");
     const [isFocused, setIsFocused] = useState(false);
     const [isBooting, setIsBooting] = useState(true);
-    const bottomRef = useRef<HTMLDivElement>(null);
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
     const scrollToBottom = () => {
-        bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
+        }
     };
 
     useEffect(() => {
@@ -317,7 +319,7 @@ export default function InteractiveTerminal() {
                     </div>
 
                     {/* Window Content */}
-                    <div className="p-6 h-[350px] overflow-y-auto font-mono text-sm sm:text-base flex flex-col gap-3 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+                    <div ref={scrollContainerRef} className="p-6 h-[350px] overflow-y-auto font-mono text-sm sm:text-base flex flex-col gap-3 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
                         <AnimatePresence>
                             {history.map((record, i) => (
                                 <motion.div
@@ -354,7 +356,6 @@ export default function InteractiveTerminal() {
                                 disabled={isBooting}
                             />
                         </div>
-                        <div ref={bottomRef} className="h-1" />
                     </div>
                 </motion.div>
                 <p className="text-[10px] font-mono opacity-30 mt-3 text-right hidden md:block">

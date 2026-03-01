@@ -6,5 +6,16 @@ export function ThemeProvider({
     children,
     ...props
 }: React.ComponentProps<typeof NextThemesProvider>) {
-    return <NextThemesProvider defaultTheme="dark" themes={['dark', 'bloomberg']} enableSystem={false} {...props}>{children}</NextThemesProvider>;
+    return (
+        <NextThemesProvider
+            attribute="class"
+            defaultTheme="dark"
+            themes={['dark', 'bloomberg']}
+            enableSystem={false}
+            disableTransitionOnChange={false}
+            {...props}
+        >
+            {children}
+        </NextThemesProvider>
+    );
 }
