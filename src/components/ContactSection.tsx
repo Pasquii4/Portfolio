@@ -4,8 +4,10 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Linkedin, Github } from "lucide-react";
 import ScanReveal from "./ui/ScanReveal";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function ContactSection() {
+    const { t } = useLanguage();
     return (
         <section id="contact" className="py-[100px]">
             <ScanReveal className="w-[90%] max-w-[1200px] mx-auto">
@@ -15,7 +17,7 @@ export default function ContactSection() {
                     viewport={{ once: true, amount: 0.5 }}
                     className="font-mono text-[var(--color-accent)] text-2xl mb-12 inline-block border-b-2 border-[var(--color-accent)] pb-2"
                 >
-                    ~/contacto
+                    {t('contact.title')}
                 </motion.h2>
 
                 <motion.div
@@ -27,41 +29,52 @@ export default function ContactSection() {
                 >
                     <p className="font-mono text-[var(--color-accent)] text-sm mb-6 flex items-center justify-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse"></span>
-                        Disponible para nuevos proyectos · Respuesta en &lt; 24h
+                        {t('contact.subtitle')}
                     </p>
 
                     <p className="text-[1.2rem] text-[var(--color-text-secondary)] mb-10">
-                        ¿Buscas un desarrollador FinTech para tu equipo o tienes un proyecto técnico interesante? Escríbeme directamente.
+                        {t('contact.desc')}
                     </p>
 
-                    <div className="flex justify-center gap-6 flex-wrap">
+                    <div className="flex flex-col gap-8 w-full">
                         <a
                             href="mailto:pascualpau04@gmail.com"
-                            className="group inline-flex items-center gap-3 px-8 py-4 bg-[var(--bg-surface)] border border-[var(--color-border)] rounded-lg text-[var(--color-text)] no-underline font-mono font-bold transition-all duration-300 hover:bg-[var(--bg-hover)] hover:-translate-y-[3px] hover:shadow-[0_5px_15px_rgba(0,0,0,0.3)]"
+                            className="group flex flex-col items-center justify-center gap-4 py-8 mb-4 border-2 border-dashed border-[rgba(var(--color-accent-rgb),0.3)] rounded-xl hover:bg-[rgba(var(--color-accent-rgb),0.05)] hover:border-[var(--color-accent)] transition-all duration-300 no-underline"
                         >
-                            <Mail className="w-6 h-6 transition-colors group-hover:text-[var(--color-accent)]" />
-                            pascualpau04@gmail.com
+                            <Mail className="w-10 h-10 text-[var(--color-text-secondary)] group-hover:text-[var(--color-accent)] transition-colors" />
+                            <div className="text-center">
+                                <span className="block text-xl font-bold text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors mb-2">pascualpau04@gmail.com</span>
+                                <span className="font-mono text-sm text-[var(--color-text-secondary)]">{t('contact.click')}</span>
+                            </div>
                         </a>
 
-                        <a
-                            href="https://www.linkedin.com/in/pau-pascual-vallverdu/"
-                            target="_blank"
-                            rel="me noopener noreferrer"
-                            className="group inline-flex items-center gap-3 px-8 py-4 bg-[var(--bg-surface)] border border-[var(--color-border)] rounded-lg text-[var(--color-text)] no-underline font-mono font-bold transition-all duration-300 hover:bg-[var(--bg-hover)] hover:-translate-y-[3px] hover:shadow-[0_5px_15px_rgba(0,0,0,0.3)]"
-                        >
-                            <Linkedin className="w-6 h-6 transition-colors group-hover:text-[var(--color-accent)]" />
-                            LinkedIn
-                        </a>
+                        <div className="flex items-center gap-4 my-2">
+                            <div className="h-px bg-[var(--color-border)] flex-1"></div>
+                            <span className="font-mono text-xs text-[var(--color-text-secondary)]">{t('contact.or')}</span>
+                            <div className="h-px bg-[var(--color-border)] flex-1"></div>
+                        </div>
 
-                        <a
-                            href="https://github.com/Pasquii4"
-                            target="_blank"
-                            rel="me noopener noreferrer"
-                            className="group inline-flex items-center gap-3 px-8 py-4 bg-[var(--bg-surface)] border border-[var(--color-border)] rounded-lg text-[var(--color-text)] no-underline font-mono font-bold transition-all duration-300 hover:bg-[var(--bg-hover)] hover:-translate-y-[3px] hover:shadow-[0_5px_15px_rgba(0,0,0,0.3)]"
-                        >
-                            <Github className="w-6 h-6 transition-colors group-hover:text-[var(--color-text)]" />
-                            GitHub
-                        </a>
+                        <div className="flex justify-center gap-4 sm:gap-6 flex-wrap">
+                            <a
+                                href="https://www.linkedin.com/in/pau-pascual-vallverdu/"
+                                target="_blank"
+                                rel="me noopener noreferrer"
+                                className="group w-full sm:w-auto flex-1 inline-flex justify-center items-center gap-2 px-6 py-3 bg-[var(--bg-primary)] border border-[var(--color-border)] rounded-lg text-[var(--color-text)] no-underline font-mono text-sm transition-all duration-300 hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] hover:-translate-y-[2px]"
+                            >
+                                <Linkedin className="w-5 h-5" />
+                                LinkedIn
+                            </a>
+
+                            <a
+                                href="https://github.com/Pasquii4"
+                                target="_blank"
+                                rel="me noopener noreferrer"
+                                className="group w-full sm:w-auto flex-1 inline-flex justify-center items-center gap-2 px-6 py-3 bg-[var(--bg-primary)] border border-[var(--color-border)] rounded-lg text-[var(--color-text)] no-underline font-mono text-sm transition-all duration-300 hover:border-gray-400 hover:text-white hover:-translate-y-[2px]"
+                            >
+                                <Github className="w-5 h-5" />
+                                GitHub
+                            </a>
+                        </div>
                     </div>
                 </motion.div>
             </ScanReveal>

@@ -4,17 +4,24 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import InteractiveTerminal from "./InteractiveTerminal";
 import { useTypewriter } from "@/hooks/useTypewriter";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function HeroDashboard() {
+    const { t, language } = useLanguage();
 
     const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
 
     const fullTitle = "Pau Pascual";
-    const titles = [
-        "FinTech & Full-Stack Developer",
+    const titles = language === 'es' ? [
+        "Desarrollador Backend",
+        "Especialista FinTech",
+        "Arquitecto de Software",
+        "Trading Systems Dev"
+    ] : [
         "Backend Developer",
-        "Frontend Developer",
-        "FinTech Integrator"
+        "FinTech Specialist",
+        "Software Architect",
+        "Trading Systems Dev"
     ];
 
     const { displayedTexts, activeIndex, isFinished } = useTypewriter([fullTitle]);
@@ -81,16 +88,14 @@ export default function HeroDashboard() {
                             </AnimatePresence>
                         </div>
                         <p className="text-[var(--color-text-secondary)] text-[1.1rem] mb-8 max-w-[500px]">
-                            Construyo sistemas FinTech escalables — Python, FastAPI y algoritmos de
-                            trading en tiempo real. Basado en Barcelona, disponible para prácticas o proyectos
-                            freelance.
+                            {t('hero.desc')}
                         </p>
 
                         <div className="flex flex-wrap gap-4">
                             <a href="#projects" className="inline-flex items-center justify-center px-6 py-3 rounded font-mono text-[0.9rem] font-bold text-[var(--color-accent)] border border-[var(--color-accent)] transition-all duration-300 hover:shadow-[inset_0_4rem_0_0_var(--color-accent)] hover:text-[var(--bg-primary)] no-underline">
                                 Ver Proyectos
                             </a>
-                            <a href="/CV_2.0.pdf" download="PauPascual_CV.pdf" className="inline-flex items-center justify-center px-6 py-3 rounded font-mono text-[0.9rem] font-bold text-[var(--color-text)] bg-[var(--bg-surface)] border border-[var(--bg-hover)] transition-all duration-300 hover:bg-[var(--bg-hover)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)] no-underline">
+                            <a href="/CV_PauPascual_2026.pdf" download="CV_PauPascual_2026.pdf" className="inline-flex items-center justify-center px-6 py-3 rounded font-mono text-[0.9rem] font-bold text-[var(--color-text)] bg-[var(--bg-surface)] border border-[var(--bg-hover)] transition-all duration-300 hover:bg-[var(--bg-hover)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)] no-underline">
                                 Descargar CV
                             </a>
                         </div>

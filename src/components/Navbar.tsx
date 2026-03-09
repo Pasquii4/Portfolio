@@ -3,43 +3,56 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import ThemeToggle from './ThemeToggle';
+import { useLanguage } from '@/context/LanguageContext';
 
 const navItems = [
-    { href: '#dashboard', label: '~/dashboard' },
-    { href: '#stack', label: '~/tech-stack' },
-    { href: '#projects', label: '~/proyectos' },
-    { href: '#about', label: '~/sobre-mi' },
-    { href: '#contact', label: '~/contacto' },
+    { href: '#dashboard', labelKey: 'nav.dashboard' },
+    { href: '#stack', labelKey: 'nav.about' }, // stack shares about translation for simplicity or add specific
+    { href: '#projects', labelKey: 'nav.projects' },
+    { href: '#about', labelKey: 'nav.about' },
+    { href: '#contact', labelKey: 'nav.terminal' }, // mapping to basic keys for demo 
 ];
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [activeSection, setActiveSection] = useState('#dashboard');
     const [scrollProgress, setScrollProgress] = useState(0);
+    const { language, setLanguage, t } = useLanguage();
 
     useEffect(() => {
+        // Scroll Progress
         const handleScroll = () => {
-            const sections = document.querySelectorAll('section[id]');
-            let current = '';
-
-            sections.forEach((section) => {
-                const sectionTop = section.getBoundingClientRect().top;
-                if (sectionTop <= window.innerHeight * 0.45) {
-                    current = `#${section.id}`;
-                }
-            });
-
-            if (current) {
-                setActiveSection(current);
-            }
-
             const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
             const progress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0;
             setScrollProgress(progress);
         };
 
         window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => window.removeEventListener('scroll', handleScroll);
+        
+        // Active Section Tracking via Intersection Observer
+        const observerOptions = {
+            root: null,
+            rootMargin: '-40% 0px -60% 0px', // Triggers when section is roughly in the middle of viewport
+            threshold: 0
+        };
+
+        const observerCallback = (entries: IntersectionObserverEntry[]) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setActiveSection(`#${entry.target.id}`);
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+        const sections = document.querySelectorAll('section[id]');
+        sections.forEach(section => observer.observe(section));
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            sections.forEach(section => observer.unobserve(section));
+            observer.disconnect();
+        };
     }, []);
 
     return (
@@ -52,6 +65,12 @@ export default function Navbar() {
                 </div>
 
                 <div className="flex items-center gap-4">
+                    <button
+                        onClick={() => setLanguage(language === 'es' ? 'en' : 'es')}
+                        className="font-mono text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors text-sm font-bold w-6"
+                    >
+                        {language.toUpperCase()}
+                    </button>
                     <ThemeToggle />
                     <button
                         className="md:hidden flex flex-col gap-[5px] p-2 bg-transparent border-none cursor-pointer"
@@ -66,18 +85,18 @@ export default function Navbar() {
                     </button>
                 </div>
 
-                <nav className={`md:flex gap-8 items-center ${isOpen ? 'flex flex-col absolute top-[70px] left-0 w-full bg-[var(--bg-primary)] p-4 border-b border-[rgba(var(--color-accent-rgb),0.1)]' : 'hidden'}`}>
+                <nav className={`md:flex gap-8 items-center ${isOpen ? 'flex flex-col absolute top-[70px] left-0 w-full h-[calc(100vh-70px)] bg-[var(--bg-primary)]/95 backdrop-blur-xl p-8 border-t border-[rgba(var(--color-accent-rgb),0.1)] gap-8 justify-start pt-12' : 'hidden'}`}>
                     {navItems.map((item) => (
                         <Link
                             key={item.href}
                             href={item.href}
                             onClick={() => setIsOpen(false)}
-                            className={`font-mono text-[0.9rem] no-underline transition-colors duration-300 ${activeSection === item.href
-                                ? 'text-[var(--color-accent)] border-b border-[var(--color-accent)] pb-[2px]'
-                                : 'text-[var(--color-text-secondary)] hover:text-[var(--color-accent)]'
+                            className={`font-mono transition-all duration-300 no-underline text-lg md:text-[0.9rem] w-full md:w-auto text-center md:text-left py-2 md:py-0 ${activeSection === item.href
+                                ? 'text-[var(--color-accent)] border-b-2 md:border-b border-[var(--color-accent)] pb-[2px]'
+                                : 'text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] hover:translate-x-2 md:hover:translate-x-0'
                                 }`}
                         >
-                            {item.label}
+                            {t(item.labelKey)}
                         </Link>
                     ))}
                 </nav>

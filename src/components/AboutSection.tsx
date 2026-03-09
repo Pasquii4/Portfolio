@@ -3,19 +3,18 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import ScanReveal from "./ui/ScanReveal";
-import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function AboutSection() {
-    const { theme, resolvedTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
+    const { t } = useLanguage();
 
     useEffect(() => {
         setMounted(true);
     }, []);
 
-    const currentTheme = theme === 'system' ? resolvedTheme : theme;
-    const avatarSrc = mounted && currentTheme === 'bloomberg' ? '/avatar2.png' : '/avatar.png';
+    const avatarSrc = '/avatar.png';
 
     return (
         <section id="about" className="py-[100px]">
@@ -26,7 +25,7 @@ export default function AboutSection() {
                     viewport={{ once: true, amount: 0.5 }}
                     className="font-mono text-[var(--color-accent)] text-2xl mb-12 inline-block border-b-2 border-[var(--color-accent)] pb-2"
                 >
-                    ~/sobre-mi
+                    {t('about.title')}
                 </motion.h2>
 
                 <motion.div
@@ -38,35 +37,48 @@ export default function AboutSection() {
                 >
                     <div className="flex flex-col gap-6 text-[1.1rem] text-[var(--color-text-secondary)]">
                         <div>
-                            <span className="font-mono text-[var(--color-accent)] text-sm mb-2 block font-bold">// Formación</span>
-                            <p>Soy un desarrollador de software enfocado en construir herramientas fiables, escalables y optimizadas. Actualmente estoy cursando el <strong className="text-[var(--color-text)]">CFGS de Desarrollo de Aplicaciones Web</strong> en el Centre d&apos;Estudis Politècnics en Barcelona, ampliando y estructurando mi base de ingeniería de software.</p>
-                        </div>
+                            <span className="font-mono text-[var(--color-accent)] text-lg mb-4 block font-bold border-b border-[var(--color-border)] pb-2">{t('about.bgTitle')}</span>
+                            <p className="mb-6 text-[0.95rem] md:text-[1.1rem]">
+                                {t('about.bgDesc')}
+                            </p>
 
-                        <div>
-                            <span className="font-mono text-[var(--color-accent)] text-sm mb-2 block font-bold">// Especialización</span>
-                            <p>Mi principal área de interés y especialización es la industria <strong className="text-[var(--color-text)]">FinTech y los algoritmos de trading</strong>. Empleo tecnologías modernas como <strong className="text-[var(--color-text)]">Python, FastAPI y SQL</strong> para diseñar arquitecturas de microservicios resilientes, capturar datos en tiempo real mediante integraciones de APIs (como Alpha Vantage o Polygon), y desarrollar sistemas automatizados de análisis de mercados.</p>
-                        </div>
-
-                        <div>
-                            <span className="font-mono text-[var(--color-accent)] text-sm mb-2 block font-bold">// Experiencia</span>
-                            <p>A lo largo de los años he fortalecido mis habilidades trabajando tanto en el Back-end (arquitectura de bases de datos, APIs RESTful) como en el Front-end (UI atractivas y funcionales en vanilla y con frameworks modernos), asegurando que los requerimientos técnicos y de negocio se cumplan siempre al más alto nivel.</p>
+                            <div className="relative border-l border-[var(--color-border)] ml-3 pl-6 mt-8 flex flex-col gap-8">
+                                <div className="relative">
+                                    <div className="absolute w-3 h-3 bg-[var(--color-accent)] rounded-full -left-[31px] top-1.5 shadow-[0_0_10px_rgba(var(--color-accent-rgb),0.8)]"></div>
+                                    <h4 className="text-[var(--color-text)] font-bold text-lg leading-tight">{t('about.cfgs')}</h4>
+                                    <p className="font-mono text-sm text-[var(--color-text-secondary)] mt-1 mb-2">{t('about.cfgsDate')}</p>
+                                    <p className="text-[0.95rem]">{t('about.cfgsDesc')}</p>
+                                </div>
+                                <div className="relative">
+                                    <div className="absolute w-3 h-3 bg-[var(--bg-surface)] border border-[var(--color-border)] rounded-full -left-[31px] top-1.5 transition-colors group-hover:border-[var(--color-accent)]"></div>
+                                    <h4 className="text-[var(--color-text)] font-bold text-lg leading-tight">{t('about.freelance')}</h4>
+                                    <p className="font-mono text-sm text-[var(--color-text-secondary)] mt-1 mb-2">{t('about.freelanceDate')}</p>
+                                    <p className="text-[0.95rem]">{t('about.freelanceDesc')}</p>
+                                </div>
+                                <div className="relative">
+                                    <div className="absolute w-3 h-3 bg-[var(--bg-surface)] border border-[var(--color-border)] rounded-full -left-[31px] top-1.5 transition-colors group-hover:border-[var(--color-accent)]"></div>
+                                    <h4 className="text-[var(--color-text)] font-bold text-lg leading-tight">{t('about.cfgm')}</h4>
+                                    <p className="font-mono text-sm text-[var(--color-text-secondary)] mt-1 mb-2">{t('about.cfgmDate')}</p>
+                                    <p className="text-[0.95rem]">{t('about.cfgmDesc')}</p>
+                                </div>
+                            </div>
                         </div>
 
                         <div className="pt-2 border-t border-[var(--color-border)]">
-                            <p className="mb-4">Actualmente <strong className="text-[var(--color-text)]">disponible para Prácticas o Parcial Remoto</strong> en el sector FinTech/trading. Si buscas un perfil técnico con visión de producto, escríbeme directamente.</p>
+                            <p className="mb-4 text-[0.95rem] md:text-[1.1rem]">{t('about.availability')}</p>
 
                             <div className="flex flex-wrap gap-2">
                                 <span className="font-mono text-[0.7rem] px-3 py-1.5 rounded-full uppercase font-bold shrink-0 bg-[rgba(var(--color-accent-rgb),0.1)] text-[var(--color-accent)] border border-[rgba(var(--color-accent-rgb),0.3)] flex items-center gap-1.5">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] animate-pulse"></span> Disponible ahora
+                                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] animate-pulse"></span> {t('about.tagAvailable')}
                                 </span>
                                 <span className="font-mono text-[0.7rem] px-3 py-1.5 rounded-full uppercase font-bold shrink-0 bg-[rgba(var(--color-accent-rgb),0.1)] text-[var(--color-accent)] border border-[rgba(var(--color-accent-rgb),0.3)]">
                                     📍 Barcelona, ES
                                 </span>
                                 <span className="font-mono text-[0.7rem] px-3 py-1.5 rounded-full uppercase font-bold shrink-0 bg-[rgba(var(--color-accent-rgb),0.1)] text-[var(--color-accent)] border border-[rgba(var(--color-accent-rgb),0.3)]">
-                                    Presencial / Remoto
+                                    {t('about.tagRemote')}
                                 </span>
                                 <span className="font-mono text-[0.7rem] px-3 py-1.5 rounded-full uppercase font-bold shrink-0 bg-[rgba(var(--color-accent-rgb),0.1)] text-[var(--color-accent)] border border-[rgba(var(--color-accent-rgb),0.3)]">
-                                    Prácticas · Freelance
+                                    {t('about.tagInternship')}
                                 </span>
                             </div>
                         </div>
@@ -74,7 +86,7 @@ export default function AboutSection() {
                         <div className="flex flex-wrap gap-2 mt-4">
                             <span className="font-mono text-[0.8rem] text-[var(--color-accent)] bg-[rgba(var(--color-accent-rgb),0.1)] px-2 py-1 rounded">🇪🇸 Español</span>
                             <span className="font-mono text-[0.8rem] text-[var(--color-accent)] bg-[rgba(var(--color-accent-rgb),0.1)] px-2 py-1 rounded">🏴 Català</span>
-                            <span className="font-mono text-[0.8rem] text-[var(--color-accent)] bg-[rgba(var(--color-accent-rgb),0.1)] px-2 py-1 rounded">🇬🇧 English</span>
+                            <span className="font-mono text-[0.8rem] text-[var(--color-accent)] bg-[rgba(var(--color-accent-rgb),0.1)] px-2 py-1 rounded" title="Intermedio-Alto">🇬🇧 English (B2)</span>
                         </div>
                     </div>
 
@@ -85,7 +97,7 @@ export default function AboutSection() {
                             alt="Pau Pascual"
                             width={600}
                             height={600}
-                            className="w-full aspect-square object-cover grayscale-[20%] contrast-[1.1] transition-all duration-300 group-hover:grayscale-0 group-hover:contrast-100 group-hover:scale-[1.02]"
+                            className="w-full aspect-square object-cover grayscale-0 contrast-[1.1] transition-all duration-300 group-hover:contrast-100 group-hover:scale-[1.02]"
                             loading="lazy"
                         />
                     </div>

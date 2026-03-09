@@ -49,7 +49,7 @@ export const MatrixRain: React.FC = () => {
             for (let i = 0; i < totalColumns; i++) {
                 columns.push({
                     x: i * colWidth,
-                    y: Math.random() * -canvas.height,
+                    y: Math.random() * -canvas.height, // Initial staggered position
                     speed: 0.4 + Math.random() * 0.7, // 0.4 to 1.1 px/frame
                     charRefreshRate: Math.floor(Math.random() * 5) + 4, // 4 to 8 frames
                     currentChar: getRandomChar(),
@@ -57,6 +57,8 @@ export const MatrixRain: React.FC = () => {
                 });
             }
         };
+
+        const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
         window.addEventListener('resize', resize);
         resize();
@@ -66,6 +68,18 @@ export const MatrixRain: React.FC = () => {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         const render = () => {
+            if (mediaQuery.matches) {
+                // Return static stylized code if prefers reduced motion
+                ctx.fillStyle = 'rgba(0, 50, 20, 0.4)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.font = "16px 'Courier New', monospace";
+                ctx.fillStyle = 'rgba(180, 255, 180, 0.45)';
+                for (let i=0; i<300; i++) {
+                    ctx.fillText(getRandomChar(), Math.random() * canvas.width, Math.random() * canvas.height);
+                }
+                return;
+            }
+
             // Trail decay effect
             ctx.fillStyle = 'rgba(0, 0, 0, 0.07)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);

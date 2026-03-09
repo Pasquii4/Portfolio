@@ -4,6 +4,7 @@ import "./globals.css";
 import GrainOverlay from "@/components/ui/GrainOverlay";
 import CustomCursor from "@/components/ui/CustomCursor";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -22,22 +23,33 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "Pau Pascual | Backend & FinTech Developer",
-  description: "Desarrollador backend especializado en FinTech y sistemas de trading en tiempo real. Python, FastAPI, Next.js. Basado en Barcelona.",
-  authors: [{ name: "Pau Pascual" }],
+  description: "Desarrollador backend especializado en FinTech, Python, FastAPI y algoritmos de trading. Construyendo sistemas escalables desde Barcelona.",
+  keywords: ["Desarrollador Backend", "FinTech Developer", "Python", "FastAPI", "React", "Next.js", "Trading Algorítmico", "Microservicios"],
+  authors: [{ name: "Pau Pascual", url: "https://pasquii4.github.io/personal-2/" }],
+  creator: "Pau Pascual",
   metadataBase: new URL("https://pasquii4.github.io/personal-2/"),
   robots: { index: true, follow: true },
   openGraph: {
     title: "Pau Pascual | Backend & FinTech Developer",
-    description: "Desarrollador backend especializado en FinTech y sistemas de trading en tiempo real. Python, FastAPI, Next.js. Basado en Barcelona.",
+    description: "Desarrollador backend especializado en FinTech, Python, FastAPI y algoritmos de trading. Construyendo sistemas escalables desde Barcelona.",
     url: "https://pasquii4.github.io/personal-2/",
     siteName: "Pau Pascual Portfolio",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Pau Pascual | Backend & FinTech Developer",
+      },
+    ],
     locale: "es_ES",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Pau Pascual | Backend & FinTech Developer",
-    description: "Desarrollador backend especializado en FinTech y sistemas de trading en tiempo real. Python, FastAPI, Next.js. Basado en Barcelona.",
+    description: "Desarrollador backend especializado en FinTech, Python, FastAPI y algoritmos de trading.",
+    images: ["/og-image.jpg"],
   },
   alternates: {
     canonical: "https://pasquii4.github.io/personal-2/",
@@ -93,11 +105,13 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased font-sans bg-[var(--bg-primary)] text-[var(--color-text)] overflow-x-hidden min-h-screen relative">
-        <ThemeProvider>
-          <GrainOverlay />
-          <CustomCursor />
-          {children}
-        </ThemeProvider>
+        <LanguageProvider>
+          <ThemeProvider>
+            <GrainOverlay />
+            <CustomCursor />
+            {children}
+          </ThemeProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

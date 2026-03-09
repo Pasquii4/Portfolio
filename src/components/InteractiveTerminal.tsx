@@ -32,6 +32,7 @@ const COMMANDS: Record<string, React.ReactNode> = {
 >   contact        Información de contacto
 >
 > ── Interactivo ─────────────────────────────
+>   github         Fetch estadísticas GitHub API real
 >   ask [pregunta] Pregúntame cualquier cosa
 >   clear          Limpiar terminal
 >   help           Mostrar este menú`}
@@ -115,8 +116,8 @@ const COMMANDS: Record<string, React.ReactNode> = {
     ),
     social: (
         <div className="whitespace-pre font-mono">
-            {`> GitHub   → `}<a href="https://github.com/Pasquii4" target="_blank" className="hover:text-white underline">https://github.com/Pasquii4</a>{`               [→ abre nueva pestaña]
-> LinkedIn → `}<a href="https://linkedin.com/in/pau-pascual-vallverdu" target="_blank" className="hover:text-white underline">linkedin.com/in/pau-pascual-vallverdu</a>{`      [→ abre nueva pestaña]
+            {`> GitHub   → `}<a href="https://github.com/Pasquii4" target="_blank" rel="noopener noreferrer" className="hover:text-white underline">https://github.com/Pasquii4</a>{`               [→ abre nueva pestaña]
+> LinkedIn → `}<a href="https://linkedin.com/in/pau-pascual-vallverdu" target="_blank" rel="noopener noreferrer" className="hover:text-white underline">linkedin.com/in/pau-pascual-vallverdu</a>{`      [→ abre nueva pestaña]
 > Email    → `}<a href="mailto:pascualpau04@gmail.com" className="hover:text-white underline">pascualpau04@gmail.com</a>{`                     [→ abre mailto]`}
         </div>
     ),
@@ -139,9 +140,9 @@ type QAEntry = { keywords: string[]; response: string };
 const qaEntries: QAEntry[] = [
     {
         keywords: ["disponible", "contratar", "hire", "prácticas", "practicas",
-            "trabajo", "freelance", "remoto", "parcial"],
+            "trabajo", "freelance", "remoto", "parcial", "incorporación", "incorporacion", "empezar"],
         response: "🟢 Sí, estoy disponible para Parcial Remoto o Prácticas.\\n" +
-            "   Especializado en FinTech y sistemas backend.\\n" +
+            "   Incorporación: Inmediata, sujeto a acuerdo.\\n" +
             "   Escríbeme → pascualpau04@gmail.com (respondo < 24h)"
     },
     {
@@ -153,9 +154,16 @@ const qaEntries: QAEntry[] = [
     },
     {
         keywords: ["experiencia", "experience", "proyectos", "portfolio", "trabajos"],
-        response: "He desarrollado un Trading Scanner (FastAPI+WS+PostgreSQL),\\n" +
+        response: "3+ años de desarrollo autodidacta y proyectos complejos finalizados.\\n" +
+            "He desarrollado un Trading Scanner (FastAPI+WS+PostgreSQL),\\n" +
             "landing pages en Astro/Cloudflare y herramientas FinTech.\\n" +
             "Escribe 'experience' para ver el detalle completo."
+    },
+    {
+        keywords: ["sueldo", "salario", "cobrar", "dinero", "salary"],
+        response: "Abierto a negociación para roles de junior/prácticas.\\n" +
+            "Priorizo el aprendizaje, los retos técnicos y el crecimiento\\n" +
+            "dentro del ecosistema FinTech."
     },
     {
         keywords: ["estudios", "educación", "educacion", "formación", "formacion",
@@ -204,7 +212,7 @@ export default function InteractiveTerminal() {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const VALID_COMMANDS = ["help", "clear", "contact", "social", "ask", "ls proyectos/", "cat skills.txt", "open linkedin", "open github", "download cv"];
+    const VALID_COMMANDS = ["help", "clear", "contact", "social", "ask", "github", "ls proyectos/", "cat skills.txt", "open linkedin", "open github", "download cv"];
 
     const scrollToBottom = () => {
         if (scrollContainerRef.current) {
@@ -219,7 +227,9 @@ export default function InteractiveTerminal() {
     // Keyboard shortcut /
     useEffect(() => {
         const handleGlobalKeyDown = (e: KeyboardEvent) => {
-            if (e.key === "/" && document.activeElement !== inputRef.current && !isBooting) {
+            // Check if not mobile, avoid popping up keyboard aggressively
+            const isDesktop = window.innerWidth >= 768;
+            if (e.key === "/" && document.activeElement !== inputRef.current && !isBooting && isDesktop) {
                 e.preventDefault();
                 inputRef.current?.focus();
             }
@@ -230,6 +240,8 @@ export default function InteractiveTerminal() {
 
     // Boot Sequence
     useEffect(() => {
+        setHistory([]);
+        setIsBooting(true);
         const bootSequence = [
             { text: "Initializing pau-portfolio v2.0...", delay: 0, color: "#888" },
             { text: "Loading modules: [react][next][ts]...", delay: 300, color: "#888" },
@@ -270,9 +282,32 @@ export default function InteractiveTerminal() {
         setHistory(prev => [...prev, { command: trimmed, output: trimmed, type: "input" }]);
 
         // Process command
-        setTimeout(() => {
+        setTimeout(async () => {
             if (trimmed === "clear") {
                 setHistory([]);
+            } else if (trimmed === "github") {
+                setHistory(prev => [...prev, { command: trimmed, output: <span className="text-gray-400">Fetching live data from api.github.com/users/Pasquii4...</span>, type: "system" }]);
+                try {
+                    const res = await fetch("https://api.github.com/users/Pasquii4");
+                    if (!res.ok) throw new Error("HTTP error " + res.status);
+                    const data = await res.json();
+                    
+                    const output = (
+                        <div className="whitespace-pre font-mono mt-2">
+                            {`> 🐙 GITHUB STATS [LIVE] ─────────────────
+> Usuario:      ${data.login}
+> Nombre:       ${data.name || 'Pau Pascual'}
+> Repos:        ${data.public_repos} públicos
+> Seguidores:   ${data.followers}
+> Bio:          ${data.bio || 'Backend & FinTech'}
+>
+> > open github (para visitar el perfil)`}
+                        </div>
+                    );
+                    setHistory(prev => [...prev.filter(r => typeof r.output !== 'string' || !r.output.toString().includes('Fetching')), { command: trimmed, output, type: "output" }]);
+                } catch (e) {
+                    setHistory(prev => [...prev.filter(r => typeof r.output !== 'string' || !r.output.toString().includes('Fetching')), { command: trimmed, output: "Error: No se pudo conectar con la API de GitHub.", type: "error" }]);
+                }
             } else if (trimmed === "ask") {
                 setHistory(prev => [...prev, { command: trimmed, output: <div className="text-red-400">bash: ask: uso correcto → ask [pregunta sobre mí]</div>, type: "error" }]);
             } else if (trimmed.startsWith("ask ")) {
