@@ -3,6 +3,7 @@
 import { motion, Variants } from "framer-motion";
 import ScanReveal from "./ui/ScanReveal";
 import { projects, ProjectBadge, ProjectLink } from "@/data/projects";
+import { useLanguage } from "@/context/LanguageContext";
 
 const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -24,6 +25,8 @@ const itemVariants: Variants = {
 };
 
 export default function ProjectsGrid() {
+    const { t } = useLanguage();
+
     return (
         <section id="projects" className="py-[100px]">
             <ScanReveal className="w-[90%] max-w-[1200px] mx-auto">
@@ -33,12 +36,12 @@ export default function ProjectsGrid() {
                     viewport={{ once: true, amount: 0.5 }}
                     className="font-mono text-[var(--color-accent)] text-2xl mb-12 inline-block border-b-2 border-[var(--color-accent)] pb-2"
                 >
-                    ~/proyectos
+                    {t('projects.title')}
                 </motion.h2>
 
                 <div className="mb-6">
                     <h3 className="font-mono text-[var(--color-text)] text-xl border-b border-[var(--color-border)] pb-2 mb-6">
-                        <span className="text-[var(--color-accent)]">#</span> Proyectos Destacados (FinTech & Web)
+                        <span className="text-[var(--color-accent)]">#</span> {t('projects.featured').replace('# ', '')}
                     </h3>
                 </div>
 
@@ -88,7 +91,8 @@ export default function ProjectsGrid() {
                                                 proj.status.type === 'public' ? 'bg-[rgba(var(--color-accent-rgb),0.1)] text-[var(--color-accent)]' :
                                                     'bg-[rgba(var(--color-accent-rgb),0.1)] text-[var(--color-accent)]'
                                                 }`}>
-                                                {proj.status.type === 'in-dev' ? 'Beta privada' : proj.status.label}
+                                                {proj.status.type === 'in-dev' ? t('projects.statusInDev') : 
+                                                 proj.status.type === 'private' ? t('projects.statusPrivate') : t('projects.statusPublic')}
                                             </span>
                                         )}
                                         {proj.badges && proj.badges.map((b: ProjectBadge) => (
@@ -138,7 +142,7 @@ export default function ProjectsGrid() {
 
                 <div className="mb-6 opacity-70">
                     <h3 className="font-mono text-[var(--color-text)] text-lg border-b border-[var(--color-border)] pb-2 mb-6">
-                        <span className="text-[var(--color-accent)]">#</span> Proyectos Académicos / Learning
+                        <span className="text-[var(--color-accent)]">#</span> {t('projects.academic').replace('# ', '')}
                     </h3>
                 </div>
 
@@ -204,7 +208,7 @@ export default function ProjectsGrid() {
                     className="col-span-full flex justify-center pt-16"
                 >
                     <a href="https://github.com/Pasquii4?tab=repositories&type=public" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-8 py-4 rounded-lg font-mono text-[0.95rem] font-bold text-[var(--color-text)] bg-[var(--bg-surface)] border border-[var(--color-border)] transition-all duration-300 hover:bg-[var(--bg-hover)] hover:text-[var(--color-accent)] hover:border-[rgba(var(--color-accent-rgb),0.4)] no-underline hover:-translate-y-1 hover:shadow-lg">
-                        Ver todas las repos públicas en GitHub →
+                        {t('projects.btnGithub')}
                     </a>
                 </motion.div>
             </ScanReveal>

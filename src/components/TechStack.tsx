@@ -6,6 +6,7 @@ import Marquee from "react-fast-marquee";
 import ScanReveal from "./ui/ScanReveal";
 import HolographicHUD from "@/components/ui/HolographicHUD";
 import { SiPython, SiPytorch, SiReact, SiNextdotjs, SiTailwindcss, SiVite, SiDocker, SiNodedotjs, SiFastapi, SiPostgresql, SiMongodb, SiRedis, SiRust, SiGo, SiAmazonwebservices, SiGooglecloud } from "react-icons/si";
+import { useLanguage } from "@/context/LanguageContext";
 
 const skills = [
     { name: "Python", pct: "85%", delay: 0 },
@@ -43,6 +44,7 @@ const Row2Stack = [
 export default function TechStack() {
     const sectionRef = useRef<HTMLDivElement>(null);
     const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+    const { t } = useLanguage();
 
     return (
         <section id="stack" ref={sectionRef} className="py-[100px] overflow-hidden">
@@ -53,7 +55,7 @@ export default function TechStack() {
                     viewport={{ once: true, amount: 0.5 }}
                     className="font-mono text-[var(--color-accent)] text-2xl mb-12 inline-block border-b-2 border-[var(--color-accent)] pb-2"
                 >
-                    ~/tech-stack
+                    {t('stack.title')}
                 </motion.h2>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">

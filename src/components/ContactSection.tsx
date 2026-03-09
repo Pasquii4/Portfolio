@@ -4,8 +4,10 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Linkedin, Github } from "lucide-react";
 import ScanReveal from "./ui/ScanReveal";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function ContactSection() {
+    const { t } = useLanguage();
     return (
         <section id="contact" className="py-[100px]">
             <ScanReveal className="w-[90%] max-w-[1200px] mx-auto">
@@ -15,7 +17,7 @@ export default function ContactSection() {
                     viewport={{ once: true, amount: 0.5 }}
                     className="font-mono text-[var(--color-accent)] text-2xl mb-12 inline-block border-b-2 border-[var(--color-accent)] pb-2"
                 >
-                    ~/contacto
+                    {t('contact.title')}
                 </motion.h2>
 
                 <motion.div
@@ -27,37 +29,28 @@ export default function ContactSection() {
                 >
                     <p className="font-mono text-[var(--color-accent)] text-sm mb-6 flex items-center justify-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse"></span>
-                        Disponible para nuevos proyectos · Respuesta en &lt; 24h
+                        {t('contact.subtitle')}
                     </p>
 
                     <p className="text-[1.2rem] text-[var(--color-text-secondary)] mb-10">
-                        ¿Buscas un desarrollador FinTech para tu equipo o tienes un proyecto técnico interesante? Escríbeme directamente.
+                        {t('contact.desc')}
                     </p>
 
                     <div className="flex flex-col gap-8 w-full">
-                        <form
-                            action="mailto:pascualpau04@gmail.com"
-                            method="GET"
-                            encType="text/plain"
-                            className="flex flex-col gap-5 w-full text-left"
+                        <a
+                            href="mailto:pascualpau04@gmail.com"
+                            className="group flex flex-col items-center justify-center gap-4 py-8 mb-4 border-2 border-dashed border-[rgba(var(--color-accent-rgb),0.3)] rounded-xl hover:bg-[rgba(var(--color-accent-rgb),0.05)] hover:border-[var(--color-accent)] transition-all duration-300 no-underline"
                         >
-                            <div>
-                                <label className="block font-mono text-sm text-[var(--color-text-secondary)] mb-2" htmlFor="subject">Asunto</label>
-                                <input type="text" name="subject" id="subject" placeholder="Propuesta / Proyecto FinTech..." className="w-full bg-[var(--bg-primary)] border border-[var(--color-border)] rounded-lg px-4 py-3 font-mono text-[var(--color-text)] focus:outline-none focus:border-[var(--color-accent)] focus:shadow-[0_0_10px_rgba(var(--color-accent-rgb),0.1)] transition-all" required />
+                            <Mail className="w-10 h-10 text-[var(--color-text-secondary)] group-hover:text-[var(--color-accent)] transition-colors" />
+                            <div className="text-center">
+                                <span className="block text-xl font-bold text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors mb-2">pascualpau04@gmail.com</span>
+                                <span className="font-mono text-sm text-[var(--color-text-secondary)]">{t('contact.click')}</span>
                             </div>
-                            <div>
-                                <label className="block font-mono text-sm text-[var(--color-text-secondary)] mb-2" htmlFor="body">Mensaje</label>
-                                <textarea name="body" id="body" rows={4} placeholder="Hola Pau, ¡me gustaría hablar contigo sobre..." className="w-full bg-[var(--bg-primary)] border border-[var(--color-border)] rounded-lg px-4 py-3 font-mono text-[var(--color-text)] focus:outline-none focus:border-[var(--color-accent)] focus:shadow-[0_0_10px_rgba(var(--color-accent-rgb),0.1)] transition-all resize-none" required></textarea>
-                            </div>
-                            <button type="submit" className="group w-full flex items-center justify-center gap-3 px-8 py-4 bg-[rgba(var(--color-accent-rgb),0.1)] border border-[rgba(var(--color-accent-rgb),0.3)] text-[var(--color-accent)] rounded-lg font-mono font-bold transition-all duration-300 hover:bg-[var(--color-accent)] hover:text-[var(--bg-primary)] hover:-translate-y-[2px] mt-2">
-                                <Mail className="w-5 h-5 transition-colors" />
-                                Enviar Mensaje Localmente
-                            </button>
-                        </form>
+                        </a>
 
                         <div className="flex items-center gap-4 my-2">
                             <div className="h-px bg-[var(--color-border)] flex-1"></div>
-                            <span className="font-mono text-xs text-[var(--color-text-secondary)]">O contáctame vía</span>
+                            <span className="font-mono text-xs text-[var(--color-text-secondary)]">{t('contact.or')}</span>
                             <div className="h-px bg-[var(--color-border)] flex-1"></div>
                         </div>
 
