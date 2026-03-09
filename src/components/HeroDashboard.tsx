@@ -4,17 +4,24 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import InteractiveTerminal from "./InteractiveTerminal";
 import { useTypewriter } from "@/hooks/useTypewriter";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function HeroDashboard() {
+    const { t, language } = useLanguage();
 
     const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
 
     const fullTitle = "Pau Pascual";
-    const titles = [
+    const titles = language === 'es' ? [
+        "Desarrollador Backend",
+        "Especialista FinTech",
+        "Arquitecto de Software",
+        "Trading Systems Dev"
+    ] : [
         "Backend Developer",
-        "FinTech Developer",
-        "Full-Stack Developer",
-        "Trading Systems Developer"
+        "FinTech Specialist",
+        "Software Architect",
+        "Trading Systems Dev"
     ];
 
     const { displayedTexts, activeIndex, isFinished } = useTypewriter([fullTitle]);
@@ -81,11 +88,7 @@ export default function HeroDashboard() {
                             </AnimatePresence>
                         </div>
                         <p className="text-[var(--color-text-secondary)] text-[1.1rem] mb-8 max-w-[500px]">
-                            Desarrollo sistemas de backend y arquitecturas resilientes. 
-                            <br/>
-                            Especializado en ecosistemas FinTech con Python, FastAPI y bases de datos.
-                            <br/>
-                            Basado en Barcelona · Disponible para prácticas y proyectos.
+                            {t('hero.desc')}
                         </p>
 
                         <div className="flex flex-wrap gap-4">

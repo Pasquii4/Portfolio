@@ -38,18 +38,33 @@ export default function AboutSection() {
                 >
                     <div className="flex flex-col gap-6 text-[1.1rem] text-[var(--color-text-secondary)]">
                         <div>
-                            <span className="font-mono text-[var(--color-accent)] text-sm mb-2 block font-bold">// Formación</span>
-                            <p>Soy un desarrollador de software enfocado en construir herramientas fiables, escalables y optimizadas. Actualmente estoy cursando el <strong className="text-[var(--color-text)]">CFGS de Desarrollo de Aplicaciones Web</strong> en el Centre d&apos;Estudis Politècnics en Barcelona, ampliando y estructurando mi base de ingeniería de software.</p>
-                        </div>
+                            <span className="font-mono text-[var(--color-accent)] text-lg mb-4 block font-bold border-b border-[var(--color-border)] pb-2">// Background & Skills</span>
+                            <p className="mb-6">
+                                Desarrollador de software enfocado en <strong className="text-[var(--color-text)]">sistemas FinTech, trading algorítmico y backends escalables</strong>. 
+                                Trabajo principalmente con <strong className="text-[var(--color-text)]">Python, FastAPI, SQL y TypeScript</strong>, 
+                                diseñando microservicios de baja latencia e integraciones de datos en tiempo real.
+                            </p>
 
-                        <div>
-                            <span className="font-mono text-[var(--color-accent)] text-sm mb-2 block font-bold">// Especialización</span>
-                            <p>Mi principal área de interés y especialización es la industria <strong className="text-[var(--color-text)]">FinTech y los algoritmos de trading</strong>. Empleo tecnologías modernas como <strong className="text-[var(--color-text)]">Python, FastAPI y SQL</strong> para diseñar arquitecturas de microservicios resilientes, capturar datos en tiempo real mediante integraciones de APIs (como Alpha Vantage o Polygon), y desarrollar sistemas automatizados de análisis de mercados.</p>
-                        </div>
-
-                        <div>
-                            <span className="font-mono text-[var(--color-accent)] text-sm mb-2 block font-bold">// Experiencia</span>
-                            <p>A lo largo de los años he fortalecido mis habilidades trabajando tanto en el Back-end (arquitectura de bases de datos, APIs RESTful) como en el Front-end (UI atractivas y funcionales en vanilla y con frameworks modernos), asegurando que los requerimientos técnicos y de negocio se cumplan siempre al más alto nivel.</p>
+                            <div className="relative border-l border-[var(--color-border)] ml-3 pl-6 mt-8 flex flex-col gap-8">
+                                <div className="relative">
+                                    <div className="absolute w-3 h-3 bg-[var(--color-accent)] rounded-full -left-[31px] top-1.5 shadow-[0_0_10px_rgba(var(--color-accent-rgb),0.8)]"></div>
+                                    <h4 className="text-[var(--color-text)] font-bold text-lg leading-tight">CFGS Desarrollo de Aplicaciones Web</h4>
+                                    <p className="font-mono text-sm text-[var(--color-text-secondary)] mt-1 mb-2">Centre d'Estudis Politècnics · Presente</p>
+                                    <p className="text-[0.95rem]">Ampliando y estructurando mi base de ingeniería de software con arquitectura empresarial.</p>
+                                </div>
+                                <div className="relative">
+                                    <div className="absolute w-3 h-3 bg-[var(--bg-surface)] border border-[var(--color-border)] rounded-full -left-[31px] top-1.5 transition-colors group-hover:border-[var(--color-accent)]"></div>
+                                    <h4 className="text-[var(--color-text)] font-bold text-lg leading-tight">Desarrollo Freelance & Proyectos FinTech</h4>
+                                    <p className="font-mono text-sm text-[var(--color-text-secondary)] mt-1 mb-2">2023 — Presente</p>
+                                    <p className="text-[0.95rem]">Desarrollo de <span className="text-[var(--color-accent)]">Trading Scanner</span> (FastAPI+WS), dashboards de analítica de apuestas y landing pages de alto rendimiento en Astro (<span className="text-[var(--color-accent)]">RL Boosting ES</span>).</p>
+                                </div>
+                                <div className="relative">
+                                    <div className="absolute w-3 h-3 bg-[var(--bg-surface)] border border-[var(--color-border)] rounded-full -left-[31px] top-1.5 transition-colors group-hover:border-[var(--color-accent)]"></div>
+                                    <h4 className="text-[var(--color-text)] font-bold text-lg leading-tight">CFGM Sistemas Microinformáticos</h4>
+                                    <p className="font-mono text-sm text-[var(--color-text-secondary)] mt-1 mb-2">Completado</p>
+                                    <p className="text-[0.95rem]">Fundamentos de sistemas, redes y hardware.</p>
+                                </div>
+                            </div>
                         </div>
 
                         <div className="pt-2 border-t border-[var(--color-border)]">

@@ -66,7 +66,14 @@ export default function ProjectsGrid() {
                             }`} style={{ padding: "1px", mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)", maskComposite: "exclude", WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)", WebkitMaskComposite: "xor", borderRadius: "0.75rem" }} />
 
                             <div className="relative z-10 flex flex-col h-full pointer-events-none">
-                                <div className="flex flex-col xl:flex-row justify-between xl:items-start mb-6 gap-3">
+                                {proj.image && (
+                                    <div className="w-full h-40 -mt-8 -mx-8 mb-6 relative overflow-hidden rounded-t-[0.65rem] border-b border-[var(--color-border)] group-hover:border-[rgba(var(--color-accent-rgb),0.3)] transition-colors">
+                                        <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-surface)] to-transparent z-10 opacity-60"></div>
+                                        <div className="absolute inset-0 bg-[var(--color-accent)] mix-blend-overlay opacity-10 group-hover:opacity-20 transition-opacity z-10"></div>
+                                        <img src={proj.image} alt={proj.title} className="w-full h-full object-cover grayscale-[50%] group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105" />
+                                    </div>
+                                )}
+                                <div className={`flex flex-col xl:flex-row justify-between xl:items-start mb-6 gap-3 ${!proj.image ? '' : 'px-0'}`}>
                                     <div>
                                         <h3 className="text-2xl text-[var(--color-text)] font-heading group-hover:text-[var(--color-accent)] transition-colors">{proj.title}</h3>
                                         {(proj.title === "Trading Scanner" || proj.title === "Bet Tracker") && (

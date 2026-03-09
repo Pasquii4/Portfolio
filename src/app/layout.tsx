@@ -4,6 +4,7 @@ import "./globals.css";
 import GrainOverlay from "@/components/ui/GrainOverlay";
 import CustomCursor from "@/components/ui/CustomCursor";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -104,11 +105,13 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased font-sans bg-[var(--bg-primary)] text-[var(--color-text)] overflow-x-hidden min-h-screen relative">
-        <ThemeProvider>
-          <GrainOverlay />
-          <CustomCursor />
-          {children}
-        </ThemeProvider>
+        <LanguageProvider>
+          <ThemeProvider>
+            <GrainOverlay />
+            <CustomCursor />
+            {children}
+          </ThemeProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

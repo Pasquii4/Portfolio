@@ -3,19 +3,21 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import ThemeToggle from './ThemeToggle';
+import { useLanguage } from '@/context/LanguageContext';
 
 const navItems = [
-    { href: '#dashboard', label: '~/dashboard' },
-    { href: '#stack', label: '~/tech-stack' },
-    { href: '#projects', label: '~/proyectos' },
-    { href: '#about', label: '~/sobre-mi' },
-    { href: '#contact', label: '~/contacto' },
+    { href: '#dashboard', labelKey: 'nav.dashboard' },
+    { href: '#stack', labelKey: 'nav.about' }, // stack shares about translation for simplicity or add specific
+    { href: '#projects', labelKey: 'nav.projects' },
+    { href: '#about', labelKey: 'nav.about' },
+    { href: '#contact', labelKey: 'nav.terminal' }, // mapping to basic keys for demo 
 ];
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [activeSection, setActiveSection] = useState('#dashboard');
     const [scrollProgress, setScrollProgress] = useState(0);
+    const { language, setLanguage, t } = useLanguage();
 
     useEffect(() => {
         // Scroll Progress
@@ -63,6 +65,12 @@ export default function Navbar() {
                 </div>
 
                 <div className="flex items-center gap-4">
+                    <button
+                        onClick={() => setLanguage(language === 'es' ? 'en' : 'es')}
+                        className="font-mono text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors text-sm font-bold w-6"
+                    >
+                        {language.toUpperCase()}
+                    </button>
                     <ThemeToggle />
                     <button
                         className="md:hidden flex flex-col gap-[5px] p-2 bg-transparent border-none cursor-pointer"
@@ -88,7 +96,7 @@ export default function Navbar() {
                                 : 'text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] hover:translate-x-2 md:hover:translate-x-0'
                                 }`}
                         >
-                            {item.label}
+                            {t(item.labelKey)}
                         </Link>
                     ))}
                 </nav>

@@ -19,6 +19,7 @@ export interface Project {
     links: ProjectLink[];
     status?: ProjectBadge;
     badges?: ProjectBadge[];
+    image?: string;
 }
 
 export const projects: Project[] = [
@@ -27,6 +28,7 @@ export const projects: Project[] = [
         status: { label: "En Desarrollo", type: "in-dev" },
         desc: "Escanea múltiples activos con indicadores RSI, MACD y volumen en tiempo real. Arquitectura modular con FastAPI + WebSockets + PostgreSQL. Latencia <300ms en entorno local.",
         tags: ["Python", "FastAPI", "SQL", "Docker"],
+        image: "/og-image.jpg",
         links: [
             { url: "mailto:pascualpau04@gmail.com?subject=Solicitud%20acceso%20repo%20Trading%20Scanner", label: "🔒 Privado · Solicitar acceso", style: { opacity: 0.6 } }
         ]
@@ -36,6 +38,7 @@ export const projects: Project[] = [
         badges: [{ label: "Público", type: "public" }, { label: "Live 🟢", type: "live" }],
         desc: "Landing page de servicio de boosting para Rocket League. Desplegada en Cloudflare Pages · TypeScript + Astro · Optimizada para conversión y Core Web Vitals.",
         tags: ["TypeScript", "Next.js / Astro"],
+        image: "/og-image.jpg",
         links: [
             { url: "https://github.com/Pasquii4/RLBoosting_es", label: "Ver Código", icon: "github" },
             { url: "https://rlboosting-es.pages.dev/", label: "🌐 Ver Web" }
@@ -46,6 +49,7 @@ export const projects: Project[] = [
         status: { label: "Privado", type: "private" },
         desc: "Dashboard de seguimiento de apuestas deportivas con estadísticas de ROI, racha y Kelly Criterion. Vanilla JS + Chart.js, sin dependencias externas.",
         tags: ["HTML", "CSS", "JavaScript"],
+        image: "/og-image.jpg",
         links: [
             { url: "mailto:pascualpau04@gmail.com?subject=Solicitud%20acceso%20repo%20Bet%20Tracker", label: "🔒 Privado · Solicitar acceso", style: { opacity: 0.6 } }
         ]
@@ -55,6 +59,7 @@ export const projects: Project[] = [
         badges: [{ label: "Público", type: "public" }, { label: "Live 🟢", type: "live" }],
         desc: "Storefront aesthetic de productos para escritorio. SSG con Astro + Cloudflare Workers. SEO-first y optimizado para conversión.",
         tags: ["Astro", "SSG"],
+        image: "/og-image.jpg",
         links: [
             { url: "https://github.com/Pasquii4/storefront", label: "Ver Código", icon: "github" },
             { url: "https://storefront.pasqui.workers.dev/", label: "🌐 Ver Web" }

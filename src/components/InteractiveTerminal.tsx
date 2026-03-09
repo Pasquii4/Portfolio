@@ -32,6 +32,7 @@ const COMMANDS: Record<string, React.ReactNode> = {
 >   contact        Información de contacto
 >
 > ── Interactivo ─────────────────────────────
+>   github         Fetch estadísticas GitHub API real
 >   ask [pregunta] Pregúntame cualquier cosa
 >   clear          Limpiar terminal
 >   help           Mostrar este menú`}
@@ -211,7 +212,7 @@ export default function InteractiveTerminal() {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const VALID_COMMANDS = ["help", "clear", "contact", "social", "ask", "ls proyectos/", "cat skills.txt", "open linkedin", "open github", "download cv"];
+    const VALID_COMMANDS = ["help", "clear", "contact", "social", "ask", "github", "ls proyectos/", "cat skills.txt", "open linkedin", "open github", "download cv"];
 
     const scrollToBottom = () => {
         if (scrollContainerRef.current) {
@@ -281,9 +282,32 @@ export default function InteractiveTerminal() {
         setHistory(prev => [...prev, { command: trimmed, output: trimmed, type: "input" }]);
 
         // Process command
-        setTimeout(() => {
+        setTimeout(async () => {
             if (trimmed === "clear") {
                 setHistory([]);
+            } else if (trimmed === "github") {
+                setHistory(prev => [...prev, { command: trimmed, output: <span className="text-gray-400">Fetching live data from api.github.com/users/Pasquii4...</span>, type: "system" }]);
+                try {
+                    const res = await fetch("https://api.github.com/users/Pasquii4");
+                    if (!res.ok) throw new Error("HTTP error " + res.status);
+                    const data = await res.json();
+                    
+                    const output = (
+                        <div className="whitespace-pre font-mono mt-2">
+                            {`> 🐙 GITHUB STATS [LIVE] ─────────────────
+> Usuario:      ${data.login}
+> Nombre:       ${data.name || 'Pau Pascual'}
+> Repos:        ${data.public_repos} públicos
+> Seguidores:   ${data.followers}
+> Bio:          ${data.bio || 'Backend & FinTech'}
+>
+> > open github (para visitar el perfil)`}
+                        </div>
+                    );
+                    setHistory(prev => [...prev.filter(r => typeof r.output !== 'string' || !r.output.toString().includes('Fetching')), { command: trimmed, output, type: "output" }]);
+                } catch (e) {
+                    setHistory(prev => [...prev.filter(r => typeof r.output !== 'string' || !r.output.toString().includes('Fetching')), { command: trimmed, output: "Error: No se pudo conectar con la API de GitHub.", type: "error" }]);
+                }
             } else if (trimmed === "ask") {
                 setHistory(prev => [...prev, { command: trimmed, output: <div className="text-red-400">bash: ask: uso correcto → ask [pregunta sobre mí]</div>, type: "error" }]);
             } else if (trimmed.startsWith("ask ")) {

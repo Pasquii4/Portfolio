@@ -1,75 +1,64 @@
 "use client";
-import { createContext, useContext, useState, ReactNode } from "react";
 
-type Lang = "es" | "en";
+import React, { createContext, useContext, useState, useEffect } from "react";
+
+type Language = "es" | "en";
 
 interface LanguageContextType {
-    lang: Lang;
-    toggleLang: () => void;
+    language: Language;
+    setLanguage: (lang: Language) => void;
     t: (key: string) => string;
 }
 
-const translations: Record<Lang, Record<string, string>> = {
-    es: {
-        // Navbar
-        "nav.dashboard": "~/dashboard",
-        "nav.stack": "~/tech-stack",
-        "nav.projects": "~/proyectos",
-        "nav.about": "~/sobre-mi",
-        "nav.contact": "~/contacto",
-        // Hero
-        "hero.command": ">whoami",
-        "hero.desc": "Construyo sistemas FinTech escalables — Python, FastAPI y algoritmos de trading en tiempo real. Basado en Barcelona, disponible para prácticas o parcial remoto.",
-        "hero.btn.projects": "Ver Proyectos",
-        "hero.btn.cv": "Descargar CV",
-        // About
-        "about.title": "~/sobre-mi",
-        "about.p1": "Soy un desarrollador de software enfocado en construir herramientas fiables, escalables y optimizadas. Actualmente estoy cursando el CFGS de Desarrollo de Aplicaciones Web en el Centre d'Estudis Politècnics en Barcelona.",
-        "about.p2": "Mi principal área de interés y especialización es la industria FinTech y los algoritmos de trading. Empleo tecnologías modernas como Python, FastAPI y SQL para diseñar",
-    },
-    en: {
-        // Navbar
-        "nav.dashboard": "~/dashboard",
-        "nav.stack": "~/tech-stack",
-        "nav.projects": "~/projects",
-        "nav.about": "~/about",
-        "nav.contact": "~/contact",
-        // Hero
-        "hero.command": ">whoami",
-        "hero.desc": "I build scalable FinTech systems — Python, FastAPI and real-time trading algorithms. Based in Barcelona, open to internships or part-time remote roles.",
-        "hero.btn.projects": "View Projects",
-        "hero.btn.cv": "Download CV",
-        // About
-        "about.title": "~/about",
-        "about.p1": "I am a software developer focused on building reliable, scalable, and optimized tools. I am currently pursuing a Higher Degree in Web Application Development (CFGS DAW) at Centre d'Estudis Politècnics in Barcelona.",
-        "about.p2": "My main area of interest and specialization is the FinTech industry and trading algorithms. I use modern technologies like Python, FastAPI, and SQL to design",
-    }
-};
-
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-    const [lang, setLang] = useState<Lang>("es");
+import { translations } from "@/data/translations";
 
-    const toggleLang = () => {
-        setLang((prev) => (prev === "es" ? "en" : "es"));
+export function LanguageProvider({ children }: { children: React.ReactNode }) {
+    const [language, setLanguage] = useState<Language>("es");
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        const savedLang = localStorage.getItem("app-lang") as Language;
+        if (savedLang && (savedLang === "es" || savedLang === "en")) {
+            setLanguage(savedLang);
+        } else {
+            const browserLang = navigator.language.split("-")[0];
+            if (browserLang === "en") setLanguage("en");
+        }
+        setMounted(true);
+    }, []);
+
+    const handleSetLanguage = (lang: Language) => {
+        setLanguage(lang);
+        localStorage.setItem("app-lang", lang);
     };
 
-    const t = (key: string) => {
-        return translations[lang][key] || key;
+    const t = (key: string): string => {
+        const keys = key.split(".");
+        let obj: any = translations[language];
+        for (const k of keys) {
+            if (obj && obj[k]) {
+                obj = obj[k];
+            } else {
+                return key; // fallback to key itself if not found
+            }
+        }
+        return obj as string;
     };
 
+    // Always return the Provider so SSR/Prerendering doesn't fail context hooks
     return (
-        <LanguageContext.Provider value={{ lang, toggleLang, t }}>
+        <LanguageContext.Provider value={{ language, setLanguage: handleSetLanguage, t }}>
             {children}
         </LanguageContext.Provider>
     );
 }
 
-export function useLanguage() {
+export const useLanguage = () => {
     const context = useContext(LanguageContext);
-    if (!context) {
+    if (context === undefined) {
         throw new Error("useLanguage must be used within a LanguageProvider");
     }
     return context;
-}
+};
