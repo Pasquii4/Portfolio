@@ -115,8 +115,8 @@ const COMMANDS: Record<string, React.ReactNode> = {
     ),
     social: (
         <div className="whitespace-pre font-mono">
-            {`> GitHub   → `}<a href="https://github.com/Pasquii4" target="_blank" className="hover:text-white underline">https://github.com/Pasquii4</a>{`               [→ abre nueva pestaña]
-> LinkedIn → `}<a href="https://linkedin.com/in/pau-pascual-vallverdu" target="_blank" className="hover:text-white underline">linkedin.com/in/pau-pascual-vallverdu</a>{`      [→ abre nueva pestaña]
+            {`> GitHub   → `}<a href="https://github.com/Pasquii4" target="_blank" rel="noopener noreferrer" className="hover:text-white underline">https://github.com/Pasquii4</a>{`               [→ abre nueva pestaña]
+> LinkedIn → `}<a href="https://linkedin.com/in/pau-pascual-vallverdu" target="_blank" rel="noopener noreferrer" className="hover:text-white underline">linkedin.com/in/pau-pascual-vallverdu</a>{`      [→ abre nueva pestaña]
 > Email    → `}<a href="mailto:pascualpau04@gmail.com" className="hover:text-white underline">pascualpau04@gmail.com</a>{`                     [→ abre mailto]`}
         </div>
     ),
