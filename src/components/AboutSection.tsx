@@ -74,7 +74,7 @@ export default function AboutSection() {
                         <div className="flex flex-wrap gap-2 mt-4">
                             <span className="font-mono text-[0.8rem] text-[var(--color-accent)] bg-[rgba(var(--color-accent-rgb),0.1)] px-2 py-1 rounded">🇪🇸 Español</span>
                             <span className="font-mono text-[0.8rem] text-[var(--color-accent)] bg-[rgba(var(--color-accent-rgb),0.1)] px-2 py-1 rounded">🏴 Català</span>
-                            <span className="font-mono text-[0.8rem] text-[var(--color-accent)] bg-[rgba(var(--color-accent-rgb),0.1)] px-2 py-1 rounded">🇬🇧 English</span>
+                            <span className="font-mono text-[0.8rem] text-[var(--color-accent)] bg-[rgba(var(--color-accent-rgb),0.1)] px-2 py-1 rounded" title="Intermedio-Alto">🇬🇧 English (B2)</span>
                         </div>
                     </div>
 
@@ -85,7 +85,7 @@ export default function AboutSection() {
                             alt="Pau Pascual"
                             width={600}
                             height={600}
-                            className="w-full aspect-square object-cover grayscale-[20%] contrast-[1.1] transition-all duration-300 group-hover:grayscale-0 group-hover:contrast-100 group-hover:scale-[1.02]"
+                            className="w-full aspect-square object-cover grayscale-0 contrast-[1.1] transition-all duration-300 group-hover:contrast-100 group-hover:scale-[1.02]"
                             loading="lazy"
                         />
                     </div>

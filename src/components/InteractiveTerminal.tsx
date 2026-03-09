@@ -139,9 +139,9 @@ type QAEntry = { keywords: string[]; response: string };
 const qaEntries: QAEntry[] = [
     {
         keywords: ["disponible", "contratar", "hire", "prácticas", "practicas",
-            "trabajo", "freelance", "remoto", "parcial"],
+            "trabajo", "freelance", "remoto", "parcial", "incorporación", "incorporacion", "empezar"],
         response: "🟢 Sí, estoy disponible para Parcial Remoto o Prácticas.\\n" +
-            "   Especializado en FinTech y sistemas backend.\\n" +
+            "   Incorporación: Inmediata, sujeto a acuerdo.\\n" +
             "   Escríbeme → pascualpau04@gmail.com (respondo < 24h)"
     },
     {
@@ -153,9 +153,16 @@ const qaEntries: QAEntry[] = [
     },
     {
         keywords: ["experiencia", "experience", "proyectos", "portfolio", "trabajos"],
-        response: "He desarrollado un Trading Scanner (FastAPI+WS+PostgreSQL),\\n" +
+        response: "3+ años de desarrollo autodidacta y proyectos complejos finalizados.\\n" +
+            "He desarrollado un Trading Scanner (FastAPI+WS+PostgreSQL),\\n" +
             "landing pages en Astro/Cloudflare y herramientas FinTech.\\n" +
             "Escribe 'experience' para ver el detalle completo."
+    },
+    {
+        keywords: ["sueldo", "salario", "cobrar", "dinero", "salary"],
+        response: "Abierto a negociación para roles de junior/prácticas.\\n" +
+            "Priorizo el aprendizaje, los retos técnicos y el crecimiento\\n" +
+            "dentro del ecosistema FinTech."
     },
     {
         keywords: ["estudios", "educación", "educacion", "formación", "formacion",

@@ -36,20 +36,25 @@ export default function ProjectsGrid() {
                     ~/proyectos
                 </motion.h2>
 
+                <div className="mb-6">
+                    <h3 className="font-mono text-[var(--color-text)] text-xl border-b border-[var(--color-border)] pb-2 mb-6">
+                        <span className="text-[var(--color-accent)]">#</span> Proyectos Destacados (FinTech & Web)
+                    </h3>
+                </div>
+
                 <motion.div
                     variants={containerVariants}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.1 }}
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16"
                 >
-                    {projects.map((proj) => (
+                    {projects.filter(p => p.title !== "Casino Python" && p.title !== "Fútbol Manager").map((proj) => (
                         <motion.div
                             key={proj.title}
                             variants={itemVariants}
                             className="project-card relative group bg-[var(--bg-surface)] rounded-xl p-8 flex flex-col h-full overflow-hidden border border-[var(--color-border)] transition-all duration-300 hover:scale-[1.02] hover:bg-[rgba(var(--color-accent-rgb),0.03)] z-[1]"
                         >
-                            {/* Animated gradient border pseudo-element effect implemented inside div since we can't reliably do before borders in tailwind without arbitrary complex gradients over masking */}
                             <div className="absolute inset-0 z-0 bg-gradient-to-r from-[var(--color-accent)] via-[var(--color-accent)] to-[var(--color-accent)] opacity-0 group-hover:opacity-100 group-hover:animate-gradient-x transition-opacity duration-300 pointer-events-none" style={{ padding: "1px", mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)", maskComposite: "exclude", WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)", WebkitMaskComposite: "xor", borderRadius: "0.75rem" }} />
 
                             <div className="relative z-10 flex flex-col h-full pointer-events-none">
@@ -58,17 +63,17 @@ export default function ProjectsGrid() {
                                         <h3 className="text-2xl text-[var(--color-text)] font-heading group-hover:text-[var(--color-accent)] transition-colors">{proj.title}</h3>
                                         {(proj.title === "Trading Scanner" || proj.title === "Bet Tracker") && (
                                             <p className="font-mono text-[var(--color-text-secondary)] text-[0.75rem] opacity-80 mt-1">
-                                                Demo disponible bajo solicitud
+                                                Demo bajo solicitud
                                             </p>
                                         )}
                                     </div>
                                     <div className="flex flex-wrap gap-2 items-center">
                                         {proj.status && (
-                                            <span className={`font-mono text-[0.65rem] px-3 py-1 rounded-full uppercase font-bold shrink-0 ${proj.status.type === 'in-dev' ? 'bg-[rgba(var(--color-accent-rgb),0.1)] text-[var(--color-accent)] border border-[rgba(var(--color-accent-rgb),0.3)] animate-pulse-gold' :
+                                            <span className={`font-mono text-[0.65rem] px-3 py-1 rounded-full uppercase font-bold shrink-0 ${proj.status.type === 'in-dev' ? 'bg-[rgba(var(--color-accent-rgb),0.1)] text-[var(--color-accent)] border border-[rgba(var(--color-accent-rgb),0.3)]' :
                                                 proj.status.type === 'public' ? 'bg-[rgba(var(--color-accent-rgb),0.1)] text-[var(--color-accent)]' :
                                                     'bg-[rgba(var(--color-accent-rgb),0.1)] text-[var(--color-accent)]'
                                                 }`}>
-                                                {proj.status.label}
+                                                {proj.status.type === 'in-dev' ? 'Beta privada' : proj.status.label}
                                             </span>
                                         )}
                                         {proj.badges && proj.badges.map((b: ProjectBadge) => (
@@ -110,11 +115,67 @@ export default function ProjectsGrid() {
                                             {link.label}
                                         </a>
                                     ))}
-                                    {(proj.title === "Casino Python" || proj.title === "Fútbol Manager") && (
-                                        <span className="text-[var(--color-text-secondary)] text-[0.8rem] opacity-70 mt-1 w-full xl:w-auto xl:mt-0 font-mono xl:ml-auto">
-                                            {proj.title === "Casino Python" ? "Proyecto académico · Sin deploy" : "Solo backend · Sin interfaz web"}
+                                </div>
+                            </div>
+                        </motion.div>
+                    ))}
+                </motion.div>
+
+                <div className="mb-6 opacity-70">
+                    <h3 className="font-mono text-[var(--color-text)] text-lg border-b border-[var(--color-border)] pb-2 mb-6">
+                        <span className="text-[var(--color-accent)]">#</span> Proyectos Académicos / Learning
+                    </h3>
+                </div>
+
+                <motion.div
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.1 }}
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 opacity-90 grayscale-[30%]"
+                >
+                    {projects.filter(p => p.title === "Casino Python" || p.title === "Fútbol Manager").map((proj) => (
+                        <motion.div
+                            key={proj.title}
+                            variants={itemVariants}
+                            className="project-card relative group bg-[var(--bg-surface)] rounded-xl p-6 flex flex-col h-full overflow-hidden border border-[var(--color-border)] transition-all duration-300 hover:scale-[1.01] hover:grayscale-0 z-[1]"
+                        >
+                            <div className="relative z-10 flex flex-col h-full pointer-events-none">
+                                <div className="flex flex-col xl:flex-row justify-between xl:items-start mb-4 gap-3">
+                                    <div>
+                                        <h3 className="text-xl text-[var(--color-text)] font-heading group-hover:text-[var(--color-accent)] transition-colors">{proj.title}</h3>
+                                    </div>
+                                </div>
+                                <p className="text-[var(--color-text-secondary)] text-[0.9rem] mb-6 grow leading-[1.6]">
+                                    {proj.desc}
+                                </p>
+
+                                <div className="flex flex-wrap gap-2 mb-6 pointer-events-auto">
+                                    {proj.tags.map((tag: string) => (
+                                        <span key={tag} className="font-mono text-[0.7rem] text-[var(--color-text-secondary)] bg-[rgba(255,255,255,0.05)] px-[0.5rem] py-1 rounded-md">
+                                            {tag}
                                         </span>
-                                    )}
+                                    ))}
+                                </div>
+
+                                <div className="flex flex-wrap items-center gap-5 mt-auto pointer-events-auto pt-4 border-t border-[var(--color-border)]">
+                                    {proj.links.map((link: ProjectLink) => (
+                                        <a
+                                            key={link.url}
+                                            href={link.url}
+                                            target={link.url.startsWith('mailto') ? undefined : "_blank"}
+                                            rel={link.url.startsWith('mailto') ? undefined : "noopener noreferrer"}
+                                            style={link.style}
+                                            className="inline-flex items-center gap-2 text-[var(--color-text)] no-underline font-mono text-[0.85rem] transition-colors duration-300 hover:text-[var(--color-accent)]"
+                                        >
+                                            {link.icon === 'github' && (
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                                                </svg>
+                                            )}
+                                            {link.label}
+                                        </a>
+                                    ))}
                                 </div>
                             </div>
                         </motion.div>

@@ -81,9 +81,11 @@ export default function HeroDashboard() {
                             </AnimatePresence>
                         </div>
                         <p className="text-[var(--color-text-secondary)] text-[1.1rem] mb-8 max-w-[500px]">
-                            Construyo sistemas FinTech escalables — Python, FastAPI y algoritmos de
-                            trading en tiempo real. Basado en Barcelona, disponible para prácticas o proyectos
-                            freelance.
+                            Desarrollo sistemas de backend y arquitecturas resilientes. 
+                            <br/>
+                            Especializado en ecosistemas FinTech con Python, FastAPI y bases de datos.
+                            <br/>
+                            Basado en Barcelona · Disponible para prácticas y proyectos.
                         </p>
 
                         <div className="flex flex-wrap gap-4">
