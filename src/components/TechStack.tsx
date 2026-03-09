@@ -95,7 +95,15 @@ export default function TechStack() {
                 </div>
             </ScanReveal>
 
-            <div className="w-full flex flex-col gap-6 opacity-60 mt-[80px]">
+            {/* Accessible list for screen readers (to avoid Marquee SEO duplication issues) */}
+            <div className="sr-only">
+                <h3>Backend Stack</h3>
+                <ul>{Row1Stack.map(t => <li key={t.name}>{t.name}</li>)}</ul>
+                <h3>Frontend Stack</h3>
+                <ul>{Row2Stack.map(t => <li key={t.name}>{t.name}</li>)}</ul>
+            </div>
+
+            <div className="w-full flex flex-col gap-6 opacity-60 mt-[80px]" aria-hidden="true">
                 <Marquee
                     gradient={true}
                     gradientColor="var(--bg-primary)"

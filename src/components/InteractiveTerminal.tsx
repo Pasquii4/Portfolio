@@ -230,6 +230,8 @@ export default function InteractiveTerminal() {
 
     // Boot Sequence
     useEffect(() => {
+        setHistory([]);
+        setIsBooting(true);
         const bootSequence = [
             { text: "Initializing pau-portfolio v2.0...", delay: 0, color: "#888" },
             { text: "Loading modules: [react][next][ts]...", delay: 300, color: "#888" },
