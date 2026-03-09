@@ -51,15 +51,47 @@ export default function FinTechTicker() {
     }
 
     if (error) {
+        // Fallback data when API is unreachable or offline
+        const fallbackData = [
+            { symbol: "BTC", price: 68450.20, changePercent: 1.25 },
+            { symbol: "ETH", price: 3450.80, changePercent: 0.85 },
+            { symbol: "AAPL", price: 175.50, changePercent: -0.45 },
+            { symbol: "MSFT", price: 420.15, changePercent: 0.30 },
+            { symbol: "GOOGL", price: 168.40, changePercent: 1.10 },
+            { symbol: "NVDA", price: 890.00, changePercent: 2.15 },
+        ];
+        
         return (
-            <div className="w-full bg-[var(--bg-surface)] border-y border-[var(--color-accent)] h-12 flex items-center overflow-hidden">
-                <Marquee speed={60} gradient={false} className="text-[var(--color-accent)] font-mono text-xs md:text-sm">
-                    {Array(10).fill(0).map((_, i) => (
-                        <div key={i} className="flex items-center gap-2 mx-8">
-                            <AlertTriangle className="w-4 h-4 animate-pulse" />
-                            <span className="animate-glitch-1 inline-block relative font-bold">ERR_CONNECTION_REFUSED - FEED OFFLINE</span>
-                        </div>
-                    ))}
+            <div className="w-full bg-[var(--bg-primary)]/80 backdrop-blur-md border-y border-[var(--color-border)] h-10 flex items-center overflow-hidden font-mono text-xs md:text-sm shadow-[0_0_20px_rgba(0,0,0,0.5)] opacity-80 mix-blend-luminosity">
+                <div className="bg-gray-600 text-white h-full px-4 flex items-center font-bold tracking-wider relative z-10 shrink-0 uppercase text-[10px] md:text-xs">
+                    <AlertTriangle className="w-3 h-3 mr-1" /> OFFLINE
+                </div>
+
+                <Marquee speed={40} gradient={false} className="flex-1">
+                    <div className="flex bg-[var(--bg-primary)]">
+                        {fallbackData.map((item, idx) => {
+                            const isPos = item.changePercent >= 0;
+                            const color = isPos ? 'text-gray-400' : 'text-gray-500';
+                            const Icon = isPos ? TrendingUp : TrendingDown;
+
+                            return (
+                                <div key={`${item.symbol}-fb-${idx}`} className="flex items-center gap-4 mx-10 text-[var(--color-text-secondary)] group cursor-default grayscale">
+                                    <span className="font-bold opacity-60">{item.symbol}</span>
+
+                                    <span className="bg-[var(--bg-surface)] px-2 py-0.5 rounded opacity-60">
+                                        {item.symbol.includes('BTC') ? '$' : ''}
+                                        {item.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2, style: item.symbol.includes('BTC') || item.symbol.includes('ETH') ? undefined : 'currency', currency: 'USD' })}
+                                    </span>
+
+                                    <div className={`flex items-center gap-1 font-bold ${color} opacity-60`}>
+                                        {isPos ? '+' : ''}{item.changePercent.toFixed(2)}%
+                                        <Icon className="w-3 h-3" />
+                                    </div>
+                                    <div className="w-px h-6 bg-[var(--color-border)] ml-6 opacity-30" />
+                                </div>
+                            );
+                        })}
+                    </div>
                 </Marquee>
             </div>
         );

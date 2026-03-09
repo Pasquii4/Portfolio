@@ -226,7 +226,9 @@ export default function InteractiveTerminal() {
     // Keyboard shortcut /
     useEffect(() => {
         const handleGlobalKeyDown = (e: KeyboardEvent) => {
-            if (e.key === "/" && document.activeElement !== inputRef.current && !isBooting) {
+            // Check if not mobile, avoid popping up keyboard aggressively
+            const isDesktop = window.innerWidth >= 768;
+            if (e.key === "/" && document.activeElement !== inputRef.current && !isBooting && isDesktop) {
                 e.preventDefault();
                 inputRef.current?.focus();
             }

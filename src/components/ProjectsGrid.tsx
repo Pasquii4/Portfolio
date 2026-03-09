@@ -53,9 +53,17 @@ export default function ProjectsGrid() {
                         <motion.div
                             key={proj.title}
                             variants={itemVariants}
-                            className="project-card relative group bg-[var(--bg-surface)] rounded-xl p-8 flex flex-col h-full overflow-hidden border border-[var(--color-border)] transition-all duration-300 hover:scale-[1.02] hover:bg-[rgba(var(--color-accent-rgb),0.03)] z-[1]"
+                            className={`project-card relative group bg-[var(--bg-surface)] rounded-xl p-8 flex flex-col h-full overflow-hidden border border-[var(--color-border)] transition-all duration-300 hover:scale-[1.02] z-[1] ${
+                                (proj.status?.type === 'private' || proj.status?.type === 'in-dev') 
+                                ? 'hover:bg-white/5 hover:shadow-[0_0_20px_rgba(255,255,255,0.05)]' 
+                                : 'hover:bg-[rgba(var(--color-accent-rgb),0.03)] hover:shadow-[0_0_20px_rgba(var(--color-accent-rgb),0.1)]'
+                            }`}
                         >
-                            <div className="absolute inset-0 z-0 bg-gradient-to-r from-[var(--color-accent)] via-[var(--color-accent)] to-[var(--color-accent)] opacity-0 group-hover:opacity-100 group-hover:animate-gradient-x transition-opacity duration-300 pointer-events-none" style={{ padding: "1px", mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)", maskComposite: "exclude", WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)", WebkitMaskComposite: "xor", borderRadius: "0.75rem" }} />
+                            <div className={`absolute inset-0 z-0 opacity-0 group-hover:opacity-100 group-hover:animate-gradient-x transition-opacity duration-300 pointer-events-none ${
+                                (proj.status?.type === 'private' || proj.status?.type === 'in-dev')
+                                ? 'bg-gradient-to-r from-gray-600 via-gray-400 to-gray-600'
+                                : 'bg-gradient-to-r from-[var(--color-accent)] via-[var(--color-accent)] to-[var(--color-accent)]'
+                            }`} style={{ padding: "1px", mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)", maskComposite: "exclude", WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)", WebkitMaskComposite: "xor", borderRadius: "0.75rem" }} />
 
                             <div className="relative z-10 flex flex-col h-full pointer-events-none">
                                 <div className="flex flex-col xl:flex-row justify-between xl:items-start mb-6 gap-3">
