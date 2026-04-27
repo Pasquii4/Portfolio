@@ -1,4 +1,4 @@
-export type Theme = "dark" | "bloomberg";
+export type Theme = "dark" | "system";
 
 export interface Candle {
     open: number;

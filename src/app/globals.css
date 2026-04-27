@@ -54,37 +54,6 @@
   --bg-code: oklch(from var(--bg-primary) l c h / 0.92);
 }
 
-.bloomberg {
-  /* LIGHT THEME (Bloomberg Terminal / Minimalist Finance) */
-  --bg-primary: #0d0d0d;
-  --bg-surface: #1a1a1a;
-  --color-text: #ff8c00;
-  --color-text-secondary: #e0e0e0;
-  --color-accent: #ff6600;
-  --color-accent-rgb: 255, 102, 0;
-  --color-border: rgba(255, 140, 0, 0.2);
-  --bg-hover: rgba(255, 140, 0, 0.1);
-
-  /* Keep sizing tokens consistent across themes */
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
-  --space-6: 1.5rem;
-  --space-7: 1.75rem;
-  --space-8: 2rem;
-  --text-base: 1rem;
-  --text-sm: 0.875rem;
-  --text-xs: 0.75rem;
-  --text-lg: 1.125rem;
-  --text-xl: 1.25rem;
-
-  --radius-full: 999px;
-  --space-1: 0.25rem;
-  --space-3: 0.75rem;
-  --color-text-muted: var(--color-text-secondary);
-  --color-surface: var(--bg-surface);
-  --bg-code: oklch(from var(--bg-primary) l c h / 0.92);
-}
-
 body {
   background-color: var(--bg-primary);
   color: var(--color-text);
