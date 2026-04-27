@@ -4,10 +4,10 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Linkedin, Github } from "lucide-react";
 import ScanReveal from "./ui/ScanReveal";
-import { useLanguage } from "@/context/LanguageContext";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function ContactSection() {
-    const { t } = useLanguage();
+    const { t } = useTranslation();
     return (
         <section id="contact" className="py-[100px]">
             <ScanReveal className="w-[90%] max-w-[1200px] mx-auto">

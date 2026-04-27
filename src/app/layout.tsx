@@ -3,8 +3,7 @@ import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import GrainOverlay from "@/components/ui/GrainOverlay";
 import CustomCursor from "@/components/ui/CustomCursor";
-import { ThemeProvider } from "@/components/ThemeProvider";
-import { LanguageProvider } from "@/context/LanguageContext";
+import { Providers } from "@/components/Providers";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -22,24 +21,25 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pau Pascual | Backend & FinTech Developer",
-  description: "Desarrollador backend especializado en FinTech, Python, FastAPI y algoritmos de trading. Construyendo sistemas escalables desde Barcelona.",
+  title: "Pau Pascual — Product Builder",
+  description:
+    "Trading systems, AI agents and custom web products. Backend-first, product-minded. Based in Barcelona.",
   keywords: ["Desarrollador Backend", "FinTech Developer", "Python", "FastAPI", "React", "Next.js", "Trading Algorítmico", "Microservicios"],
-  authors: [{ name: "Pau Pascual", url: "https://pasquii4.github.io/personal-2/" }],
+  authors: [{ name: "Pau Pascual", url: "https://paupascual.dev" }],
   creator: "Pau Pascual",
-  metadataBase: new URL("https://pasquii4.github.io/personal-2/"),
+  metadataBase: new URL("https://paupascual.dev"),
   robots: { index: true, follow: true },
   openGraph: {
-    title: "Pau Pascual | Backend & FinTech Developer",
-    description: "Desarrollador backend especializado en FinTech, Python, FastAPI y algoritmos de trading. Construyendo sistemas escalables desde Barcelona.",
-    url: "https://pasquii4.github.io/personal-2/",
-    siteName: "Pau Pascual Portfolio",
+    title: "Pau Pascual — Product Builder",
+    description: "Trading · IA · Webs a medida · Barcelona",
+    url: "https://paupascual.dev",
+    siteName: "Pau Pascual",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/api/og",
         width: 1200,
         height: 630,
-        alt: "Pau Pascual | Backend & FinTech Developer",
+        alt: "Pau Pascual — Product Builder",
       },
     ],
     locale: "es_ES",
@@ -47,12 +47,13 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pau Pascual | Backend & FinTech Developer",
-    description: "Desarrollador backend especializado en FinTech, Python, FastAPI y algoritmos de trading.",
-    images: ["/og-image.jpg"],
+    title: "Pau Pascual — Product Builder",
+    description: "Trading · IA · Webs a medida · Barcelona",
+    images: ["/api/og"],
+    creator: "@pasquii4",
   },
   alternates: {
-    canonical: "https://pasquii4.github.io/personal-2/",
+    canonical: "https://paupascual.dev",
   },
 };
 
@@ -105,13 +106,11 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased font-sans bg-[var(--bg-primary)] text-[var(--color-text)] overflow-x-hidden min-h-screen relative">
-        <LanguageProvider>
-          <ThemeProvider>
-            <GrainOverlay />
-            <CustomCursor />
-            {children}
-          </ThemeProvider>
-        </LanguageProvider>
+        <Providers>
+          <GrainOverlay />
+          <CustomCursor />
+          {children}
+        </Providers>
       </body>
     </html>
   );

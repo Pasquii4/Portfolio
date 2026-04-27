@@ -1,30 +1,20 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import InteractiveTerminal from "./InteractiveTerminal";
 import { useTypewriter } from "@/hooks/useTypewriter";
-import { useLanguage } from "@/context/LanguageContext";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function HeroDashboard() {
-    const { t, language } = useLanguage();
+    const { t } = useTranslation();
+    const reduceMotion = useReducedMotion();
 
+    const heroHeadline = t("hero.role1");
+    const titles = [t("hero.role1"), t("hero.role2"), t("hero.role3"), t("hero.role4")];
     const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
 
-    const fullTitle = "Pau Pascual";
-    const titles = language === 'es' ? [
-        "Desarrollador Backend",
-        "Especialista FinTech",
-        "Arquitecto de Software",
-        "Trading Systems Dev"
-    ] : [
-        "Backend Developer",
-        "FinTech Specialist",
-        "Software Architect",
-        "Trading Systems Dev"
-    ];
-
-    const { displayedTexts, activeIndex, isFinished } = useTypewriter([fullTitle]);
+    const { displayedTexts, activeIndex, isFinished } = useTypewriter([heroHeadline]);
     const [showCursor, setShowCursor] = useState(true);
 
     useEffect(() => {
@@ -36,13 +26,14 @@ export default function HeroDashboard() {
 
     useEffect(() => {
         if (!isFinished) return;
+        if (reduceMotion) return;
 
         const interval = setInterval(() => {
             setCurrentTitleIndex((prev) => (prev + 1) % titles.length);
         }, 3000);
 
         return () => clearInterval(interval);
-    }, [isFinished, titles.length]);
+    }, [isFinished, reduceMotion, titles.length]);
 
     return (
         <section id="dashboard" className="py-[100px] min-h-[calc(100vh-70px)] pt-[40px] flex items-center relative z-[1]">
@@ -73,15 +64,15 @@ export default function HeroDashboard() {
                                 <span className="inline-block text-[var(--color-accent)] cursor-blink ml-[2px] font-normal">_</span>
                             )}
                         </h1>
-                        <div className="h-[36px] mb-6 overflow-hidden relative">
+                        <div className="h-[28px] mb-6 overflow-hidden relative">
                             <AnimatePresence mode="wait">
                                 <motion.h2
                                     key={currentTitleIndex}
-                                    initial={{ opacity: 0, y: 10 }}
+                                    initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -10 }}
-                                    transition={{ duration: 0.3 }}
-                                    className="font-heading text-xl md:text-[1.5rem] text-[var(--color-accent)] absolute left-0 top-0"
+                                    exit={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: -10 }}
+                                    transition={{ duration: reduceMotion ? 0 : 0.25, ease: "easeInOut" }}
+                                    className="font-heading text-[var(--text-xl)] text-[var(--color-accent)] absolute left-0 top-0"
                                 >
                                     {titles[currentTitleIndex]}
                                 </motion.h2>
@@ -93,10 +84,10 @@ export default function HeroDashboard() {
 
                         <div className="flex flex-wrap gap-4">
                             <a href="#projects" className="inline-flex items-center justify-center px-6 py-3 rounded font-mono text-[0.9rem] font-bold text-[var(--color-accent)] border border-[var(--color-accent)] transition-all duration-300 hover:shadow-[inset_0_4rem_0_0_var(--color-accent)] hover:text-[var(--bg-primary)] no-underline">
-                                Ver Proyectos
+                                {t("hero.btnProjects")}
                             </a>
                             <a href="/CV_PauPascual_2026.pdf" download="CV_PauPascual_2026.pdf" className="inline-flex items-center justify-center px-6 py-3 rounded font-mono text-[0.9rem] font-bold text-[var(--color-text)] bg-[var(--bg-surface)] border border-[var(--bg-hover)] transition-all duration-300 hover:bg-[var(--bg-hover)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)] no-underline">
-                                Descargar CV
+                                {t("hero.btnCV")}
                             </a>
                         </div>
                     </div>

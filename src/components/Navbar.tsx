@@ -3,21 +3,21 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import ThemeToggle from './ThemeToggle';
-import { useLanguage } from '@/context/LanguageContext';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const navItems = [
     { href: '#dashboard', labelKey: 'nav.dashboard' },
-    { href: '#stack', labelKey: 'nav.about' }, // stack shares about translation for simplicity or add specific
+    { href: '#stack', labelKey: 'nav.stack' },
     { href: '#projects', labelKey: 'nav.projects' },
     { href: '#about', labelKey: 'nav.about' },
-    { href: '#contact', labelKey: 'nav.terminal' }, // mapping to basic keys for demo 
+    { href: '#contact', labelKey: 'nav.contact' },
 ];
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [activeSection, setActiveSection] = useState('#dashboard');
     const [scrollProgress, setScrollProgress] = useState(0);
-    const { language, setLanguage, t } = useLanguage();
+    const { locale, setLocale, t } = useTranslation();
 
     useEffect(() => {
         // Scroll Progress
@@ -66,10 +66,20 @@ export default function Navbar() {
 
                 <div className="flex items-center gap-4">
                     <button
-                        onClick={() => setLanguage(language === 'es' ? 'en' : 'es')}
-                        className="font-mono text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors text-sm font-bold w-6"
+                        onClick={() => setLocale(locale === 'es' ? 'en' : 'es')}
+                        className="h-10 px-4 flex items-center justify-center font-mono text-sm font-bold"
+                        style={{
+                            color: 'var(--color-text-muted)',
+                            background: 'transparent',
+                            border: 'none',
+                            transition: 'color 180ms cubic-bezier(0.16, 1, 0.3, 1)',
+                        }}
+                        onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-text)')}
+                        onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-text-muted)')}
+                        aria-label={locale === 'es' ? 'Switch to English' : 'Cambiar a Español'}
+                        title={locale === 'es' ? 'Switch to English' : 'Cambiar a Español'}
                     >
-                        {language.toUpperCase()}
+                        {locale === 'es' ? 'EN' : 'ES'}
                     </button>
                     <ThemeToggle />
                     <button
@@ -104,7 +114,7 @@ export default function Navbar() {
 
             {/* Scroll Progress Bar at the bottom of the header */}
             <div
-                className="absolute bottom-0 left-0 h-[2px] bg-[#00ff88] transition-all duration-100"
+                className="absolute bottom-0 left-0 h-[2px] bg-[var(--color-accent)] transition-all duration-100"
                 style={{ width: `${scrollProgress}%` }}
             />
         </header>

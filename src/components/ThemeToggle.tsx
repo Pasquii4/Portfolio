@@ -32,8 +32,8 @@ export default function ThemeToggle() {
             title="Toggle Theme"
         >
             <div className={`absolute flex items-center gap-2 transition-all duration-500 ease-spring ${currentTheme === 'dark' ? 'scale-100 opacity-100 rotate-0' : 'scale-75 opacity-0 -translate-y-4'}`}>
-                <Terminal className="w-4 h-4 text-[#00ff88]" />
-                <span className="text-[#00ff88]">DARK</span>
+                <Terminal className="w-4 h-4 text-[var(--color-accent)]" />
+                <span className="text-[var(--color-accent)]">DARK</span>
             </div>
             <div className={`absolute flex items-center gap-2 transition-all duration-500 ease-spring ${currentTheme === 'bloomberg' ? 'scale-100 opacity-100 rotate-0' : 'scale-75 opacity-0 translate-y-4'}`}>
                 <BarChart2 className="w-4 h-4 text-[#ff8c00]" />

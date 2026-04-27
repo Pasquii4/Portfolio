@@ -24,7 +24,9 @@ const COMMANDS: Record<string, React.ReactNode> = {
 >   social       Redes sociales y contacto
 >
 > ── Navegación ──────────────────────────────
->   ls proyectos/  Lista de proyectos
+>   ls projects/   Lista de builds
+>   ls proyectos/  Lista de builds (alias)
+>   cat about.txt  Pitch rápido (2 líneas)
 >   cat skills.txt Tecnologías detalladas
 >   open linkedin  Abrir LinkedIn
 >   open github    Abrir GitHub
@@ -38,20 +40,34 @@ const COMMANDS: Record<string, React.ReactNode> = {
 >   help           Mostrar este menú`}
         </div>
     ),
-    whoami: "Pau Pascual. Desarrollador Web y especialista FinTech. Operando desde BCN.",
+    whoami: "pau pascual — builder of systems that work: trading scanners, local AI agents, web products.",
     skills: "Python, FastAPI, React/Next.js, Tailwind, SQL, Docker, APIs Financieras...",
     projects: "Ejecutando escaneo profundo... Accediendo a Trading Scanner, RL Boosting ES y más. Ve a la sección 'Proyectos'.",
     contact: "Contactando... pascualpau04@gmail.com | github.com/Pasquii4",
     clear: "Limpiando terminal...",
     "sudo rm -rf /": "Permiso denegado. Este incidente será reportado.",
+    "ls projects/": (
+        <div className="whitespace-pre font-mono">
+            {`> trading_scanner/
+> jarvisr/
+> bettracker/
+> rlboosting/
+> storefront/`}
+        </div>
+    ),
     "ls proyectos/": (
         <div className="whitespace-pre font-mono">
-            {`> Trading Scanner/   [EN DESARROLLO]
-> RL Boosting ES/    [LIVE]
-> Bet Tracker/       [EN DESARROLLO]
-> Tu Espacio Ideal/  [LIVE]
-> Casino Python/     [ACADÉMICO]
-> Fútbol Manager/    [ACADÉMICO]`}
+            {`> trading_scanner/
+> jarvisr/
+> bettracker/
+> rlboosting/
+> storefront/`}
+        </div>
+    ),
+    "cat about.txt": (
+        <div className="whitespace-pre font-mono">
+            {`> Backend-first, product-minded.
+> I build from API to deploy.`}
         </div>
     ),
     "cat skills.txt": (
@@ -212,7 +228,22 @@ export default function InteractiveTerminal() {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const VALID_COMMANDS = ["help", "clear", "contact", "social", "ask", "github", "ls proyectos/", "cat skills.txt", "open linkedin", "open github", "download cv"];
+    const VALID_COMMANDS = [
+        "help",
+        "clear",
+        "contact",
+        "social",
+        "ask",
+        "github",
+        "whoami",
+        "ls projects/",
+        "ls proyectos/",
+        "cat about.txt",
+        "cat skills.txt",
+        "open linkedin",
+        "open github",
+        "download cv",
+    ];
 
     const scrollToBottom = () => {
         if (scrollContainerRef.current) {
@@ -246,7 +277,7 @@ export default function InteractiveTerminal() {
             { text: "Initializing pau-portfolio v2.0...", delay: 0, color: "#888" },
             { text: "Loading modules: [react][next][ts]...", delay: 300, color: "#888" },
             { text: "Connecting to github.com/Pasquii4...", delay: 700, color: "#888" },
-            { text: "✓ All systems operational", delay: 1200, color: "#00ff88" },
+            { text: "✓ All systems operational", delay: 1200, color: "var(--color-accent)" },
             { text: "─────────────────────────────────", delay: 1500, color: "#333" },
             { text: "Type 'help' to see available commands.", delay: 1700, color: "#aaa" }
         ];
@@ -267,6 +298,23 @@ export default function InteractiveTerminal() {
         const finishT = setTimeout(() => {
             setIsBooting(false);
             inputRef.current?.focus();
+
+            const demoSequence: Array<{ cmd: string; delay: number }> = [
+                { cmd: "whoami", delay: 250 },
+                { cmd: "ls projects/", delay: 850 },
+                { cmd: "cat about.txt", delay: 1450 },
+            ];
+
+            demoSequence.forEach(({ cmd, delay }) => {
+                const t = setTimeout(() => {
+                    setHistory((prev) => [
+                        ...prev,
+                        { command: cmd, output: cmd, type: "input" },
+                        { command: cmd, output: COMMANDS[cmd], type: "output" },
+                    ]);
+                }, delay);
+                timeouts.push(t);
+            });
         }, 1800);
         timeouts.push(finishT);
 

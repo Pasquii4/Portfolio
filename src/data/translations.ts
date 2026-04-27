@@ -9,12 +9,12 @@ export const translations: any = {
         },
         hero: {
             greeting: "Hola, soy",
-            role1: "Desarrollador Backend",
-            role2: "Especialista FinTech",
-            role3: "Arquitecto de Software",
-            role4: "Trading Systems Dev",
-            desc: "Desarrollo sistemas de backend y arquitecturas resilientes. Especializado en ecosistemas FinTech con Python, FastAPI y bases de datos. Basado en Barcelona · Disponible para prácticas y proyectos.",
-            btnProjects: "Ver Proyectos",
+            role1: "Product Builder",
+            role2: "Backend Developer",
+            role3: "FinTech & AI Systems",
+            role4: "From API to Deploy",
+            desc: "Backend-first, product-minded. Construyo sistemas de trading, agentes IA locales y webs a medida — de la API al deploy. Basado en Barcelona · Disponible para prácticas y proyectos remotos.",
+            btnProjects: "Ver mis builds",
             btnCV: "Descargar CV"
         },
         about: {
@@ -57,7 +57,57 @@ export const translations: any = {
             backend: "# Backend / Data",
             backendDesc: "Arquitecturas escalables, diseño de APIs y manipulación de datos.",
             frontend: "# Frontend / Herramientas",
-            frontendDesc: "Interfaces optimizadas, SSG y despliegue en el edge."
+            frontendDesc: "Interfaces optimizadas, SSG y despliegue en el edge.",
+            groupBackend: "Backend & FinTech",
+            groupAI: "IA & Agentes",
+            groupFrontend: "Frontend & Web",
+            groupExploring: "Explorando",
+            exploringNote: "En aprendizaje activo"
+        },
+        featuredProjects: {
+            label: "Proyectos Destacados / Featured Builds",
+            otherLabel: "Otros proyectos",
+            academicToggle: "Proyectos académicos / Learning",
+            links: {
+                github: "GitHub"
+            },
+            trading: {
+                tag: "[FinTech]",
+                titleEs: "Trading Scanner — Sistema institucional de escaneo de mercados",
+                titleEn: "Trading Scanner — Institutional Market Scanner",
+                status: "Archivado · Open Source",
+                descEs: "Scanner multi-activo con RSI, MACD, Bollinger Bands y análisis de volumen en tiempo real. Backend FastAPI + PostgreSQL, scripts de backtesting, data populator de 5 años y orquestación Docker completa. Frontend React + Vite. Pausado por costes de APIs institucionales — arquitectura production-grade.",
+                descEn: "Multi-asset scanner with RSI, MACD, Bollinger Bands and real-time volume analysis. FastAPI + PostgreSQL backend, backtesting scripts, 5-year data populator, full Docker orchestration. React + Vite frontend. Paused due to institutional API costs — production-grade architecture.",
+                demoNote: "Demo: APIs de pago requeridas",
+                tradingDemo: "Demo: APIs de pago requeridas"
+            },
+            jarvisr: {
+                tag: "[AI / Agents]",
+                titleEs: "JARVISR — Fork mejorado de OpenJarvis (Stanford)",
+                titleEn: "JARVISR — Enhanced Fork of Stanford's OpenJarvis",
+                status: "Activo · Open Source",
+                descEs: "Fork del proyecto OpenJarvis del Stanford Scaling Intelligence Lab. Añadido: instalación guiada en Windows (scripts .bat/.ps1), verificación automática de motores de inferencia, soporte dual llama.cpp + Ollama + cloud (Groq/OpenRouter), config simplificada vía TOML y documentación para usuarios finales. Agente IA personal que corre localmente por defecto.",
+                descEn: "Fork of Stanford's OpenJarvis. Added: guided Windows installer (bat/ps1 scripts), automatic inference engine verification, dual llama.cpp + Ollama + cloud (Groq/OpenRouter) support, simplified TOML config, and end-user documentation. Personal AI that runs locally by default."
+            }
+        }
+        ,
+        whatIBuild: {
+            title: "~/que-construyo",
+            card1: {
+                tag: "[FinTech]",
+                title: "Sistemas de trading y análisis de mercados",
+                desc: "Escáner institucional con FastAPI, WebSockets, PostgreSQL. Indicadores técnicos en tiempo real."
+            },
+            card2: {
+                tag: "[AI]",
+                title: "Agentes IA locales",
+                desc: "Fork mejorado de OpenJarvis (Stanford). Setup en Windows, múltiples engines (llama.cpp, Ollama, cloud), pipelines de agentes autónomos."
+            },
+            card3: {
+                tag: "[Web]",
+                title: "Productos web a medida",
+                desc: "Landings, dashboards, stores y SaaS con Next.js, Astro, Tailwind, deployados en Cloudflare Pages."
+            }
         }
     },
     en: {
@@ -70,12 +120,12 @@ export const translations: any = {
         },
         hero: {
             greeting: "Hi, I'm",
-            role1: "Backend Developer",
-            role2: "FinTech Specialist",
-            role3: "Software Architect",
-            role4: "Trading Systems Dev",
-            desc: "Developing backend systems and resilient architectures. Specialized in FinTech ecosystems with Python, FastAPI, and databases. Based in Barcelona · Available for internships and projects.",
-            btnProjects: "View Projects",
+            role1: "Product Builder",
+            role2: "Backend Developer",
+            role3: "FinTech & AI Systems",
+            role4: "From API to Deploy",
+            desc: "Backend-first, product-minded. I build trading systems, local AI agents and custom web apps — from API to deploy. Based in Barcelona · Available for internships and remote projects.",
+            btnProjects: "See my builds",
             btnCV: "Download CV"
         },
         about: {
@@ -118,7 +168,57 @@ export const translations: any = {
             backend: "# Backend / Data",
             backendDesc: "Scalable architectures, API design and data manipulation.",
             frontend: "# Frontend / Tools",
-            frontendDesc: "Optimized interfaces, SSG and edge deployment."
+            frontendDesc: "Optimized interfaces, SSG and edge deployment.",
+            groupBackend: "Backend & FinTech",
+            groupAI: "AI & Agents",
+            groupFrontend: "Frontend & Web",
+            groupExploring: "Exploring",
+            exploringNote: "Actively learning"
+        },
+        featuredProjects: {
+            label: "Proyectos Destacados / Featured Builds",
+            otherLabel: "Other projects",
+            academicToggle: "Academic projects / Learning",
+            links: {
+                github: "GitHub"
+            },
+            trading: {
+                tag: "[FinTech]",
+                titleEs: "Trading Scanner — Sistema institucional de escaneo de mercados",
+                titleEn: "Trading Scanner — Institutional Market Scanner",
+                status: "Archived · Open Source",
+                descEs: "Scanner multi-activo con RSI, MACD, Bollinger Bands y análisis de volumen en tiempo real. Backend FastAPI + PostgreSQL, scripts de backtesting, data populator de 5 años y orquestación Docker completa. Frontend React + Vite. Pausado por costes de APIs institucionales — arquitectura production-grade.",
+                descEn: "Multi-asset scanner with RSI, MACD, Bollinger Bands and real-time volume analysis. FastAPI + PostgreSQL backend, backtesting scripts, 5-year data populator, full Docker orchestration. React + Vite frontend. Paused due to institutional API costs — production-grade architecture.",
+                demoNote: "Demo: Paid APIs required",
+                tradingDemo: "Demo: Paid APIs required"
+            },
+            jarvisr: {
+                tag: "[AI / Agents]",
+                titleEs: "JARVISR — Fork mejorado de OpenJarvis (Stanford)",
+                titleEn: "JARVISR — Enhanced Fork of Stanford's OpenJarvis",
+                status: "Active · Open Source",
+                descEs: "Fork del proyecto OpenJarvis del Stanford Scaling Intelligence Lab. Añadido: instalación guiada en Windows (scripts .bat/.ps1), verificación automática de motores de inferencia, soporte dual llama.cpp + Ollama + cloud (Groq/OpenRouter), config simplificada vía TOML y documentación para usuarios finales. Agente IA personal que corre localmente por defecto.",
+                descEn: "Fork of Stanford's OpenJarvis. Added: guided Windows installer (bat/ps1 scripts), automatic inference engine verification, dual llama.cpp + Ollama + cloud (Groq/OpenRouter) support, simplified TOML config, and end-user documentation. Personal AI that runs locally by default."
+            }
+        }
+        ,
+        whatIBuild: {
+            title: "~/what-i-build",
+            card1: {
+                tag: "[FinTech]",
+                title: "Trading systems and market analysis",
+                desc: "Institutional-grade scanner with FastAPI, WebSockets, PostgreSQL. Real-time technical indicators."
+            },
+            card2: {
+                tag: "[AI]",
+                title: "Local AI agents",
+                desc: "Enhanced fork of OpenJarvis (Stanford). Windows setup, multiple engines (llama.cpp, Ollama, cloud), autonomous agent pipelines."
+            },
+            card3: {
+                tag: "[Web]",
+                title: "Custom web products",
+                desc: "Landings, dashboards, stores and SaaS with Next.js, Astro, Tailwind, deployed on Cloudflare Pages."
+            }
         }
     }
 };

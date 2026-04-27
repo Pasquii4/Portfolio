@@ -157,7 +157,7 @@ export default function HolographicHUD() {
                             <text
                                 x={labelPos.x}
                                 y={labelPos.y + 6}
-                                fill="#ffffff"
+                                fill="var(--color-text)"
                                 fillOpacity="0.8"
                                 fontSize="9"
                                 fontFamily="monospace"
@@ -174,7 +174,7 @@ export default function HolographicHUD() {
                 {/* LAYER 4: Inner circle & Scanner */}
                 <circle cx={cx} cy={cy} r="120" fill="rgba(var(--color-accent-rgb), 0.03)" stroke="var(--color-accent)" strokeOpacity="0.25" strokeWidth="1" />
                 <text x={cx} y={cy - 20} fill="var(--color-accent)" fontSize="10" fontFamily="monospace" letterSpacing="0.2em" textAnchor="middle">{">_ SYS.SCAN"}</text>
-                <text x={cx} y={cy + 5} fill="#ffffff" fontSize="18" fontWeight="bold" fontFamily="monospace" textAnchor="middle">ACTIVE</text>
+                <text x={cx} y={cy + 5} fill="var(--color-text)" fontSize="18" fontWeight="bold" fontFamily="monospace" textAnchor="middle">ACTIVE</text>
                 <text x={cx} y={cy + 20} fill="var(--color-accent)" fillOpacity="0.5" fontSize="8" fontFamily="monospace" textAnchor="middle">v2.0.0</text>
                 <text x={cx} y={cy + 35} fill="var(--color-accent)" fillOpacity="0.7" fontSize="8" fontFamily="monospace" textAnchor="middle">{time}</text>
 

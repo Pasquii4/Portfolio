@@ -13,7 +13,7 @@ export const AppBackground: React.FC = () => {
     }, []);
 
     if (!mounted) {
-        return <div className="absolute inset-0 w-full h-full z-0 bg-black" />; // SSR fallback
+        return <div className="absolute inset-0 w-full h-full z-0 bg-[var(--bg-primary)]" />; // SSR fallback
     }
 
     return (

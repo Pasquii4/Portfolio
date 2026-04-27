@@ -33,6 +33,23 @@ export const MatrixRain: React.FC = () => {
 
         let animationFrameId: number;
 
+        const rootStyle = getComputedStyle(document.documentElement);
+        const bgPrimary = rootStyle.getPropertyValue('--bg-primary').trim() || '#000000';
+        const accentRgb = rootStyle.getPropertyValue('--color-accent-rgb').trim() || '55, 205, 165';
+
+        const hexToRgb = (hex: string): { r: number; g: number; b: number } | null => {
+            const normalized = hex.replace('#', '').trim();
+            if (![3, 6].includes(normalized.length)) return null;
+            const full = normalized.length === 3
+                ? normalized.split('').map((c) => c + c).join('')
+                : normalized;
+            const n = Number.parseInt(full, 16);
+            if (Number.isNaN(n)) return null;
+            return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
+        };
+
+        const bgRgb = hexToRgb(bgPrimary) ?? { r: 0, g: 0, b: 0 };
+
         const resize = () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -64,16 +81,16 @@ export const MatrixRain: React.FC = () => {
         resize();
 
         // Initial fill
-        ctx.fillStyle = '#000000';
+        ctx.fillStyle = bgPrimary;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         const render = () => {
             if (mediaQuery.matches) {
                 // Return static stylized code if prefers reduced motion
-                ctx.fillStyle = 'rgba(0, 50, 20, 0.4)';
+                ctx.fillStyle = `rgba(${bgRgb.r}, ${bgRgb.g}, ${bgRgb.b}, 0.45)`;
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 ctx.font = "16px 'Courier New', monospace";
-                ctx.fillStyle = 'rgba(180, 255, 180, 0.45)';
+                ctx.fillStyle = `rgba(${accentRgb}, 0.45)`;
                 for (let i=0; i<300; i++) {
                     ctx.fillText(getRandomChar(), Math.random() * canvas.width, Math.random() * canvas.height);
                 }
@@ -81,7 +98,7 @@ export const MatrixRain: React.FC = () => {
             }
 
             // Trail decay effect
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.07)';
+            ctx.fillStyle = `rgba(${bgRgb.r}, ${bgRgb.g}, ${bgRgb.b}, 0.07)`;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             ctx.font = "16px 'Courier New', monospace";
@@ -93,11 +110,11 @@ export const MatrixRain: React.FC = () => {
                 }
 
                 // Overwrite the previous frame with trail color to establish the trail
-                ctx.fillStyle = 'rgba(0, 200, 70, 0.45)';
+                ctx.fillStyle = `rgba(${accentRgb}, 0.35)`;
                 ctx.fillText(col.currentChar, col.x, col.y - col.speed);
 
                 // Draw the head character
-                ctx.fillStyle = 'rgba(180, 255, 180, 0.85)';
+                ctx.fillStyle = `rgba(${accentRgb}, 0.85)`;
                 ctx.fillText(col.currentChar, col.x, col.y);
 
                 col.y += col.speed;
@@ -119,7 +136,7 @@ export const MatrixRain: React.FC = () => {
     }, []);
 
     return (
-        <div className="absolute inset-0 w-screen h-screen bg-black opacity-45 -z-10">
+        <div className="absolute inset-0 w-screen h-screen bg-[var(--bg-primary)] -z-10" style={{ opacity: 0.06 }}>
             <canvas
                 ref={canvasRef}
                 className="block w-full h-full"

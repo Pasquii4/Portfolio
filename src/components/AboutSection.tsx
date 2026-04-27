@@ -4,11 +4,11 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import ScanReveal from "./ui/ScanReveal";
 import { useState, useEffect } from "react";
-import { useLanguage } from "@/context/LanguageContext";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function AboutSection() {
     const [mounted, setMounted] = useState(false);
-    const { t } = useLanguage();
+    const { t } = useTranslation();
 
     useEffect(() => {
         setMounted(true);
