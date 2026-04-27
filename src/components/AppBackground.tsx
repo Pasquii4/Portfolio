@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { MatrixRain } from './MatrixRain';
-import { CandlestickScroll } from './CandlestickScroll';
 
 export const AppBackground: React.FC = () => {
     const { theme } = useTheme();
@@ -27,16 +26,6 @@ export const AppBackground: React.FC = () => {
                 }}
             >
                 <MatrixRain />
-            </div>
-            <div
-                className="absolute inset-0 w-full h-full ease-in-out"
-                style={{
-                    opacity: theme === 'bloomberg' ? 1 : 0,
-                    transitionDuration: '400ms',
-                    transitionProperty: 'opacity'
-                }}
-            >
-                <CandlestickScroll />
             </div>
         </div>
     );

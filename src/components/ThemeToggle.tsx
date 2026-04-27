@@ -2,53 +2,48 @@
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { Terminal, BarChart2, Monitor } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function ThemeToggle() {
-    const { theme, setTheme } = useTheme();
-    const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const { t } = useTranslation();
+  const [mounted, setMounted] = useState(false);
 
-    useEffect(() => {
-        setMounted(true);
-    }, []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-    if (!mounted) {
-        return <div className="w-[120px] h-10" />; // placeholder
-    }
+  if (!mounted) {
+    return <div className="w-[120px] h-10" />; // placeholder
+  }
 
-    const currentTheme = theme || 'system';
+  // Only allow: system + dark. Any other legacy value falls back to system.
+  const currentTheme: "system" | "dark" = theme === "dark" ? "dark" : "system";
 
-    const handleToggle = () => {
-        if (currentTheme === 'system') setTheme('dark');
-        else if (currentTheme === 'dark') setTheme('bloomberg');
-        else setTheme('system');
-    };
+  const nextTheme: "system" | "dark" = currentTheme === "system" ? "dark" : "system";
+  const label =
+    currentTheme === "system" ? t("nav.themeDark") : t("nav.themeSystem");
 
-    return (
-        <button
-            onClick={handleToggle}
-            className="h-10 px-4 flex items-center justify-center rounded bg-[var(--bg-surface)] border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all duration-300 overflow-hidden relative group font-mono text-sm font-bold min-w-[130px]"
-            aria-label="Toggle Theme"
-            title="Toggle Theme"
-        >
-            <div className={`absolute flex items-center gap-2 transition-all duration-500 ease-spring ${currentTheme === 'dark' ? 'scale-100 opacity-100 rotate-0' : 'scale-75 opacity-0 -translate-y-4'}`}>
-                <Terminal className="w-4 h-4 text-[var(--color-accent)]" />
-                <span className="text-[var(--color-accent)]">DARK</span>
-            </div>
-            <div className={`absolute flex items-center gap-2 transition-all duration-500 ease-spring ${currentTheme === 'bloomberg' ? 'scale-100 opacity-100 rotate-0' : 'scale-75 opacity-0 translate-y-4'}`}>
-                <BarChart2 className="w-4 h-4 text-[#ff8c00]" />
-                <span className="text-[#ff8c00]">BLOOMBERG</span>
-            </div>
-            <div className={`absolute flex items-center gap-2 transition-all duration-500 ease-spring ${currentTheme === 'system' ? 'scale-100 opacity-100 rotate-0' : 'scale-75 opacity-0 -translate-x-4'}`}>
-                <Monitor className="w-4 h-4 text-gray-400" />
-                <span className="text-gray-400">SYSTEM</span>
-            </div>
-
-            {/* Invisible structural layer to maintain width */}
-            <div className="opacity-0 flex items-center gap-2 pointer-events-none">
-                <BarChart2 className="w-4 h-4" />
-                <span>BLOOMBERG</span>
-            </div>
-        </button>
-    );
+  return (
+    <button
+      onClick={() => setTheme(nextTheme)}
+      className="h-10 px-4 flex items-center justify-center font-mono text-sm font-bold"
+      style={{
+        color: "var(--color-text-muted)",
+        background: "transparent",
+        border: "none",
+        transition: "color 180ms cubic-bezier(0.16, 1, 0.3, 1)",
+      }}
+      onMouseEnter={(e) =>
+        (e.currentTarget.style.color = "var(--color-text)")
+      }
+      onMouseLeave={(e) =>
+        (e.currentTarget.style.color = "var(--color-text-muted)")
+      }
+      aria-label="Toggle theme"
+      title="Toggle theme"
+    >
+      {label}
+    </button>
+  );
 }

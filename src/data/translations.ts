@@ -5,7 +5,9 @@ export const translations: any = {
             stack: "Stack",
             projects: "Proyectos",
             about: "Sobre mí",
-            contact: "Contacto"
+            contact: "Contacto",
+            themeSystem: "Sistema",
+            themeDark: "Oscuro"
         },
         hero: {
             greeting: "Hola, soy",
@@ -30,7 +32,7 @@ export const translations: any = {
             cfgm: "CFGM Sistemas Microinformáticos",
             cfgmDate: "Completado",
             cfgmDesc: "Fundamentos de sistemas, redes y hardware.",
-            availability: "Actualmente disponible para Prácticas o Parcial Remoto en el sector FinTech/trading. Si buscas un perfil técnico con visión de producto, escríbeme directamente.",
+            availability: "Actualmente disponible para Prácticas o Parcial Remoto. Si buscas un builder técnico con visión de producto, escríbeme directamente.",
             tagAvailable: "Disponible ahora",
             tagRemote: "Parcial Remoto",
             tagInternship: "Prácticas"
@@ -116,7 +118,9 @@ export const translations: any = {
             stack: "Stack",
             projects: "Projects",
             about: "About",
-            contact: "Contact"
+            contact: "Contact",
+            themeSystem: "System",
+            themeDark: "Dark"
         },
         hero: {
             greeting: "Hi, I'm",
@@ -141,7 +145,7 @@ export const translations: any = {
             cfgm: "Intermediate Degree in Microcomputer Systems",
             cfgmDate: "Completed",
             cfgmDesc: "Fundamentals of systems, networking and hardware.",
-            availability: "Currently available for Internships or Part-Time Remote in the FinTech/trading sector. If you are looking for a technical profile with product vision, write me directly.",
+            availability: "Currently available for Internships or Part-time Remote. If you're looking for a technical builder with a product mindset, reach out directly.",
             tagAvailable: "Available now",
             tagRemote: "Part-Time Remote",
             tagInternship: "Internships"
