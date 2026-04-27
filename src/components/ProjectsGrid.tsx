@@ -31,6 +31,12 @@ export default function ProjectsGrid() {
     const reduceMotion = useReducedMotion();
     const [academicOpen, setAcademicOpen] = useState(false);
 
+    const brokenThumbInitials: Record<string, string> = {
+        "Bet Tracker": "BT",
+        "RL Boosting ES": "RL",
+        "Tu Espacio Ideal": "TEI",
+    };
+
     const { mainProjects, academicProjects } = useMemo(() => {
         const featuredTitles = new Set(["Trading Scanner", "JARVISR"]);
         const academicTitles = new Set([
@@ -69,13 +75,23 @@ export default function ProjectsGrid() {
     }, []);
 
     return (
-        <section id="projects" className="py-[100px]">
+        <section id="projects" className="py-16 md:py-20">
             <ScanReveal className="w-[90%] max-w-[1200px] mx-auto">
                 <motion.h2
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.5 }}
-                    className="font-mono text-[var(--color-accent)] text-2xl mb-12 inline-block border-b-2 border-[var(--color-accent)] pb-2"
+                    style={{
+                        fontSize: "var(--text-2xl)",
+                        fontWeight: 600,
+                        color: "var(--color-text)",
+                        fontFamily: "var(--font-sans)",
+                        letterSpacing: "-0.02em",
+                        borderBottom: "2px solid var(--color-accent)",
+                        display: "inline-block",
+                        paddingBottom: "var(--space-1)",
+                        marginBottom: "3rem",
+                    }}
                 >
                     {t('projects.title')}
                 </motion.h2>
@@ -108,16 +124,41 @@ export default function ProjectsGrid() {
                             }`} style={{ padding: "1px", mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)", maskComposite: "exclude", WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)", WebkitMaskComposite: "xor", borderRadius: "0.75rem" }} />
 
                             <div className="relative z-10 flex flex-col h-full pointer-events-none">
-                                {proj.image && (
+                                {brokenThumbInitials[proj.title] ? (
+                                    <div
+                                        className="w-full -mt-8 -mx-8 mb-6"
+                                        style={{
+                                            background: "linear-gradient(135deg, #1a1917 0%, #111010 100%)",
+                                            borderRadius: "var(--radius-md) var(--radius-md) 0 0",
+                                            height: "160px",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            borderBottom: "1px solid oklch(from var(--color-text) l c h / 0.08)",
+                                        }}
+                                    >
+                                        <span
+                                            style={{
+                                                fontSize: "3rem",
+                                                fontWeight: 700,
+                                                color: "oklch(from var(--color-text) l c h / 0.08)",
+                                                fontFamily: "var(--font-mono)",
+                                                letterSpacing: "-0.02em",
+                                            }}
+                                        >
+                                            {brokenThumbInitials[proj.title]}
+                                        </span>
+                                    </div>
+                                ) : proj.image ? (
                                     <div className="w-full h-40 -mt-8 -mx-8 mb-6 relative overflow-hidden rounded-t-[0.65rem] border-b border-[var(--color-border)] group-hover:border-[rgba(var(--color-accent-rgb),0.3)] transition-colors">
                                         <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-surface)] to-transparent z-10 opacity-60"></div>
                                         <div className="absolute inset-0 bg-[var(--color-accent)] mix-blend-overlay opacity-10 group-hover:opacity-20 transition-opacity z-10"></div>
                                         <img src={proj.image} alt={proj.title} className="w-full h-full object-cover grayscale-[50%] group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105" />
                                     </div>
-                                )}
+                                ) : null}
                                 <div className={`flex flex-col xl:flex-row justify-between xl:items-start mb-6 gap-3 ${!proj.image ? '' : 'px-0'}`}>
                                     <div>
-                                        <h3 className="text-2xl text-[var(--color-text)] font-heading group-hover:text-[var(--color-accent)] transition-colors">{proj.title}</h3>
+                                        <h3 className="text-2xl text-[var(--color-text)] font-sans group-hover:text-[var(--color-accent)] transition-colors">{proj.title}</h3>
                                         {(proj.title === "Bet Tracker") && (
                                             <p className="font-mono text-[var(--color-text-secondary)] text-[0.75rem] opacity-80 mt-1">
                                                 {t('projects.demo')}

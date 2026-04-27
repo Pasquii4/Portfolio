@@ -17,13 +17,23 @@ export default function AboutSection() {
     const avatarSrc = '/avatar.png';
 
     return (
-        <section id="about" className="py-[100px]">
+        <section id="about" className="py-16 md:py-20">
             <ScanReveal className="w-[90%] max-w-[1200px] mx-auto">
                 <motion.h2
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.5 }}
-                    className="font-mono text-[var(--color-accent)] text-2xl mb-12 inline-block border-b-2 border-[var(--color-accent)] pb-2"
+                    style={{
+                        fontSize: "var(--text-2xl)",
+                        fontWeight: 600,
+                        color: "var(--color-text)",
+                        fontFamily: "var(--font-sans)",
+                        letterSpacing: "-0.02em",
+                        borderBottom: "2px solid var(--color-accent)",
+                        display: "inline-block",
+                        paddingBottom: "var(--space-1)",
+                        marginBottom: "3rem",
+                    }}
                 >
                     {t('about.title')}
                 </motion.h2>

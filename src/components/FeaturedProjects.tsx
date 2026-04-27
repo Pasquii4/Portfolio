@@ -363,7 +363,7 @@ export default function FeaturedProjects() {
   }, [locale, t]);
 
   return (
-    <section id="featured-projects" className="py-[100px]">
+    <section id="featured-projects" className="py-16 md:py-20">
       <ScanReveal className="w-[90%] max-w-[1200px] mx-auto">
         <p
           className="text-xs uppercase tracking-widest mb-6"

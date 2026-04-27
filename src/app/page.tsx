@@ -11,7 +11,6 @@ import WhatIBuildSection from "@/components/WhatIBuildSection";
 import FeaturedProjects from "@/components/FeaturedProjects";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
-import FinTechTicker from "@/components/FinTechTicker";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "@/hooks/useTranslation";
 
@@ -48,9 +47,6 @@ export default function Home() {
               <ContactSection />
               <Footer />
             </article>
-            <div className="fixed bottom-0 left-0 w-full z-50">
-              <FinTechTicker />
-            </div>
           </main>
         </motion.div>
       </AnimatePresence>

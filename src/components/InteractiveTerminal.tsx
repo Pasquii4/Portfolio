@@ -433,7 +433,7 @@ export default function InteractiveTerminal() {
     };
 
     return (
-        <section id="terminal" className="py-[100px]" role="region" aria-label="Interactive terminal">
+        <section id="terminal" className="py-16 md:py-20" role="region" aria-label="Interactive terminal">
             <div className="w-[90%] max-w-[800px] mx-auto">
                 <motion.h2
                     initial={{ opacity: 0, y: 30 }}

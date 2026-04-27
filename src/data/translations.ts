@@ -1,11 +1,11 @@
 export const translations: any = {
     es: {
         nav: {
-            dashboard: "~/dashboard",
-            stack: "~/tech-stack",
-            projects: "~/proyectos",
-            about: "~/sobre-mí",
-            contact: "~/contacto"
+            dashboard: "Inicio",
+            stack: "Stack",
+            projects: "Proyectos",
+            about: "Sobre mí",
+            contact: "Contacto"
         },
         hero: {
             greeting: "Hola, soy",
@@ -18,9 +18,9 @@ export const translations: any = {
             btnCV: "Descargar CV"
         },
         about: {
-            title: "~/sobre-mi",
+            title: "Sobre mí",
             bgTitle: "// Background & Skills",
-            bgDesc: "Desarrollador de software enfocado en sistemas FinTech, trading algorítmico y backends escalables. Trabajo principalmente con Python, FastAPI, SQL y TypeScript, diseñando microservicios de baja latencia e integraciones de datos en tiempo real.",
+            bgDesc: "Builder de productos técnicos. Construyo desde sistemas de trading y agentes IA locales hasta webs a medida — siempre backend-first, siempre orientado a producto. Autodidacta, con base en CFGS DAW y proyectos reales desde 2022.",
             cfgs: "CFGS Desarrollo de Aplicaciones Web",
             cfgsDate: "2023 — Presente",
             cfgsDesc: "Centre d'Estudis Politècnics. Ampliando y estructurando mi base de ingeniería de software con arquitectura empresarial.",
@@ -36,7 +36,7 @@ export const translations: any = {
             tagInternship: "Prácticas"
         },
         projects: {
-            title: "~/proyectos",
+            title: "Proyectos",
             featured: "# Proyectos Destacados (FinTech & Web)",
             academic: "# Proyectos Académicos / Learning",
             btnGithub: "Ver todas las repos públicas en GitHub →",
@@ -46,14 +46,14 @@ export const translations: any = {
             demo: "Demo bajo solicitud"
         },
         contact: {
-            title: "~/contacto",
+            title: "Contacto",
             subtitle: "Disponible para nuevos proyectos · Respuesta en < 24h",
-            desc: "¿Buscas un desarrollador FinTech para tu equipo o tienes un proyecto técnico interesante? Escríbeme directamente.",
+            desc: "¿Tienes un proyecto técnico ambicioso o buscas un builder que lo lleve de cero al deploy? Escríbeme directamente.",
             click: "Haz clic para enviar un correo local",
             or: "O contáctame vía"
         },
         stack: {
-            title: "~/tech-stack",
+            title: "Stack",
             backend: "# Backend / Data",
             backendDesc: "Arquitecturas escalables, diseño de APIs y manipulación de datos.",
             frontend: "# Frontend / Herramientas",
@@ -92,7 +92,7 @@ export const translations: any = {
         }
         ,
         whatIBuild: {
-            title: "~/que-construyo",
+            title: "Qué construyo",
             card1: {
                 tag: "[FinTech]",
                 title: "Sistemas de trading y análisis de mercados",
@@ -112,11 +112,11 @@ export const translations: any = {
     },
     en: {
         nav: {
-            dashboard: "~/dashboard",
-            stack: "~/tech-stack",
-            projects: "~/projects",
-            about: "~/about-me",
-            contact: "~/contact"
+            dashboard: "Home",
+            stack: "Stack",
+            projects: "Projects",
+            about: "About",
+            contact: "Contact"
         },
         hero: {
             greeting: "Hi, I'm",
@@ -129,9 +129,9 @@ export const translations: any = {
             btnCV: "Download CV"
         },
         about: {
-            title: "~/about-me",
+            title: "About",
             bgTitle: "// Background & Skills",
-            bgDesc: "Software developer focused on FinTech systems, algorithmic trading, and scalable backends. I work mainly with Python, FastAPI, SQL, and TypeScript, designing low-latency microservices and real-time data integrations.",
+            bgDesc: "Technical product builder. I build everything from trading systems and local AI agents to custom web apps — always backend-first, always product-oriented. Self-taught, with a CFGS DAW background and real projects since 2022.",
             cfgs: "Higher Degree in Web Application Development",
             cfgsDate: "2023 — Present",
             cfgsDesc: "Centre d'Estudis Politècnics. Expanding and structuring my software engineering foundation with enterprise architecture.",
@@ -147,7 +147,7 @@ export const translations: any = {
             tagInternship: "Internships"
         },
         projects: {
-            title: "~/projects",
+            title: "Projects",
             featured: "# Featured Projects (FinTech & Web)",
             academic: "# Academic Projects / Learning",
             btnGithub: "View all public repos on GitHub →",
@@ -157,14 +157,14 @@ export const translations: any = {
             demo: "Demo available upon request"
         },
         contact: {
-            title: "~/contact",
+            title: "Contact",
             subtitle: "Available for new projects · Response in < 24h",
-            desc: "Looking for a FinTech developer for your team or have an interesting technical project? Write me directly.",
+            desc: "Got an ambitious technical project or looking for a builder who takes it from zero to deploy? Drop me a message.",
             click: "Click to send a local email",
             or: "Or contact me via"
         },
         stack: {
-            title: "~/tech-stack",
+            title: "Stack",
             backend: "# Backend / Data",
             backendDesc: "Scalable architectures, API design and data manipulation.",
             frontend: "# Frontend / Tools",
@@ -203,7 +203,7 @@ export const translations: any = {
         }
         ,
         whatIBuild: {
-            title: "~/what-i-build",
+            title: "What I build",
             card1: {
                 tag: "[FinTech]",
                 title: "Trading systems and market analysis",

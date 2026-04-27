@@ -4,8 +4,8 @@ export default function Footer() {
             <div className="w-[90%] max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center font-mono text-[0.85rem] text-[var(--color-text-secondary)] gap-4">
                 <p>
                     &copy; {new Date().getFullYear()} Pau Pascual ·{" "}
-                    <a href="https://github.com/Pasquii4/personal" target="_blank" rel="noopener noreferrer" className="text-inherit underline opacity-60 hover:opacity-100 hover:text-[var(--color-accent)] transition-all">
-                        Código fuente
+                    <a href="https://github.com/Pasquii4/Portfolio" target="_blank" rel="noopener noreferrer" className="text-inherit underline opacity-60 hover:opacity-100 hover:text-[var(--color-accent)] transition-all">
+                        github.com/Pasquii4/Portfolio
                     </a>
                 </p>
                 <div className="flex gap-6">

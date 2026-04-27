@@ -36,7 +36,7 @@ export default function HeroDashboard() {
     }, [isFinished, reduceMotion, titles.length]);
 
     return (
-        <section id="dashboard" className="py-[100px] min-h-[calc(100vh-70px)] pt-[40px] flex items-center relative z-[1]">
+        <section id="dashboard" className="py-16 md:py-20 min-h-[calc(100vh-70px)] pt-[40px] flex items-center relative z-[1]">
             <div className="w-[90%] max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-12 lg:gap-16 items-center">
 
                 <motion.div
