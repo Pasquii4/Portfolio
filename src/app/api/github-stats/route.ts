@@ -41,7 +41,7 @@ function setCached(key: string, payload: GithubStatsPayload) {
   });
 }
 
-export const revalidate = REVALIDATE_SECONDS;
+export const revalidate = 300;
 
 export async function GET() {
   const cacheKey = `github-stats:${GITHUB_USER}`;
