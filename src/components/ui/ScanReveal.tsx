@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ReactNode } from "react";
 
 interface ScanRevealProps {
@@ -9,6 +9,8 @@ interface ScanRevealProps {
 }
 
 export default function ScanReveal({ children, className = "" }: ScanRevealProps) {
+    const reduceMotion = useReducedMotion();
+
     return (
         <motion.div
             initial="hidden"
@@ -16,21 +18,24 @@ export default function ScanReveal({ children, className = "" }: ScanRevealProps
             viewport={{ once: true, margin: "-100px" }}
             className={`relative ${className}`}
         >
+            {!reduceMotion && (
+                <motion.div
+                    variants={{
+                        hidden: { x: "-100%", opacity: 1 },
+                        visible: { x: "100%", opacity: 0 },
+                    }}
+                    transition={{ duration: 0.4, ease: "linear" }}
+                    className="absolute top-0 left-0 w-full h-[2px] bg-[var(--color-accent)] z-50 pointer-events-none"
+                    style={{ boxShadow: "0 0 10px var(--color-accent)" }}
+                    aria-hidden
+                />
+            )}
             <motion.div
                 variants={{
-                    hidden: { x: "-100%", opacity: 1 },
-                    visible: { x: "100%", opacity: 0 },
-                }}
-                transition={{ duration: 0.4, ease: "linear" }}
-                className="absolute top-0 left-0 w-full h-[2px] bg-[var(--color-accent)] z-50 pointer-events-none"
-                style={{ boxShadow: "0 0 10px var(--color-accent)" }}
-            />
-            <motion.div
-                variants={{
-                    hidden: { opacity: 0, y: 20 },
+                    hidden: reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 },
                     visible: { opacity: 1, y: 0 },
                 }}
-                transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+                transition={{ duration: reduceMotion ? 0 : 0.6, delay: reduceMotion ? 0 : 0.2, ease: "easeOut" }}
             >
                 {children}
             </motion.div>

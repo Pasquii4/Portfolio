@@ -40,16 +40,16 @@ export default function HeroDashboard() {
             <div className="w-[90%] max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-12 lg:gap-16 items-center">
 
                 <motion.div
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.15 }}
-                    transition={{ duration: 0.8 }}
+                    transition={{ duration: reduceMotion ? 0 : 0.8 }}
                     className="hero-content"
                 >
                     <div className="bg-[var(--bg-surface)] px-4 py-3 rounded-t-lg flex items-center gap-2 border border-[var(--color-border)] border-b-0">
-                        <span className="w-3 h-3 rounded-full" style={{ backgroundColor: "#FF5F57" }}></span>
-                        <span className="w-3 h-3 rounded-full" style={{ backgroundColor: "#FEBC2E" }}></span>
-                        <span className="w-3 h-3 rounded-full" style={{ backgroundColor: "#28C840" }}></span>
+                        <span className="w-3 h-3 rounded-full" style={{ backgroundColor: "#FF5F57" }} aria-hidden />
+                        <span className="w-3 h-3 rounded-full" style={{ backgroundColor: "#FEBC2E" }} aria-hidden />
+                        <span className="w-3 h-3 rounded-full" style={{ backgroundColor: "#28C840" }} aria-hidden />
                         <span className="ml-[max(0.5rem,auto)] font-mono text-[0.8rem] text-[var(--color-text-secondary)]">
                             bash - pascualpau04@localhost
                         </span>
@@ -66,16 +66,18 @@ export default function HeroDashboard() {
                         </h1>
                         <div className="h-[28px] mb-6 overflow-hidden relative">
                             <AnimatePresence mode="wait">
-                                <motion.h2
+                                <motion.p
                                     key={currentTitleIndex}
+                                    role="status"
+                                    aria-live="polite"
                                     initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: -10 }}
                                     transition={{ duration: reduceMotion ? 0 : 0.25, ease: "easeInOut" }}
-                                    className="font-heading text-[var(--text-xl)] text-[var(--color-accent)] absolute left-0 top-0"
+                                    className="font-heading text-[var(--text-xl)] text-[var(--color-accent)] absolute left-0 top-0 m-0"
                                 >
                                     {titles[currentTitleIndex]}
-                                </motion.h2>
+                                </motion.p>
                             </AnimatePresence>
                         </div>
                         <p className="text-[var(--color-text-secondary)] text-[1.1rem] mb-8 max-w-[500px]">

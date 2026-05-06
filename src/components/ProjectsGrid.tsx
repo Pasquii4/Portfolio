@@ -7,29 +7,45 @@ import { projects, ProjectBadge, ProjectLink } from "@/data/projects";
 import { useTranslation } from "@/hooks/useTranslation";
 import { ChevronDown } from "lucide-react";
 
-const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.08
-        }
-    }
-};
-
-const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.5, ease: "easeOut" }
-    }
-};
-
 export default function ProjectsGrid() {
     const { t } = useTranslation();
     const reduceMotion = useReducedMotion();
     const [academicOpen, setAcademicOpen] = useState(false);
+
+    const containerVariants: Variants = useMemo(
+        () =>
+            reduceMotion
+                ? {
+                      hidden: { opacity: 1 },
+                      visible: { opacity: 1 },
+                  }
+                : {
+                      hidden: { opacity: 0 },
+                      visible: {
+                          opacity: 1,
+                          transition: { staggerChildren: 0.08 },
+                      },
+                  },
+        [reduceMotion]
+    );
+
+    const itemVariants: Variants = useMemo(
+        () =>
+            reduceMotion
+                ? {
+                      hidden: { opacity: 1, y: 0 },
+                      visible: { opacity: 1, y: 0 },
+                  }
+                : {
+                      hidden: { opacity: 0, y: 30 },
+                      visible: {
+                          opacity: 1,
+                          y: 0,
+                          transition: { duration: 0.5, ease: "easeOut" },
+                      },
+                  },
+        [reduceMotion]
+    );
 
     const brokenThumbInitials: Record<string, string> = {
         "Bet Tracker": "BT",
@@ -78,9 +94,10 @@ export default function ProjectsGrid() {
         <section id="projects" className="py-16 md:py-20">
             <ScanReveal className="w-[90%] max-w-[1200px] mx-auto">
                 <motion.h2
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.5 }}
+                    transition={{ duration: reduceMotion ? 0 : 0.5 }}
                     style={{
                         fontSize: "var(--text-2xl)",
                         fontWeight: 600,
@@ -96,9 +113,9 @@ export default function ProjectsGrid() {
                     {t('projects.title')}
                 </motion.h2>
 
-                <p className="text-xs uppercase tracking-widest mb-6" style={{ color: 'var(--color-text-muted)' }}>
+                <h3 className="text-xs uppercase tracking-widest mb-6 m-0 font-sans font-semibold" style={{ color: 'var(--color-text-muted)' }}>
                     — {t('featuredProjects.otherLabel')}
-                </p>
+                </h3>
 
                 <motion.div
                     variants={containerVariants}
@@ -153,12 +170,18 @@ export default function ProjectsGrid() {
                                     <div className="w-full h-40 -mt-8 -mx-8 mb-6 relative overflow-hidden rounded-t-[0.65rem] border-b border-[var(--color-border)] group-hover:border-[rgba(var(--color-accent-rgb),0.3)] transition-colors">
                                         <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-surface)] to-transparent z-10 opacity-60"></div>
                                         <div className="absolute inset-0 bg-[var(--color-accent)] mix-blend-overlay opacity-10 group-hover:opacity-20 transition-opacity z-10"></div>
-                                        <img src={proj.image} alt={proj.title} className="w-full h-full object-cover grayscale-[50%] group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105" />
+                                        <img
+                                            src={proj.image}
+                                            alt={`${t('projects.thumbAltPrefix')}: ${proj.title}`}
+                                            loading="lazy"
+                                            decoding="async"
+                                            className="w-full h-full object-cover grayscale-[50%] group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
+                                        />
                                     </div>
                                 ) : null}
                                 <div className={`flex flex-col xl:flex-row justify-between xl:items-start mb-6 gap-3 ${!proj.image ? '' : 'px-0'}`}>
                                     <div>
-                                        <h3 className="text-2xl text-[var(--color-text)] font-sans group-hover:text-[var(--color-accent)] transition-colors">{proj.title}</h3>
+                                        <h4 className="text-2xl text-[var(--color-text)] font-sans group-hover:text-[var(--color-accent)] transition-colors m-0">{proj.title}</h4>
                                         {(proj.title === "Bet Tracker") && (
                                             <p className="font-mono text-[var(--color-text-secondary)] text-[0.75rem] opacity-80 mt-1">
                                                 {t('projects.demo')}
@@ -207,7 +230,7 @@ export default function ProjectsGrid() {
                                             className="inline-flex items-center gap-2 text-[var(--color-text)] no-underline font-mono text-[0.85rem] transition-colors duration-300 hover:text-[var(--color-accent)]"
                                         >
                                             {link.icon === 'github' && (
-                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
                                                     <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
                                                 </svg>
                                             )}
@@ -247,7 +270,7 @@ export default function ProjectsGrid() {
                             }
                             className="inline-flex"
                         >
-                            <ChevronDown className="w-4 h-4" />
+                            <ChevronDown className="w-4 h-4" aria-hidden />
                         </motion.span>
                     </button>
 
@@ -281,7 +304,7 @@ export default function ProjectsGrid() {
                                     <div className="relative z-10 flex flex-col h-full pointer-events-none">
                                         <div className="flex flex-col xl:flex-row justify-between xl:items-start mb-4 gap-3">
                                             <div>
-                                                <h3 className="text-xl text-[var(--color-text)] font-heading group-hover:text-[var(--color-accent)] transition-colors">{proj.title}</h3>
+                                                <h4 className="text-xl text-[var(--color-text)] font-heading group-hover:text-[var(--color-accent)] transition-colors m-0">{proj.title}</h4>
                                             </div>
                                         </div>
                                         <p className="text-[var(--color-text-secondary)] text-[0.9rem] mb-6 grow leading-[1.6]">
@@ -307,7 +330,7 @@ export default function ProjectsGrid() {
                                                     className="inline-flex items-center gap-2 text-[var(--color-text)] no-underline font-mono text-[0.85rem] transition-colors duration-300 hover:text-[var(--color-accent)]"
                                                 >
                                                     {link.icon === 'github' && (
-                                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
                                                             <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
                                                         </svg>
                                                     )}
@@ -323,9 +346,10 @@ export default function ProjectsGrid() {
                 </div>
 
                 <motion.div
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.5 }}
+                    transition={{ duration: reduceMotion ? 0 : 0.5 }}
                     className="col-span-full flex justify-center pt-16"
                 >
                     <a href="https://github.com/Pasquii4?tab=repositories&type=public" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-8 py-4 rounded-lg font-mono text-[0.95rem] font-bold text-[var(--color-text)] bg-[var(--bg-surface)] border border-[var(--color-border)] transition-all duration-300 hover:bg-[var(--bg-hover)] hover:text-[var(--color-accent)] hover:border-[rgba(var(--color-accent-rgb),0.4)] no-underline hover:-translate-y-1 hover:shadow-lg">

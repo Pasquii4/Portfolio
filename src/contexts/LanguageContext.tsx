@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { createContext, useContext, useState, ReactNode } from 'react';
-import { translations } from '@/data/translations';
+import { createContext, useContext, useState, ReactNode } from "react";
+import { translations } from "@/data/translations";
 
-export type Locale = 'es' | 'en';
+export type Locale = "es" | "en";
 
 interface LanguageContextType {
   locale: Locale;
@@ -14,15 +14,15 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | null>(null);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocale] = useState<Locale>('es');
+  const [locale, setLocale] = useState<Locale>("es");
 
   function t(path: string): string {
-    const keys = path.split('.');
-    let val: any = translations[locale];
+    const keys = path.split(".");
+    let val: unknown = translations[locale];
     for (const k of keys) {
-      val = val?.[k];
+      val = (val as Record<string, unknown> | undefined)?.[k];
     }
-    return typeof val === 'string' ? val : path;
+    return typeof val === "string" ? val : path;
   }
 
   return (
@@ -34,7 +34,6 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
 export function useLanguage() {
   const ctx = useContext(LanguageContext);
-  if (!ctx) throw new Error('useLanguage must be used within LanguageProvider');
+  if (!ctx) throw new Error("useLanguage must be used within LanguageProvider");
   return ctx;
 }
-

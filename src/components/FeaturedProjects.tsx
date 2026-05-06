@@ -211,6 +211,7 @@ function CaseStudyCard({ cs }: { cs: CaseStudy }) {
 
 export default function FeaturedProjects() {
   const { t, locale } = useTranslation();
+  const reduceMotion = useReducedMotion();
 
   const caseStudies = useMemo<CaseStudy[]>(() => {
     const trading: CaseStudy = {
@@ -365,12 +366,16 @@ export default function FeaturedProjects() {
   return (
     <section id="featured-projects" className="py-16 md:py-20">
       <ScanReveal className="w-[90%] max-w-[1200px] mx-auto">
-        <p
-          className="text-xs uppercase tracking-widest mb-6"
+        <motion.h2
+          initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: reduceMotion ? 0 : 0.45 }}
+          className="text-xs uppercase tracking-widest mb-6 m-0 font-sans font-semibold"
           style={{ color: "var(--color-text-muted)" }}
         >
           — {t("featuredProjects.label")}
-        </p>
+        </motion.h2>
 
         <div className="flex flex-col gap-6">
           {caseStudies.map((cs) => (

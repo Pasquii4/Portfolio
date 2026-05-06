@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import ScanReveal from "./ui/ScanReveal";
 import { useTranslation } from "@/hooks/useTranslation";
 
@@ -12,6 +12,7 @@ type Card = {
 
 export default function WhatIBuildSection() {
   const { t } = useTranslation();
+  const reduceMotion = useReducedMotion();
 
   const title = t("whatIBuild.title");
 
@@ -39,9 +40,10 @@ export default function WhatIBuildSection() {
     <section id="what-i-build" className="py-16 md:py-20">
       <ScanReveal className="w-[90%] max-w-[1200px] mx-auto">
         <motion.h2
-          initial={{ opacity: 0, y: 30 }}
+          initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: reduceMotion ? 0 : 0.5 }}
           style={{
             fontSize: "var(--text-2xl)",
             fontWeight: 600,
@@ -59,10 +61,10 @@ export default function WhatIBuildSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6">
           <motion.article
-            initial={{ opacity: 0, y: 24 }}
+            initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+            transition={{ duration: reduceMotion ? 0 : 0.5, ease: "easeOut" }}
             className="rounded-2xl bg-[var(--bg-surface)] border p-8 md:col-span-2 md:row-span-2"
             style={{ borderColor: cardBorder }}
           >
@@ -78,10 +80,10 @@ export default function WhatIBuildSection() {
           </motion.article>
 
           <motion.article
-            initial={{ opacity: 0, y: 24 }}
+            initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.5, ease: "easeOut", delay: 0.05 }}
+            transition={{ duration: reduceMotion ? 0 : 0.5, ease: "easeOut", delay: reduceMotion ? 0 : 0.05 }}
             className="rounded-2xl bg-[var(--bg-surface)] border p-8 md:col-span-1 md:row-span-1"
             style={{ borderColor: cardBorder }}
           >
@@ -97,10 +99,10 @@ export default function WhatIBuildSection() {
           </motion.article>
 
           <motion.article
-            initial={{ opacity: 0, y: 24 }}
+            initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
+            transition={{ duration: reduceMotion ? 0 : 0.5, ease: "easeOut", delay: reduceMotion ? 0 : 0.1 }}
             className="rounded-2xl bg-[var(--bg-surface)] border p-8 md:col-span-1 md:row-span-1"
             style={{ borderColor: cardBorder }}
           >

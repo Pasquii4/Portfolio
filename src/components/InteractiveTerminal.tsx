@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useRef, useEffect, KeyboardEvent as ReactKeyboardEvent } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Terminal } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 interface CommandRecord {
     command: string;
@@ -34,10 +35,15 @@ const COMMANDS: Record<string, React.ReactNode> = {
 >   contact        Información de contacto
 >
 > ── Interactivo ─────────────────────────────
->   github         Fetch estadísticas GitHub API real
->   ask [pregunta] Pregúntame cualquier cosa
+>   github         Estadísticas GitHub (API /api/github-stats)
 >   clear          Limpiar terminal
->   help           Mostrar este menú`}
+>   help / ?       Este menú
+>
+> ── Asistente IA (Groq) ─────────────────────
+>   Cualquier texto que NO sea un comando de arriba se envía al asistente.
+>   Ej.: "¿Cuánto tardas en una landing?" · "What's your stack?"
+>   También: ask <pregunta>  (equivale a IA con esa pregunta)
+>   Solo una respuesta IA a la vez; espera a que termine antes de otra.`}
         </div>
     ),
     whoami: "pau pascual — builder of systems that work: trading scanners, local AI agents, web products.",
@@ -133,7 +139,7 @@ const COMMANDS: Record<string, React.ReactNode> = {
     social: (
         <div className="whitespace-pre font-mono">
             {`> GitHub   → `}<a href="https://github.com/Pasquii4" target="_blank" rel="noopener noreferrer" className="hover:text-white underline">https://github.com/Pasquii4</a>{`               [→ abre nueva pestaña]
-> LinkedIn → `}<a href="https://linkedin.com/in/pau-pascual-vallverdu" target="_blank" rel="noopener noreferrer" className="hover:text-white underline">linkedin.com/in/pau-pascual-vallverdu</a>{`      [→ abre nueva pestaña]
+> LinkedIn → `}<a href="https://www.linkedin.com/in/pau-pascual-vallverdu/" target="_blank" rel="me noopener noreferrer" className="hover:text-white underline">linkedin.com/in/pau-pascual-vallverdu</a>{`      [→ abre nueva pestaña]
 > Email    → `}<a href="mailto:pascualpau04@gmail.com" className="hover:text-white underline">pascualpau04@gmail.com</a>{`                     [→ abre mailto]`}
         </div>
     ),
@@ -151,71 +157,11 @@ const COMMANDS: Record<string, React.ReactNode> = {
     )
 };
 
-type QAEntry = { keywords: string[]; response: string };
-
-const qaEntries: QAEntry[] = [
-    {
-        keywords: ["disponible", "contratar", "hire", "prácticas", "practicas",
-            "trabajo", "freelance", "remoto", "parcial", "incorporación", "incorporacion", "empezar"],
-        response: "🟢 Sí, estoy disponible para Parcial Remoto o Prácticas.\\n" +
-            "   Incorporación: Inmediata, sujeto a acuerdo.\\n" +
-            "   Escríbeme → pascualpau04@gmail.com (respondo < 24h)"
-    },
-    {
-        keywords: ["stack", "tecnología", "tecnologia", "lenguaje", "programar",
-            "python", "javascript", "typescript", "framework"],
-        response: "Stack principal: Python · FastAPI · TypeScript · Next.js\\n" +
-            "                 Docker · PostgreSQL · SQL\\n" +
-            "Escribe 'stack' para ver todos los porcentajes."
-    },
-    {
-        keywords: ["experiencia", "experience", "proyectos", "portfolio", "trabajos"],
-        response: "3+ años de desarrollo autodidacta y proyectos complejos finalizados.\\n" +
-            "He desarrollado un Trading Scanner (FastAPI+WS+PostgreSQL),\\n" +
-            "landing pages en Astro/Cloudflare y herramientas FinTech.\\n" +
-            "Escribe 'experience' para ver el detalle completo."
-    },
-    {
-        keywords: ["sueldo", "salario", "cobrar", "dinero", "salary"],
-        response: "Abierto a negociación para roles de junior/prácticas.\\n" +
-            "Priorizo el aprendizaje, los retos técnicos y el crecimiento\\n" +
-            "dentro del ecosistema FinTech."
-    },
-    {
-        keywords: ["estudios", "educación", "educacion", "formación", "formacion",
-            "universidad", "ciclo", "daw", "cfgs"],
-        response: "Cursando CFGS DAW en Centre d'Estudis Politècnics, Barcelona.\\n" +
-            "CFGM completado ✓ · Escribe 'education' para más detalle."
-    },
-    {
-        keywords: ["ubicación", "ubicacion", "ciudad", "barcelona", "donde", "dónde",
-            "remoto", "presencial"],
-        response: "Basado en Barcelona, Catalunya, España 🇪🇸\\n" +
-            "Disponible para trabajo Parcial Remoto o Prácticas presenciales."
-    },
-    {
-        keywords: ["edad", "años", "cuántos", "cuantos", "old", "how old", "naciste"],
-        response: "Tengo 21 años. Llevo más de 3 años programando de forma\\n" +
-            "autodidacta, especializado en FinTech desde los 19."
-    },
-    {
-        keywords: ["contacto", "contact", "email", "mail", "linkedin", "teléfono", "telefono"],
-        response: "Email   → pascualpau04@gmail.com\\n" +
-            "LinkedIn→ linkedin.com/in/pau-pascual-vallverdu\\n" +
-            "GitHub  → github.com/Pasquii4\\n" +
-            "Escribe 'contact' para los botones directos."
-    },
-];
-
-function getAskResponse(input: string): string {
-    const lower = input.toLowerCase();
-    const match = qaEntries.find(entry =>
-        entry.keywords.some(kw => lower.includes(kw))
-    );
-    return match?.response ??
-        "No tengo respuesta específica para eso.\\n" +
-        "Prueba: 'ask disponible', 'ask stack', 'ask experiencia'\\n" +
-        "O escribe 'help' para ver todos los comandos.";
+function isKnownLocalCommand(lower: string): boolean {
+    if (lower === "clear" || lower === "github" || lower === "ask") return true;
+    if (Object.prototype.hasOwnProperty.call(COMMANDS, lower)) return true;
+    if (lower === "open linkedin" || lower === "open github" || lower === "download cv") return true;
+    return false;
 }
 
 export default function InteractiveTerminal() {
@@ -227,8 +173,14 @@ export default function InteractiveTerminal() {
     const [historyIndex, setHistoryIndex] = useState(-1);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
+    const reduceMotion = useReducedMotion();
+    const { locale } = useTranslation();
+    const aiBusyRef = useRef(false);
+    const aiThreadRef = useRef<Array<{ role: "user" | "assistant"; content: string }>>([]);
+    const [liveAiText, setLiveAiText] = useState<string | null>(null);
 
     const VALID_COMMANDS = [
+        "?",
         "help",
         "clear",
         "contact",
@@ -253,7 +205,7 @@ export default function InteractiveTerminal() {
 
     useEffect(() => {
         scrollToBottom();
-    }, [history]);
+    }, [history, liveAiText]);
 
     // Keyboard shortcut /
     useEffect(() => {
@@ -321,73 +273,333 @@ export default function InteractiveTerminal() {
         return () => timeouts.forEach(clearTimeout);
     }, []);
 
-    const handleCommand = (cmd: string) => {
-        const trimmed = cmd.trim().toLowerCase();
-
-        if (!trimmed) return;
-
-        // Add user input to history
-        setHistory(prev => [...prev, { command: trimmed, output: trimmed, type: "input" }]);
-
-        // Process command
-        setTimeout(async () => {
-            if (trimmed === "clear") {
-                setHistory([]);
-            } else if (trimmed === "github") {
-                setHistory(prev => [...prev, { command: trimmed, output: <span className="text-gray-400">Fetching live data from api.github.com/users/Pasquii4...</span>, type: "system" }]);
-                try {
-                    const res = await fetch("https://api.github.com/users/Pasquii4");
-                    if (!res.ok) throw new Error("HTTP error " + res.status);
-                    const data = await res.json();
-                    
-                    const output = (
-                        <div className="whitespace-pre font-mono mt-2">
-                            {`> 🐙 GITHUB STATS [LIVE] ─────────────────
-> Usuario:      ${data.login}
-> Nombre:       ${data.name || 'Pau Pascual'}
-> Repos:        ${data.public_repos} públicos
-> Seguidores:   ${data.followers}
-> Bio:          ${data.bio || 'Backend & FinTech'}
->
-> > open github (para visitar el perfil)`}
+    const runAiStream = async (displayLine: string, modelUserContent: string) => {
+        if (aiBusyRef.current) {
+            setHistory((prev) => [
+                ...prev,
+                {
+                    command: displayLine,
+                    output: (
+                        <div className="text-amber-400/90 font-mono text-sm">
+                            [AI] Espera a que termine la respuesta anterior antes de enviar otra petición.
                         </div>
-                    );
-                    setHistory(prev => [...prev.filter(r => typeof r.output !== 'string' || !r.output.toString().includes('Fetching')), { command: trimmed, output, type: "output" }]);
-                } catch (e) {
-                    setHistory(prev => [...prev.filter(r => typeof r.output !== 'string' || !r.output.toString().includes('Fetching')), { command: trimmed, output: "Error: No se pudo conectar con la API de GitHub.", type: "error" }]);
-                }
-            } else if (trimmed === "ask") {
-                setHistory(prev => [...prev, { command: trimmed, output: <div className="text-red-400">bash: ask: uso correcto → ask [pregunta sobre mí]</div>, type: "error" }]);
-            } else if (trimmed.startsWith("ask ")) {
-                const question = trimmed.substring(4).trim();
-                if (!question) {
-                    setHistory(prev => [...prev, { command: trimmed, output: <div className="text-red-400">bash: ask: uso correcto → ask [pregunta sobre mí]</div>, type: "error" }]);
-                } else {
-                    setHistory(prev => [...prev, { command: trimmed, output: <div className="break-words whitespace-pre-wrap w-full font-mono text-[var(--color-text)]">{getAskResponse(question)}</div>, type: "output" }]);
-                }
-            } else if (COMMANDS[trimmed]) {
-                if (trimmed === "contact") {
-                    setHistory(prev => [...prev, {
-                        command: trimmed,
+                    ),
+                    type: "error",
+                },
+            ]);
+            return;
+        }
+        aiBusyRef.current = true;
+        let full = "";
+        let lineCarry = "";
+        setLiveAiText("");
+        aiThreadRef.current.push({ role: "user", content: modelUserContent });
+        const messagesPayload = aiThreadRef.current.slice(-24);
+
+        try {
+            const res = await fetch("/api/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ messages: messagesPayload, locale }),
+            });
+            if (!res.ok) {
+                aiThreadRef.current.pop();
+                const errMsg = await res.text().catch(() => "");
+                setHistory((prev) => [
+                    ...prev,
+                    {
+                        command: displayLine,
                         output: (
-                            <div className="flex flex-col gap-1">
-                                <span>📧 <a href="mailto:pascualpau04@gmail.com" className="hover:text-[var(--color-accent)] underline">pascualpau04@gmail.com</a></span>
-                                <span>🐙 <a href="https://github.com/Pasquii4" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-accent)] underline">github.com/Pasquii4</a></span>
-                                <span>💼 <a href="https://linkedin.com/in/pau-pascual-vallverdu" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-accent)] underline">LinkedIn</a></span>
+                            <div className="text-red-400 font-mono text-sm">
+                                [AI] Error del servidor ({res.status}). {errMsg.slice(0, 240)}
                             </div>
                         ),
-                        type: "output"
-                    }]);
-                } else {
-                    setHistory(prev => [...prev, { command: trimmed, output: COMMANDS[trimmed], type: "output" }]);
-                }
-            } else if (trimmed === "open linkedin") {
-                setHistory(prev => [...prev, { command: trimmed, output: "Abriendo LinkedIn...", type: "system" }]);
-                window.open("https://linkedin.com/in/pau-pascual-vallverdu", "_blank");
-            } else {
-                setHistory(prev => [...prev, { command: trimmed, output: `zsh: command not found: ${trimmed}`, type: "error" }]);
+                        type: "error",
+                    },
+                ]);
+                return;
             }
-        }, 300); // Artificial delay to mimic reality
+            const reader = res.body?.getReader();
+            if (!reader) {
+                aiThreadRef.current.pop();
+                setHistory((prev) => [
+                    ...prev,
+                    {
+                        command: displayLine,
+                        output: <div className="text-red-400 font-mono">[AI] Sin cuerpo de respuesta.</div>,
+                        type: "error",
+                    },
+                ]);
+                return;
+            }
+            const decoder = new TextDecoder();
+            let lineBuffer = "";
+
+            const applyPiece = (piece: string) => {
+                full += piece;
+                if (reduceMotion) {
+                    lineCarry += piece;
+                    const lastNl = lineCarry.lastIndexOf("\n");
+                    if (lastNl >= 0) {
+                        setLiveAiText((prev) => (prev ?? "") + lineCarry.slice(0, lastNl + 1));
+                        lineCarry = lineCarry.slice(lastNl + 1);
+                    }
+                } else {
+                    setLiveAiText(full);
+                }
+            };
+
+            const parseDataLine = (line: string) => {
+                const t = line.trim();
+                if (!t.startsWith("data:")) return;
+                const payload = t.slice(5).trim();
+                if (payload === "[DONE]") return;
+                try {
+                    const json = JSON.parse(payload) as {
+                        choices?: Array<{ delta?: { content?: string } }>;
+                    };
+                    const piece = json.choices?.[0]?.delta?.content ?? "";
+                    if (piece) applyPiece(piece);
+                } catch {
+                    /* JSON incompleto o no es delta */
+                }
+            };
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                lineBuffer += decoder.decode(value, { stream: true });
+                const lines = lineBuffer.split("\n");
+                lineBuffer = lines.pop() ?? "";
+                for (const raw of lines) {
+                    parseDataLine(raw);
+                }
+            }
+            if (lineBuffer.trim()) {
+                parseDataLine(lineBuffer);
+            }
+            if (reduceMotion && lineCarry.length > 0) {
+                setLiveAiText(full);
+            }
+
+            aiThreadRef.current.push({ role: "assistant", content: full });
+            setHistory((prev) => [
+                ...prev,
+                {
+                    command: displayLine,
+                    output: (
+                        <div className="break-words whitespace-pre-wrap font-mono text-[var(--color-text)]">
+                            <span className="text-gray-500">[AI] </span>
+                            {full}
+                        </div>
+                    ),
+                    type: "output",
+                },
+            ]);
+        } catch {
+            if (aiThreadRef.current.at(-1)?.role === "user") {
+                aiThreadRef.current.pop();
+            }
+            setHistory((prev) => [
+                ...prev,
+                {
+                    command: displayLine,
+                    output: (
+                        <div className="text-red-400 font-mono text-sm">
+                            [AI] Error de red. Comprueba tu conexión o inténtalo más tarde.
+                        </div>
+                    ),
+                    type: "error",
+                },
+            ]);
+        } finally {
+            aiBusyRef.current = false;
+            setLiveAiText(null);
+        }
+    };
+
+    const handleCommand = (cmd: string) => {
+        const displayLine = cmd.trim();
+        const lower = displayLine.toLowerCase();
+
+        if (!displayLine) return;
+
+        setHistory((prev) => [...prev, { command: displayLine, output: displayLine, type: "input" }]);
+
+        setTimeout(async () => {
+            if (lower === "clear") {
+                setHistory([]);
+                aiThreadRef.current = [];
+                return;
+            }
+
+            if (lower === "github") {
+                setHistory((prev) => [
+                    ...prev,
+                    {
+                        command: "_gh_loading",
+                        output: <span className="text-gray-400">Consultando estadísticas GitHub…</span>,
+                        type: "system",
+                    },
+                ]);
+                try {
+                    const res = await fetch("/api/github-stats", { cache: "no-store" });
+                    const data = (await res.json()) as {
+                        public_repos?: number;
+                        followers?: number;
+                        public_gists?: number;
+                        fallback?: boolean;
+                    };
+                    const reposLabel =
+                        data.fallback === true
+                            ? `${data.public_repos ?? 10}+ (aprox.)`
+                            : String(data.public_repos ?? "—");
+                    const output = (
+                        <div className="whitespace-pre font-mono mt-2 text-[var(--color-text)]">
+                            {`> 🐙 GITHUB STATS ─────────────────
+> Repos públicos:  ${reposLabel}
+> Seguidores:      ${data.followers ?? "—"}
+> Gists públicos:  ${data.public_gists ?? "—"}
+>
+> > open github`}
+                        </div>
+                    );
+                    setHistory((prev) => [
+                        ...prev.filter((r) => r.command !== "_gh_loading"),
+                        { command: lower, output, type: "output" },
+                    ]);
+                } catch {
+                    setHistory((prev) => [
+                        ...prev.filter((r) => r.command !== "_gh_loading"),
+                        {
+                            command: lower,
+                            output: "Error: no se pudo obtener estadísticas de GitHub.",
+                            type: "error",
+                        },
+                    ]);
+                }
+                return;
+            }
+
+            if (lower === "ask") {
+                setHistory((prev) => [
+                    ...prev,
+                    {
+                        command: lower,
+                        output: (
+                            <div className="text-red-400">
+                                bash: ask: uso → ask &lt;pregunta&gt; (la pregunta va al asistente IA)
+                            </div>
+                        ),
+                        type: "error",
+                    },
+                ]);
+                return;
+            }
+
+            if (lower === "open linkedin") {
+                setHistory((prev) => [...prev, { command: lower, output: "Abriendo LinkedIn…", type: "system" }]);
+                window.open("https://www.linkedin.com/in/pau-pascual-vallverdu/", "_blank", "noopener,noreferrer");
+                return;
+            }
+            if (lower === "open github") {
+                setHistory((prev) => [...prev, { command: lower, output: "Abriendo GitHub…", type: "system" }]);
+                window.open("https://github.com/Pasquii4", "_blank", "noopener,noreferrer");
+                return;
+            }
+            if (lower === "download cv") {
+                setHistory((prev) => [...prev, { command: lower, output: "Abriendo CV (PDF)…", type: "system" }]);
+                window.open("/CV_PauPascual_2026.pdf", "_blank", "noopener,noreferrer");
+                return;
+            }
+
+            if (lower === "?" || lower === "help") {
+                const helpKey = "help";
+                setHistory((prev) => [...prev, { command: lower, output: COMMANDS[helpKey], type: "output" }]);
+                return;
+            }
+
+            if (COMMANDS[lower]) {
+                if (lower === "contact") {
+                    setHistory((prev) => [
+                        ...prev,
+                        {
+                            command: lower,
+                            output: (
+                                <div className="flex flex-col gap-1">
+                                    <span>
+                                        📧{" "}
+                                        <a
+                                            href="mailto:pascualpau04@gmail.com"
+                                            className="hover:text-[var(--color-accent)] underline"
+                                        >
+                                            pascualpau04@gmail.com
+                                        </a>
+                                    </span>
+                                    <span>
+                                        🐙{" "}
+                                        <a
+                                            href="https://github.com/Pasquii4"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="hover:text-[var(--color-accent)] underline"
+                                        >
+                                            github.com/Pasquii4
+                                        </a>
+                                    </span>
+                                    <span>
+                                        💼{" "}
+                                        <a
+                                            href="https://www.linkedin.com/in/pau-pascual-vallverdu/"
+                                            target="_blank"
+                                            rel="me noopener noreferrer"
+                                            className="hover:text-[var(--color-accent)] underline"
+                                        >
+                                            LinkedIn
+                                        </a>
+                                    </span>
+                                </div>
+                            ),
+                            type: "output",
+                        },
+                    ]);
+                } else {
+                    setHistory((prev) => [...prev, { command: lower, output: COMMANDS[lower], type: "output" }]);
+                }
+                return;
+            }
+
+            if (lower.startsWith("ask ")) {
+                const inner = displayLine.slice(4).trim();
+                if (!inner) {
+                    setHistory((prev) => [
+                        ...prev,
+                        {
+                            command: displayLine,
+                            output: <div className="text-red-400">bash: ask: falta la pregunta.</div>,
+                            type: "error",
+                        },
+                    ]);
+                    return;
+                }
+                await runAiStream(displayLine, inner);
+                return;
+            }
+
+            if (!isKnownLocalCommand(lower)) {
+                await runAiStream(displayLine, displayLine);
+                return;
+            }
+
+            setHistory((prev) => [
+                ...prev,
+                {
+                    command: lower,
+                    output: `zsh: command not found: ${displayLine}`,
+                    type: "error",
+                },
+            ]);
+        }, 300);
     };
 
     const handleKeyDown = (e: ReactKeyboardEvent<HTMLInputElement>) => {
@@ -433,32 +645,33 @@ export default function InteractiveTerminal() {
     };
 
     return (
-        <section id="terminal" className="py-16 md:py-20" role="region" aria-label="Interactive terminal">
+        <div id="terminal" className="w-full" role="region" aria-label="Interactive terminal">
             <div className="w-[90%] max-w-[800px] mx-auto">
-                <motion.h2
-                    initial={{ opacity: 0, y: 30 }}
+                <motion.p
+                    initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.5 }}
-                    className="font-mono text-[var(--color-accent)] text-2xl mb-8 flex items-center gap-3"
+                    transition={{ duration: reduceMotion ? 0 : 0.5 }}
+                    className="font-mono text-[var(--color-accent)] text-2xl mb-8 flex items-center gap-3 m-0"
                 >
-                    <Terminal className="w-8 h-8" />
+                    <Terminal className="w-8 h-8 shrink-0" aria-hidden />
                     ~/interactive-term
-                </motion.h2>
+                </motion.p>
 
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
+                    initial={reduceMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: reduceMotion ? 0 : 0.5 }}
                     className={`bg-[var(--bg-primary)] border rounded-xl overflow-hidden shadow-2xl transition-all duration-300 ${isFocused ? "border-[var(--color-accent)] shadow-[0_0_30px_rgba(var(--color-accent-rgb),0.15)]" : "border-[var(--color-border)]"
                         }`}
                     onClick={() => inputRef.current?.focus()}
                 >
                     {/* Fake Mac OS Header */}
                     <div className="bg-[var(--bg-surface)] px-4 py-3 flex items-center gap-2 border-b border-[var(--color-border)] relative">
-                        <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "#FF5F57" }}></div>
-                        <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "#FEBC2E" }}></div>
-                        <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "#28C840" }}></div>
+                        <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "#FF5F57" }} aria-hidden />
+                        <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "#FEBC2E" }} aria-hidden />
+                        <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "#28C840" }} aria-hidden />
                         <div className="absolute left-1/2 -translate-x-1/2 font-mono text-xs text-center text-gray-500">guest@pau-local:~</div>
                     </div>
 
@@ -468,8 +681,9 @@ export default function InteractiveTerminal() {
                             {history.map((record, i) => (
                                 <motion.div
                                     key={i}
-                                    initial={{ opacity: 0, x: -10 }}
+                                    initial={reduceMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
                                     animate={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: reduceMotion ? 0 : 0.2 }}
                                     className={`leading-relaxed ${record.type === 'system' ? 'text-gray-400 opacity-80' :
                                         record.type === 'error' ? 'text-red-400' :
                                             record.type === 'input' ? 'text-[var(--color-text)]' :
@@ -483,6 +697,19 @@ export default function InteractiveTerminal() {
                                 </motion.div>
                             ))}
                         </AnimatePresence>
+
+                        {liveAiText !== null && (
+                            <motion.div
+                                initial={reduceMotion ? { opacity: 1 } : { opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: reduceMotion ? 0 : 0.2 }}
+                                className="leading-relaxed text-[var(--color-text)]"
+                                aria-live="polite"
+                            >
+                                <span className="text-gray-500 font-mono">[AI] </span>
+                                <span className="break-words whitespace-pre-wrap font-mono">{liveAiText}</span>
+                            </motion.div>
+                        )}
 
                         <div className={`flex items-center mt-2 group transition-opacity duration-300 ${isBooting ? "opacity-40" : "opacity-100"}`}>
                             <span className="text-[var(--color-accent)] mr-2 whitespace-nowrap">guest@pau-local %</span>
@@ -506,6 +733,6 @@ export default function InteractiveTerminal() {
                     Press <kbd className="border border-white/20 rounded px-1">/</kbd> to focus terminal
                 </p>
             </div>
-        </section>
+        </div>
     );
 }
