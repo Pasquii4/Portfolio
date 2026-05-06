@@ -131,11 +131,10 @@ export default function Navbar() {
                     </button>
                     <button
                         onClick={() => setLocale(locale === 'es' ? 'en' : 'es')}
-                        className="h-10 px-4 flex items-center justify-center font-mono text-sm font-bold"
+                        className="h-10 px-3 flex items-center justify-center font-mono text-sm font-bold rounded-md border border-[var(--color-border)] shrink-0"
                         style={{
                             color: 'var(--color-text-muted)',
                             background: 'transparent',
-                            border: 'none',
                             transition: 'color 180ms cubic-bezier(0.16, 1, 0.3, 1)',
                         }}
                         onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-text)')}
@@ -143,7 +142,7 @@ export default function Navbar() {
                         aria-label={locale === 'es' ? 'Switch to English' : 'Cambiar a Español'}
                         title={locale === 'es' ? 'Switch to English' : 'Cambiar a Español'}
                     >
-                        {locale === 'es' ? 'EN' : 'ES'}
+                        {locale.toUpperCase()}
                     </button>
                     <ThemeToggle />
                     <button

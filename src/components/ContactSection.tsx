@@ -85,7 +85,7 @@ export default function ContactSection() {
         <motion.h2
           initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: true, amount: 0.05 }}
           transition={{ duration: reduceMotion ? 0 : 0.5 }}
           style={{
             fontSize: "var(--text-2xl)",
@@ -105,7 +105,7 @@ export default function ContactSection() {
         <motion.div
           initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: true, amount: 0.05 }}
           transition={{ duration: reduceMotion ? 0 : 0.8 }}
           className="bg-[var(--bg-surface)] p-[3rem] rounded-xl text-center border border-[var(--color-border)] max-w-[800px] mx-auto"
         >
@@ -224,7 +224,7 @@ export default function ContactSection() {
             <a
               href="https://github.com/Pasquii4"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="me noopener noreferrer"
               className="group w-full sm:w-auto flex-1 inline-flex justify-center items-center gap-2 px-6 py-3 bg-[var(--bg-primary)] border border-[var(--color-border)] rounded-lg text-[var(--color-text)] no-underline font-mono text-sm transition-all duration-300 hover:border-gray-400 hover:text-white hover:-translate-y-[2px]"
             >
               <Github className="w-5 h-5 shrink-0" aria-hidden />

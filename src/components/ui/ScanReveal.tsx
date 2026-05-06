@@ -15,7 +15,7 @@ export default function ScanReveal({ children, className = "" }: ScanRevealProps
         <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, amount: 0.05 }}
             className={`relative ${className}`}
         >
             {!reduceMotion && (

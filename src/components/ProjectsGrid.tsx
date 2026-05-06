@@ -181,7 +181,7 @@ export default function ProjectsGrid() {
                                 ) : null}
                                 <div className={`flex flex-col xl:flex-row justify-between xl:items-start mb-6 gap-3 ${!proj.image ? '' : 'px-0'}`}>
                                     <div>
-                                        <h4 className="text-2xl text-[var(--color-text)] font-sans group-hover:text-[var(--color-accent)] transition-colors m-0">{proj.title}</h4>
+                                        <h3 className="text-2xl text-[var(--color-text)] font-sans group-hover:text-[var(--color-accent)] transition-colors m-0">{proj.title}</h3>
                                         {(proj.title === "Bet Tracker") && (
                                             <p className="font-mono text-[var(--color-text-secondary)] text-[0.75rem] opacity-80 mt-1">
                                                 {t('projects.demo')}
@@ -304,7 +304,7 @@ export default function ProjectsGrid() {
                                     <div className="relative z-10 flex flex-col h-full pointer-events-none">
                                         <div className="flex flex-col xl:flex-row justify-between xl:items-start mb-4 gap-3">
                                             <div>
-                                                <h4 className="text-xl text-[var(--color-text)] font-heading group-hover:text-[var(--color-accent)] transition-colors m-0">{proj.title}</h4>
+                                                <h3 className="text-xl text-[var(--color-text)] font-heading group-hover:text-[var(--color-accent)] transition-colors m-0">{proj.title}</h3>
                                             </div>
                                         </div>
                                         <p className="text-[var(--color-text-secondary)] text-[0.9rem] mb-6 grow leading-[1.6]">

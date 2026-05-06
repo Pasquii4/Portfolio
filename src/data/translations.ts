@@ -92,9 +92,9 @@ export const translations: any = {
       catInfra: "Infra · DevOps",
       catAI: "IA · LLM",
       catTrading: "Trading · FinTech",
-      levelStrong: "Fuerte — uso habitual en producción",
-      levelComfortable: "Cómodo — proyectos reales, menos exposición",
-      levelExploring: "Explorando — aprendizaje activo",
+      levelStrong: "Fuerte · uso habitual",
+      levelComfortable: "Cómodo · proyectos reales",
+      levelExploring: "Explorando · aprendizaje activo",
       stackLegend:
         "Nivel: ●●● fuerte · ●●○ cómodo · ●○○ explorando. Pasa el cursor sobre cada tech para ver el nivel.",
     },
@@ -137,7 +137,7 @@ export const translations: any = {
       card3: {
         tag: "[Web]",
         title: "Productos web a medida",
-        desc: "Landings, dashboards, stores y SaaS con Next.js, Astro, Tailwind, deployados en Cloudflare Pages.",
+        desc: "Landings, dashboards, stores y SaaS con Next.js, Astro, Tailwind, deployados en Vercel / Cloudflare.",
       },
     },
     terminalStats: {
@@ -242,9 +242,9 @@ export const translations: any = {
       catInfra: "Infra · DevOps",
       catAI: "AI · LLM",
       catTrading: "Trading · FinTech",
-      levelStrong: "Strong — regular production use",
-      levelComfortable: "Comfortable — real projects, less depth",
-      levelExploring: "Exploring — actively learning",
+      levelStrong: "Strong · regular use",
+      levelComfortable: "Comfortable · real projects",
+      levelExploring: "Exploring · actively learning",
       stackLegend:
         "Level: ●●● strong · ●●○ comfortable · ●○○ exploring. Hover a row for the full label.",
     },
@@ -287,7 +287,7 @@ export const translations: any = {
       card3: {
         tag: "[Web]",
         title: "Custom web products",
-        desc: "Landings, dashboards, stores and SaaS with Next.js, Astro, Tailwind, deployed on Cloudflare Pages.",
+        desc: "Landings, dashboards, stores and SaaS with Next.js, Astro, Tailwind, deployed on Vercel / Cloudflare.",
       },
     },
     terminalStats: {

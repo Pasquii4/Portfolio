@@ -676,7 +676,7 @@ export default function InteractiveTerminal() {
                     </div>
 
                     {/* Window Content */}
-                    <div ref={scrollContainerRef} className="p-6 h-[350px] overflow-y-auto font-mono text-sm sm:text-base flex flex-col gap-3 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+                    <div ref={scrollContainerRef} className="p-6 h-[350px] overflow-y-auto overflow-x-hidden font-mono text-sm sm:text-base flex flex-col gap-3 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent break-words whitespace-pre-wrap">
                         <AnimatePresence>
                             {history.map((record, i) => (
                                 <motion.div
@@ -729,9 +729,11 @@ export default function InteractiveTerminal() {
                         </div>
                     </div>
                 </motion.div>
-                <p className="text-[10px] font-mono opacity-30 mt-3 text-right hidden md:block animate-[pulse_2s_ease-in-out_infinite]">
-                    Press <kbd className="border border-white/20 rounded px-1">/</kbd> to focus terminal
-                </p>
+                {!isFocused && !isBooting && (
+                    <p className="text-[10px] font-mono opacity-25 mt-2 text-right hidden md:block" aria-hidden="true">
+                        Press <kbd className="border border-white/15 rounded px-1">/</kbd> to focus
+                    </p>
+                )}
             </div>
         </div>
     );

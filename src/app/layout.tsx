@@ -26,7 +26,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Pau Pascual — Product Builder",
   description:
-    "Trading systems, AI agents and custom web products. Backend-first, product-minded. Based in Barcelona.",
+    "Sistemas de trading, agentes IA y webs a medida. Backend-first, product-minded. Basado en Barcelona · Disponible para prácticas y proyectos remotos.",
   keywords: ["Desarrollador Backend", "FinTech Developer", "Python", "FastAPI", "React", "Next.js", "Trading Algorítmico", "Microservicios"],
   authors: [{ name: "Pau Pascual", url: SITE_URL }],
   creator: "Pau Pascual",
@@ -137,6 +137,12 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased font-sans bg-[var(--bg-primary)] text-[var(--color-text)] overflow-x-hidden min-h-screen relative">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-black focus:text-white focus:rounded focus:outline-none focus:ring-2 focus:ring-white"
+        >
+          Saltar al contenido principal
+        </a>
         <Providers>
           <GrainOverlay />
           <CustomCursor />

@@ -35,7 +35,7 @@ export default function Home() {
           }}
         >
           <Navbar />
-          <main className="w-full flex justify-center mt-[10vh]">
+          <main id="main-content" className="w-full flex justify-center mt-[10vh]">
             <article className="max-w-[1200px] w-full px-5">
               <HeroDashboard />
               <TerminalStats />

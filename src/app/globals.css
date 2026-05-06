@@ -158,3 +158,12 @@ body::before {
     animation: none !important;
   }
 }
+
+/* content-visibility for off-screen sections to improve paint performance */
+#what-i-build,
+#stack,
+#projects,
+#contact {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
+}

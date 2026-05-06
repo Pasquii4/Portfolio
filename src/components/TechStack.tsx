@@ -117,13 +117,13 @@ export default function TechStack() {
                       <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2">
                         <span className="font-mono text-[13px] text-[var(--color-text)]">{item.name}</span>
                         <span
-                          className={`font-mono text-[9px] uppercase tracking-wider ${
+                          className={`font-mono text-[10px] ${
                             item.level === "strong"
                               ? "text-emerald-400/90"
                               : item.level === "comfortable"
                                 ? "text-amber-300/85"
                                 : "text-zinc-500"
-                          } max-w-[min(100%,11rem)] truncate opacity-70 transition-opacity group-hover:opacity-100 sm:opacity-0 sm:group-hover:opacity-100`}
+                          } max-w-[min(100%,12rem)] truncate opacity-70 transition-opacity group-hover:opacity-100 sm:opacity-0 sm:group-hover:opacity-100`}
                         >
                           {levelLabel}
                         </span>
