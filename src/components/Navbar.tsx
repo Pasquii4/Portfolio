@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from 'react';
+import { useReducedMotion } from 'framer-motion';
 import Link from 'next/link';
 import ThemeToggle from './ThemeToggle';
 import RecruiterMode from './RecruiterMode';
@@ -30,6 +31,7 @@ function availabilityBadgeClass(status: typeof availability.status): string {
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
+    const reduceMotion = useReducedMotion();
     const [activeSection, setActiveSection] = useState('#dashboard');
     const [scrollProgress, setScrollProgress] = useState(0);
     const [recruiterOpen, setRecruiterOpen] = useState(false);
@@ -97,7 +99,7 @@ export default function Navbar() {
             <div className="w-[90%] max-w-[1200px] mx-auto flex justify-between items-center h-[70px]">
                 <div className="flex items-center gap-3 sm:gap-4 flex-wrap min-w-0">
                     <Link href="#dashboard" className="font-mono text-xl font-bold text-[var(--color-text)] flex items-center gap-2 no-underline">
-                        Pau<span className="text-[var(--color-accent)]">_Pascual</span>
+                        Pau <span className="text-[var(--color-accent)]">Pascual</span><span className={`text-[var(--color-accent)] font-normal${reduceMotion ? '' : ' cursor-blink'}`} aria-hidden="true">_</span>
                     </Link>
                     <span
                         className={`inline-flex max-w-[min(220px,42vw)] sm:max-w-[min(200px,28vw)] items-center truncate rounded-full border px-2 py-1 sm:px-2.5 sm:py-1 font-mono text-[9px] sm:text-[11px] font-medium uppercase tracking-wide ${availabilityBadgeClass(availability.status)}`}

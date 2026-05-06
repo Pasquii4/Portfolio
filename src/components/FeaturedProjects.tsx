@@ -315,7 +315,7 @@ export default function FeaturedProjects() {
         locale === "es"
           ? t("featuredProjects.jarvisr.descEs")
           : t("featuredProjects.jarvisr.descEn"),
-      tags: ["Python", "FastAPI", "llama.cpp", "Ollama", "Rust", "uv"],
+      tags: ["Python", "FastAPI", "llama.cpp", "Ollama", "Home Assistant", "Raspberry Pi"],
       links: [
         {
           type: "github",
@@ -326,41 +326,51 @@ export default function FeaturedProjects() {
       snippet: (
         <pre className="whitespace-pre">
           <span style={{ color: "var(--color-text-muted)" }}>
-            # Setup Windows — un solo comando
+            # jarvis.toml — configuración local-first
           </span>
           {"\n"}
-          <span style={{ color: "oklch(from var(--color-accent) l c h / 0.88)" }}>
-            ./
-          </span>
-          setup_jarvisr.bat
-          {"\n\n"}
-          <span style={{ color: "var(--color-text-muted)" }}>
-            # Verificar motores disponibles
+          <span style={{ color: "oklch(from var(--color-accent) l c h / 0.92)" }}>
+            [engine]
           </span>
           {"\n"}
-          uv run python verify_engines.py
-          {"\n\n"}
-          <span style={{ color: "var(--color-text-muted)" }}>
-            # Arrancar con el engine local
-          </span>
-          {"\n"}
-          uv run jarvis ask{" "}
+          {"provider  = "}
           <span style={{ color: "oklch(from var(--color-accent) l c h / 0.85)" }}>
-            "Resumen de mis emails de hoy"
+            "ollama"
+          </span>
+          {"  "}
+          <span style={{ color: "var(--color-text-muted)" }}># local por defecto</span>
+          {"\n"}
+          {"fallback  = "}
+          <span style={{ color: "oklch(from var(--color-accent) l c h / 0.85)" }}>
+            "groq"
+          </span>
+          {"\n\n"}
+          <span style={{ color: "oklch(from var(--color-accent) l c h / 0.92)" }}>
+            [integrations]
+          </span>
+          {"\n"}
+          {"home_assistant = "}
+          <span style={{ color: "oklch(from var(--color-accent) l c h / 0.85)" }}>
+            "http://homeassistant.local:8123"
+          </span>
+          {"\n"}
+          {"nas_url        = "}
+          <span style={{ color: "oklch(from var(--color-accent) l c h / 0.85)" }}>
+            "http://nas.local:5000"
+          </span>
+          {"\n\n"}
+          <span style={{ color: "var(--color-text-muted)" }}>
+            # → Engine: Ollama (local) ✓
           </span>
           {"\n"}
           <span style={{ color: "var(--color-text-muted)" }}>
-            # → Engine: llama.cpp (local) ✓
-          </span>
-          {"\n"}
-          <span style={{ color: "var(--color-text-muted)" }}>
-            # → Latency: 340ms
+            # → Latency: 290ms · Zero cloud · Full control
           </span>
         </pre>
       ),
     };
 
-    return [trading, jarvisr];
+    return [jarvisr, trading];
   }, [locale, t]);
 
   return (

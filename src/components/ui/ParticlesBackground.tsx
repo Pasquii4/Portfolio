@@ -4,31 +4,24 @@ import { useEffect, useState, useMemo } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { type Container, type ISourceOptions } from "@tsparticles/engine";
 import { loadSlim } from "@tsparticles/slim";
-import { useScroll, useTransform, motion } from "framer-motion";
 
 export default function ParticlesBackground() {
     const [init, setInit] = useState(false);
-    const { scrollY } = useScroll();
-    const yParallax = useTransform(scrollY, [0, 2000], [0, 600]); // translateY(scrollY * 0.3)
 
-    // Initialization
     useEffect(() => {
         initParticlesEngine(async (engine) => {
-            // slim version includes the features we need
             await loadSlim(engine);
         }).then(() => {
             setInit(true);
         });
     }, []);
 
-    const particlesLoaded = async (container?: Container): Promise<void> => {
-        // optional callback for after load
-    };
+    const particlesLoaded = async (container?: Container): Promise<void> => {};
 
     const options: ISourceOptions = useMemo(
         () => ({
             fullScreen: {
-                enable: false, // We control sizing via wrapper manually for the parallax effect
+                enable: false,
                 zIndex: 1
             },
             particles: {
@@ -91,10 +84,8 @@ export default function ParticlesBackground() {
     if (!init) return null;
 
     return (
-        <motion.div
-            className="absolute inset-0 w-full h-full pointer-events-none z-[1]"
-            style={{ y: yParallax }}
-        >
+        /* Cubre todo el hero (padre con position:relative + overflow:hidden lo recorta) */
+        <div className="absolute inset-0 w-full h-full pointer-events-none z-0" aria-hidden="true">
             <div className="absolute inset-0 w-full h-full pointer-events-auto">
                 <Particles
                     id="tsparticles"
@@ -103,6 +94,11 @@ export default function ParticlesBackground() {
                     className="w-full h-full"
                 />
             </div>
-        </motion.div>
+            {/* Fade-out en el 25% inferior para transición suave hacia el negro */}
+            <div
+                className="absolute bottom-0 left-0 w-full pointer-events-none z-10"
+                style={{ height: "25%", background: "linear-gradient(to bottom, transparent, var(--bg-primary))" }}
+            />
+        </div>
     );
 }

@@ -52,9 +52,12 @@ export default function AboutSection() {
                             <h3 className="font-mono text-[var(--color-accent)] text-lg mb-4 font-bold border-b border-[var(--color-border)] pb-2 m-0">
                                 {t('about.bgTitle')}
                             </h3>
-                            <p className="mb-6 text-[0.95rem] md:text-[1.1rem]">
-                                {t('about.bgDesc')}
-                            </p>
+                            <div className="flex flex-col gap-4 mb-6 text-[0.95rem] md:text-[1.05rem]">
+                                <p>{t('about.bgDesc')}</p>
+                                <p>{t('about.bgP2')}</p>
+                                <p>{t('about.bgP3')}</p>
+                                <p>{t('about.bgP4')}</p>
+                            </div>
 
                             <div className="relative border-l border-[var(--color-border)] ml-3 pl-6 mt-8 flex flex-col gap-8">
                                 <div className="relative">

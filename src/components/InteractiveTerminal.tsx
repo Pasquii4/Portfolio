@@ -13,7 +13,7 @@ interface CommandRecord {
 
 const COMMANDS: Record<string, React.ReactNode> = {
     help: (
-        <div className="whitespace-pre font-mono">
+        <div className="whitespace-pre-wrap font-mono">
             {`> ── Información personal ─────────────────────
 >   whoami       Mi perfil en una línea
 >   experience   Proyectos y experiencia laboral
@@ -53,7 +53,7 @@ const COMMANDS: Record<string, React.ReactNode> = {
     clear: "Limpiando terminal...",
     "sudo rm -rf /": "Permiso denegado. Este incidente será reportado.",
     "ls projects/": (
-        <div className="whitespace-pre font-mono">
+        <div className="whitespace-pre-wrap font-mono">
             {`> trading_scanner/
 > jarvisr/
 > bettracker/
@@ -62,7 +62,7 @@ const COMMANDS: Record<string, React.ReactNode> = {
         </div>
     ),
     "ls proyectos/": (
-        <div className="whitespace-pre font-mono">
+        <div className="whitespace-pre-wrap font-mono">
             {`> trading_scanner/
 > jarvisr/
 > bettracker/
@@ -71,13 +71,13 @@ const COMMANDS: Record<string, React.ReactNode> = {
         </div>
     ),
     "cat about.txt": (
-        <div className="whitespace-pre font-mono">
+        <div className="whitespace-pre-wrap font-mono">
             {`> Backend-first, product-minded.
 > I build from API to deploy.`}
         </div>
     ),
     "cat skills.txt": (
-        <div className="whitespace-pre font-mono">
+        <div className="whitespace-pre-wrap font-mono">
             {`> ── Languages ─────────────────────
 >   Python, JavaScript/TypeScript, SQL, Java
 >
@@ -89,7 +89,7 @@ const COMMANDS: Record<string, React.ReactNode> = {
         </div>
     ),
     experience: (
-        <div className="whitespace-pre font-mono">
+        <div className="whitespace-pre-wrap font-mono">
             {`> Proyectos destacados:
 >   · Trading Scanner    — FastAPI + WebSockets + PostgreSQL [Privado]
 >   · RL Boosting ES     — Astro + TypeScript + Cloudflare Pages [Live 🟢]
@@ -100,7 +100,7 @@ const COMMANDS: Record<string, React.ReactNode> = {
         </div>
     ),
     education: (
-        <div className="whitespace-pre font-mono">
+        <div className="whitespace-pre-wrap font-mono">
             {`> CFGM (Grado Medio) ————————————————— Completado ✓
 > CFGS DAW (Desarrollo de Aplicaciones Web) — En curso 📚
 > Centro d'Estudis Politècnics · Barcelona
@@ -110,14 +110,14 @@ const COMMANDS: Record<string, React.ReactNode> = {
         </div>
     ),
     languages: (
-        <div className="whitespace-pre font-mono">
+        <div className="whitespace-pre-wrap font-mono">
             {`> 🇪🇸 Español  ——  Nativo
 > 🏴 Català    ——  Nativo
 > 🇬🇧 English  ——  Intermedio-Alto (B2)`}
         </div>
     ),
     interests: (
-        <div className="whitespace-pre font-mono">
+        <div className="whitespace-pre-wrap font-mono">
             {`> · FinTech & Trading algorítmico
 > · Arquitectura de microservicios y sistemas escalables
 > · APIs financieras en tiempo real (Polygon, Alpha Vantage)
@@ -126,7 +126,7 @@ const COMMANDS: Record<string, React.ReactNode> = {
         </div>
     ),
     availability: (
-        <div className="whitespace-pre font-mono">
+        <div className="whitespace-pre-wrap font-mono">
             {`> ╔══════════════════════════════════════╗
 > ║  Estado: 🟢 DISPONIBLE               ║
 > ║  Modalidad: Parcial Remoto · Prácticas ║
@@ -137,14 +137,14 @@ const COMMANDS: Record<string, React.ReactNode> = {
         </div>
     ),
     social: (
-        <div className="whitespace-pre font-mono">
+        <div className="whitespace-pre-wrap font-mono">
             {`> GitHub   → `}<a href="https://github.com/Pasquii4" target="_blank" rel="noopener noreferrer" className="hover:text-white underline">https://github.com/Pasquii4</a>{`               [→ abre nueva pestaña]
 > LinkedIn → `}<a href="https://www.linkedin.com/in/pau-pascual-vallverdu/" target="_blank" rel="me noopener noreferrer" className="hover:text-white underline">linkedin.com/in/pau-pascual-vallverdu</a>{`      [→ abre nueva pestaña]
 > Email    → `}<a href="mailto:pascualpau04@gmail.com" className="hover:text-white underline">pascualpau04@gmail.com</a>{`                     [→ abre mailto]`}
         </div>
     ),
     stack: (
-        <div className="whitespace-pre font-mono">
+        <div className="whitespace-pre-wrap font-mono">
             {`> ── Backend ──────────────────────────────
 >   Python 85% · FastAPI 72% · Docker 75%
 >   SQL 80% · PostgreSQL 80%
@@ -455,7 +455,7 @@ export default function InteractiveTerminal() {
                             ? `${data.public_repos ?? 10}+ (aprox.)`
                             : String(data.public_repos ?? "—");
                     const output = (
-                        <div className="whitespace-pre font-mono mt-2 text-[var(--color-text)]">
+                        <div className="whitespace-pre-wrap font-mono mt-2 text-[var(--color-text)]">
                             {`> 🐙 GITHUB STATS ─────────────────
 > Repos públicos:  ${reposLabel}
 > Seguidores:      ${data.followers ?? "—"}

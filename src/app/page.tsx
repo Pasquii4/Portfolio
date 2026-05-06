@@ -9,6 +9,7 @@ import TechStack from "@/components/TechStack";
 import ProjectsGrid from "@/components/ProjectsGrid";
 import WhatIBuildSection from "@/components/WhatIBuildSection";
 import FeaturedProjects from "@/components/FeaturedProjects";
+import AiAssistantSection from "@/components/AiAssistantSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
@@ -42,6 +43,7 @@ export default function Home() {
               <AboutSection />
               <WhatIBuildSection />
               <FeaturedProjects />
+              <AiAssistantSection />
               <ProjectsGrid />
               <TechStack />
               <ContactSection />

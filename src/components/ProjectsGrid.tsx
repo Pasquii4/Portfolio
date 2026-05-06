@@ -10,7 +10,7 @@ import { ChevronDown } from "lucide-react";
 export default function ProjectsGrid() {
     const { t } = useTranslation();
     const reduceMotion = useReducedMotion();
-    const [academicOpen, setAcademicOpen] = useState(false);
+    const [academicOpen, setAcademicOpen] = useState(true);
 
     const containerVariants: Variants = useMemo(
         () =>

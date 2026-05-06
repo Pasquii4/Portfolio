@@ -1,8 +1,8 @@
 /**
  * Stack técnico por categoría y nivel de dominio.
- * - strong: uso habitual en producción o proyectos serios
- * - comfortable: proyectos reales, menos exposición
- * - exploring: aprendizaje activo o uso puntual
+ * - strong:      uso habitual en proyectos reales, me siento seguro
+ * - comfortable: proyectos reales, menos profundidad o frecuencia
+ * - exploring:   uso práctico pero aún en aprendizaje activo
  */
 export type StackLevel = "strong" | "comfortable" | "exploring";
 
@@ -22,56 +22,52 @@ export const techStackCategories: StackCategory[] = [
   {
     id: "backend",
     items: [
-      { name: "Python", level: "strong" },
-      { name: "FastAPI", level: "strong" },
-      { name: "PostgreSQL", level: "strong" },
-      { name: "SQL", level: "strong" },
-      { name: "REST APIs", level: "strong" },
-      { name: "WebSockets", level: "strong" },
-      { name: "Node.js", level: "comfortable" },
+      // Fuerte
+      { name: "Python · FastAPI (pipelines, APIs, automatización)", level: "strong" },
+      { name: "PostgreSQL · SQL (modelos de datos, queries complejas)", level: "strong" },
+      { name: "APIs REST y WebSockets (diseño y patrones básicos de arquitectura)", level: "strong" },
+      // Cómodo
+      { name: "Node.js (servicios sencillos, integraciones, utilidades)", level: "comfortable" },
+      { name: "Jobs, colas ligeras y tareas programadas", level: "comfortable" },
     ],
   },
   {
     id: "frontend",
     items: [
-      { name: "React", level: "comfortable" },
-      { name: "Next.js", level: "comfortable" },
+      { name: "React · Next.js App Router (dashboards, productos web)", level: "comfortable" },
       { name: "TypeScript", level: "comfortable" },
       { name: "Tailwind CSS", level: "comfortable" },
-      { name: "Astro", level: "comfortable" },
-      { name: "Vite", level: "comfortable" },
-    ],
-  },
-  {
-    id: "infra",
-    items: [
-      { name: "Docker", level: "strong" },
-      { name: "Cloudflare Pages", level: "comfortable" },
-      { name: "Vercel", level: "comfortable" },
-      { name: "Git / CI", level: "comfortable" },
-      { name: "Linux · deploy", level: "comfortable" },
-      { name: "uv · Rust (tooling)", level: "exploring" },
+      { name: "Astro · Vite (landings, SSG, SEO y conversión)", level: "comfortable" },
     ],
   },
   {
     id: "ai",
     items: [
-      { name: "Groq", level: "comfortable" },
-      { name: "llama.cpp", level: "comfortable" },
-      { name: "Ollama", level: "comfortable" },
-      { name: "OpenRouter", level: "comfortable" },
-      { name: "Python agents", level: "comfortable" },
-      { name: "PyTorch", level: "exploring" },
+      // Fuerte en local-first
+      { name: "llama.cpp · Ollama (modelos locales, local-first)", level: "strong" },
+      { name: "Groq · OpenRouter (cloud fallback por coste/latencia)", level: "strong" },
+      { name: "Agentes con herramientas, contexto y APIs propias", level: "strong" },
+      // Cómodo
+      { name: "Python agents sin frameworks pesados", level: "comfortable" },
     ],
   },
   {
     id: "trading",
     items: [
-      { name: "Technical indicators (RSI, MACD, BB)", level: "strong" },
-      { name: "Scanner / real-time feeds", level: "strong" },
-      { name: "Binance-style REST & WebSocket APIs", level: "comfortable" },
-      { name: "Polygon / Alpha Vantage-style data", level: "comfortable" },
-      { name: "Backtesting pipelines", level: "comfortable" },
+      { name: "Indicadores técnicos: RSI, MACD, Bollinger Bands, volumen", level: "strong" },
+      { name: "Pipelines de backtesting y análisis de señales históricas", level: "strong" },
+      { name: "Dashboards para decisiones de trading y análisis de performance", level: "strong" },
+      { name: "Data feeds REST y WebSocket estilo Binance / Polygon", level: "comfortable" },
+    ],
+  },
+  {
+    id: "infra",
+    items: [
+      { name: "Docker · Docker Compose (desarrollo y demos reproducibles)", level: "comfortable" },
+      { name: "Vercel · Cloudflare Pages/Workers (deploys low-cost)", level: "comfortable" },
+      { name: "Home infra: NAS, Raspberry Pi, VPN (agentes locales y servicios propios)", level: "comfortable" },
+      { name: "Git · Linux · uv", level: "comfortable" },
+      { name: "CI/CD avanzado · MLOps · orquestación cloud", level: "exploring" },
     ],
   },
 ];

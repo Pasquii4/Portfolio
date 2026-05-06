@@ -12,20 +12,6 @@ function pickPublicLinks(project: Project) {
   return project.links.filter((l) => l.url.startsWith("http") && !l.url.startsWith("mailto")).slice(0, 2);
 }
 
-function topSkillsFromProjects(count: number): string[] {
-  const seen = new Set<string>();
-  const out: string[] = [];
-  for (const p of projects) {
-    for (const tag of p.tags) {
-      if (seen.has(tag)) continue;
-      seen.add(tag);
-      out.push(tag);
-      if (out.length >= count) return out;
-    }
-  }
-  return out;
-}
-
 type RecruiterModeProps = {
   open: boolean;
   onClose: () => void;
@@ -36,11 +22,14 @@ export default function RecruiterMode({ open, onClose }: RecruiterModeProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeBtnRef = useRef<HTMLButtonElement>(null);
 
-  const topProjects = useMemo(() => projects.slice(0, 3), []);
-  const topSkills = useMemo(() => topSkillsFromProjects(3), []);
+  const topProjects = useMemo(() => projects.filter((p) => p.featured).slice(0, 3), []);
 
-  const tagline = `${t("hero.greeting")} Pau Pascual — ${t("hero.role1")}`;
-  const summary = t("about.bgDesc");
+  const bullets = useMemo(() => [
+    { label: t("recruiter.whatIdoLabel"), text: t("recruiter.whatIdo") },
+    { label: t("recruiter.howIworkLabel"), text: t("recruiter.howIwork") },
+    { label: t("recruiter.lookingForLabel"), text: t("recruiter.lookingFor") },
+    { label: t("recruiter.whereIfitLabel"), text: t("recruiter.whereIfit") },
+  ], [t]);
 
   useEffect(() => {
     if (!open) return;
@@ -93,7 +82,7 @@ export default function RecruiterMode({ open, onClose }: RecruiterModeProps) {
   if (!open) return null;
 
   const titleId = "recruiter-dialog-title";
-  const descId = "recruiter-dialog-desc";
+  const descId = "recruiter-bullets-list";
 
   return (
     <div
@@ -133,28 +122,14 @@ export default function RecruiterMode({ open, onClose }: RecruiterModeProps) {
           </button>
         </div>
 
-        <p id={descId} className="text-sm text-[var(--color-text-secondary)] mb-4 leading-relaxed">
-          {tagline}
-        </p>
-        <p className="text-sm text-[var(--color-text)] mb-6 leading-relaxed border-b border-[var(--color-border)] pb-6">
-          {summary}
-        </p>
-
-        <section className="mb-6" aria-labelledby="recruiter-skills-heading">
-          <h3 id="recruiter-skills-heading" className="font-mono text-xs uppercase tracking-wider text-[var(--color-text-secondary)] mb-2">
-            {t("recruiter.skillsTitle")}
-          </h3>
-          <ul className="flex flex-wrap gap-2">
-            {topSkills.map((skill) => (
-              <li
-                key={skill}
-                className="rounded-md border border-[rgba(var(--color-accent-rgb),0.25)] bg-[rgba(var(--color-accent-rgb),0.08)] px-3 py-1 font-mono text-sm text-[var(--color-accent)]"
-              >
-                {skill}
-              </li>
-            ))}
-          </ul>
-        </section>
+        <ul id={descId} className="space-y-4 mb-6 border-b border-[var(--color-border)] pb-6">
+          {bullets.map(({ label, text }) => (
+            <li key={label} className="text-sm leading-relaxed">
+              <span className="font-semibold text-[var(--color-text)]">{label}. </span>
+              <span className="text-[var(--color-text-secondary)]">{text}</span>
+            </li>
+          ))}
+        </ul>
 
         <section className="mb-6" aria-labelledby="recruiter-projects-heading">
           <h3 id="recruiter-projects-heading" className="font-mono text-xs uppercase tracking-wider text-[var(--color-text-secondary)] mb-3">
@@ -190,6 +165,10 @@ export default function RecruiterMode({ open, onClose }: RecruiterModeProps) {
           </ul>
         </section>
 
+        <p className="text-sm text-[var(--color-text-secondary)] mb-5 leading-relaxed italic border-l-2 border-[rgba(var(--color-accent-rgb),0.4)] pl-3">
+          {t("recruiter.cta")}
+        </p>
+
         <section aria-labelledby="recruiter-contact-heading">
           <h3 id="recruiter-contact-heading" className="font-mono text-xs uppercase tracking-wider text-[var(--color-text-secondary)] mb-2">
             {t("recruiter.contactTitle")}
@@ -205,7 +184,7 @@ export default function RecruiterMode({ open, onClose }: RecruiterModeProps) {
         </section>
 
         <p className="mt-6 font-mono text-[10px] text-[var(--color-text-secondary)] opacity-70">
-          {t("recruiter.shortcut")} · {locale.toUpperCase()}
+          {t("recruiter.shortcut")}
         </p>
       </div>
     </div>
