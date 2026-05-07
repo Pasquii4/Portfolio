@@ -12,7 +12,7 @@ export default function HeroDashboard() {
     const reduceMotion = useReducedMotion();
 
     const heroHeadline = t("hero.role1");
-    const titles = [t("hero.role1"), t("hero.role2"), t("hero.role3"), t("hero.role4")];
+    const titles = [t("hero.role2"), t("hero.role3"), t("hero.role4")];
     const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
 
     const { displayedTexts, activeIndex, isFinished } = useTypewriter([heroHeadline]);
@@ -82,15 +82,24 @@ export default function HeroDashboard() {
                                 </motion.p>
                             </AnimatePresence>
                         </div>
-                        <p className="text-[var(--color-text-secondary)] text-[1.1rem] mb-8 max-w-[500px]">
+                        <p className="text-[var(--color-text-secondary)] text-[1.1rem] mb-4 max-w-[560px] leading-relaxed">
                             {t('hero.desc')}
+                        </p>
+                        <p className="font-mono text-[0.8rem] text-[var(--color-text-secondary)] opacity-80 mb-8 max-w-[560px] leading-relaxed">
+                            {t('hero.availability')}
                         </p>
 
                         <div className="flex flex-wrap gap-4">
-                            <a href="#projects" className="inline-flex items-center justify-center px-6 py-3 rounded font-mono text-[0.9rem] font-bold text-[var(--color-accent)] border border-[var(--color-accent)] transition-all duration-300 hover:shadow-[inset_0_4rem_0_0_var(--color-accent)] hover:text-[var(--bg-primary)] no-underline">
+                            <a href="#featured-projects" className="inline-flex items-center justify-center px-6 py-3 rounded font-mono text-[0.9rem] font-bold text-[var(--color-accent)] border border-[var(--color-accent)] transition-all duration-300 hover:shadow-[inset_0_4rem_0_0_var(--color-accent)] hover:text-[var(--bg-primary)] no-underline">
                                 {t("hero.btnProjects")}
                             </a>
-                            <a href="mailto:pascualpau04@gmail.com?subject=CV%20Pau%20Pascual%202026" className="inline-flex items-center justify-center px-6 py-3 rounded font-mono text-[0.9rem] font-bold text-[var(--color-text)] bg-[var(--bg-surface)] border border-[var(--bg-hover)] transition-all duration-300 hover:bg-[var(--bg-hover)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)] no-underline">
+                            <a
+                                href="/CV_PauPascual_2026.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                download
+                                className="inline-flex items-center justify-center px-6 py-3 rounded font-mono text-[0.9rem] font-bold text-[var(--color-text)] bg-[var(--bg-surface)] border border-[var(--bg-hover)] transition-all duration-300 hover:bg-[var(--bg-hover)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)] no-underline"
+                            >
                                 {t("hero.btnCV")}
                             </a>
                         </div>

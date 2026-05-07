@@ -31,20 +31,20 @@ export const projects: Project[] = [
         title: "JARVISR · Asistente de IA local-first",
         featured: true,
         status: { label: "Activo · Open Source", type: "live" },
-        desc: "Asistente de IA personal que corre localmente por defecto, conectado a NAS, Home Assistant y otros servicios propios a través de red interna y VPN. Gestiona información, dispara automatizaciones y es accesible desde cualquier dispositivo.",
-        longDesc: "Core en Python con FastAPI, engines locales (llama.cpp, Ollama) y fallback opcional a cloud (Groq, OpenRouter). Configuración vía TOML y scripts de instalación para Windows y Raspberry Pi. En desarrollo: detección de gestos, navegación por planos y control de pantallas y dispositivos, siempre desde filosofía local-first.",
-        tags: ["Python", "FastAPI", "llama.cpp", "Ollama", "Raspberry Pi"],
+        desc: "Asistente de IA personal local-first integrado en mi propio ecosistema — PC, Raspberry Pi y NAS — y conectado con Home Assistant y servicios self-hosted vía red interna y VPN. Sistema, no chatbot.",
+        longDesc: "Core en Python con FastAPI y motores locales (llama.cpp, Ollama), con fallback opcional a cloud (Groq, OpenRouter) cuando hace falta velocidad. Configuración vía TOML y scripts de instalación para Windows y Raspberry Pi. Diseñado para crecer hacia interfaces más naturales: control por gestos, navegación por planos y orquestación de pantallas y dispositivos, siempre desde filosofía local-first (control, privacidad, libertad).",
+        tags: ["Python", "FastAPI", "llama.cpp", "Ollama", "Raspberry Pi", "Home Assistant"],
         image: "/og-image.jpg",
         links: [
             { url: "https://github.com/Pasquii4/JARVISR", label: "Ver Código", icon: "github" }
         ]
     },
     {
-        title: "Trading Scanner · Scanner multi-activo",
+        title: "Trading Scanner · Sistema multi-activo de señales y análisis",
         featured: true,
         status: { label: "Archivado · Open Source", type: "public" },
-        desc: "Sistema de escaneo de mercados que analiza cientos de activos combinando precio, histórico, indicadores técnicos (RSI, MACD, Bollinger Bands) y fuentes externas para generar señales con contexto (LONG/SHORT, entrada, take profit, stop loss).",
-        longDesc: "Backend FastAPI + motor de escaneo paralelo en Python + PostgreSQL para histórico y señales + scripts de data population y backtesting. Frontend React/Vite con dashboard interactivo. Orquestación Docker Compose completa. Pausado por coste real de APIs de datos institucionales en tiempo real — arquitectura production-grade.",
+        desc: "Sistema diseñado para escanear más de 500 activos cruzando precio en tiempo real, histórico, indicadores técnicos, noticias y señales externas para producir alertas y zonas LONG/SHORT con entrada, take profit y stop loss.",
+        longDesc: "Backend FastAPI + motor de escaneo paralelo en Python + PostgreSQL para histórico y señales + scripts de data population y backtesting. Frontend React/Vite con dashboard interactivo de alertas, predicciones y métricas. Orquestación Docker Compose completa. Pausado por coste real de APIs de datos institucionales en tiempo real, no por la arquitectura.",
         tags: ["Python", "FastAPI", "PostgreSQL", "Docker", "React"],
         image: "/og-image.jpg",
         links: [
@@ -52,15 +52,15 @@ export const projects: Project[] = [
         ]
     },
     {
-        title: "Performance Tracker · Plataforma de rendimiento y ROI",
+        title: "Performance Tracker · Plataforma social de rendimiento y ROI",
         featured: true,
-        status: { label: "Privado", type: "private" },
-        desc: "Aplicación social centrada en rendimiento y estadísticas: registro de operaciones, comparación de rentabilidades, seguimiento de perfiles y análisis de rachas y métricas de largo plazo.",
-        longDesc: "Foco en la parte analítica: cálculo de ROI por período, análisis de rachas, Kelly Criterion para dimensionar riesgo y visualización de la evolución del capital en el tiempo con gráficos limpios y filtrables. Construido con JavaScript/TypeScript, HTML semántico y Chart.js, sin frameworks pesados.",
-        tags: ["JavaScript", "TypeScript", "Chart.js", "HTML", "CSS"],
+        status: { label: "Beta privada", type: "private" },
+        desc: "Plataforma social inspirada en eToro: perfiles verificados, ranking por ROI y métricas de largo plazo. Foco en analytics y comparativa de rendimiento, no en el resultado puntual.",
+        longDesc: "Cada perfil mantiene un histórico inmutable y la app calcula ROI por período, evolución de capital, rachas, ranking global y dimensionamiento de riesgo con Kelly Criterion a través de visualizaciones limpias y filtrables. Stack TypeScript + Chart.js + HTML semántico, sin frameworks pesados, pensado para ser rápido y fácil de mantener.",
+        tags: ["TypeScript", "Chart.js", "Analytics", "Social", "ROI"],
         image: "/og-image.jpg",
         links: [
-            { url: "mailto:pascualpau04@gmail.com?subject=Solicitud%20acceso%20repo%20Performance%20Tracker", label: "🔒 Privado · Solicitar acceso", style: { opacity: 0.6 } }
+            { url: "mailto:pascualpau04@gmail.com?subject=Solicitud%20acceso%20Performance%20Tracker", label: "🔒 Privado · Solicitar acceso", style: { opacity: 0.6 } }
         ]
     },
     // ── OTROS ───────────────────────────────────────────────────────────────────

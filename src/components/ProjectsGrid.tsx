@@ -70,7 +70,7 @@ export default function ProjectsGrid() {
         };
 
         const priority: Record<string, number> = {
-            "Bet Tracker": 0,
+            "Tu Espacio Ideal": 0,
             "RL Boosting ES": 1,
         };
 
@@ -143,11 +143,6 @@ export default function ProjectsGrid() {
                                 <div className={`flex flex-col xl:flex-row justify-between xl:items-start mb-6 gap-3 ${!proj.image ? '' : 'px-0'}`}>
                                     <div>
                                         <h3 className="text-2xl text-[var(--color-text)] font-sans group-hover:text-[var(--color-accent)] transition-colors m-0">{proj.title}</h3>
-                                        {(proj.title === "Bet Tracker") && (
-                                            <p className="font-mono text-[var(--color-text-secondary)] text-[0.75rem] opacity-80 mt-1">
-                                                {t('projects.demo')}
-                                            </p>
-                                        )}
                                     </div>
                                     <div className="flex flex-wrap gap-2 items-center">
                                         {proj.status && (

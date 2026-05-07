@@ -29,6 +29,7 @@ export default function RecruiterMode({ open, onClose }: RecruiterModeProps) {
     { label: t("recruiter.howIworkLabel"), text: t("recruiter.howIwork") },
     { label: t("recruiter.lookingForLabel"), text: t("recruiter.lookingFor") },
     { label: t("recruiter.whereIfitLabel"), text: t("recruiter.whereIfit") },
+    { label: t("recruiter.howWeStartLabel"), text: t("recruiter.howWeStart") },
   ], [t]);
 
   useEffect(() => {

@@ -7,11 +7,14 @@ import { useTranslation } from "@/hooks/useTranslation";
 
 type CaseStudy = {
   tag: string;
+  indexLabel: string;
   title: string;
+  subtitle?: string;
   status: string;
   description: string;
   tags: string[];
   landingHref: string;
+  viewLabel: string;
   links: Array<
     | { type: "github"; label: string; href: string }
     | { type: "access"; label: string; href: string }
@@ -127,6 +130,22 @@ function StatusPill({ children }: { children: React.ReactNode }) {
   );
 }
 
+function IndexMarker({ label }: { label: string }) {
+  return (
+    <span
+      className="font-mono uppercase tracking-[0.2em] ml-auto"
+      style={{
+        fontSize: "0.65rem",
+        color: "var(--color-text-muted)",
+        opacity: 0.7,
+      }}
+      aria-hidden
+    >
+      {label}
+    </span>
+  );
+}
+
 function TechPills({ tags }: { tags: string[] }) {
   return (
     <div className="flex flex-wrap gap-2">
@@ -223,21 +242,40 @@ function CaseStudyCard({ cs }: { cs: CaseStudy }) {
     >
       {/* Left (60%) */}
       <div className="md:col-span-3 flex flex-col gap-4">
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3 w-full">
           <TagPill>{cs.tag}</TagPill>
           <StatusPill>{cs.status}</StatusPill>
+          <IndexMarker label={cs.indexLabel} />
         </div>
 
-        <h3
-          className="font-heading text-[var(--color-text)]"
-          style={{
-            fontSize: "var(--text-xl)",
-            fontWeight: 600,
-            lineHeight: 1.25,
-          }}
-        >
-          {cs.title}
-        </h3>
+        <div className="flex flex-col gap-2">
+          <h3
+            className="font-heading text-[var(--color-text)]"
+            style={{
+              fontSize: "clamp(1.375rem, 1.6vw, 1.625rem)",
+              fontWeight: 600,
+              lineHeight: 1.2,
+              letterSpacing: "-0.01em",
+            }}
+          >
+            {cs.title}
+          </h3>
+
+          {cs.subtitle && (
+            <p
+              className="font-mono"
+              style={{
+                fontSize: "var(--text-sm)",
+                color: "var(--color-text-muted)",
+                lineHeight: 1.5,
+                opacity: 0.85,
+                maxWidth: "60ch",
+              }}
+            >
+              {cs.subtitle}
+            </p>
+          )}
+        </div>
 
         <p
           style={{
@@ -266,7 +304,7 @@ function CaseStudyCard({ cs }: { cs: CaseStudy }) {
             onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.9")}
             onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
           >
-            Ver proyecto completo <span aria-hidden="true">→</span>
+            {cs.viewLabel} <span aria-hidden="true">→</span>
           </a>
           <LinksRow links={cs.links} />
         </div>
@@ -285,12 +323,20 @@ export default function FeaturedProjects() {
   const reduceMotion = useReducedMotion();
 
   const caseStudies = useMemo<CaseStudy[]>(() => {
+    const viewLabel = t("featuredProjects.viewProject");
+    const requestAccess = t("featuredProjects.requestAccess");
+
     const trading: CaseStudy = {
       tag: t("featuredProjects.trading.tag"),
+      indexLabel: "02 / 03",
       title:
         locale === "es"
           ? t("featuredProjects.trading.titleEs")
           : t("featuredProjects.trading.titleEn"),
+      subtitle:
+        locale === "es"
+          ? t("featuredProjects.trading.subtitleEs")
+          : t("featuredProjects.trading.subtitleEn"),
       status: t("featuredProjects.trading.status"),
       description:
         locale === "es"
@@ -305,6 +351,7 @@ export default function FeaturedProjects() {
         "WebSockets",
       ],
       landingHref: "/projects/trading-scanner",
+      viewLabel,
       links: [
         {
           type: "github",
@@ -378,10 +425,15 @@ export default function FeaturedProjects() {
 
     const jarvisr: CaseStudy = {
       tag: t("featuredProjects.jarvisr.tag"),
+      indexLabel: "01 / 03",
       title:
         locale === "es"
           ? t("featuredProjects.jarvisr.titleEs")
           : t("featuredProjects.jarvisr.titleEn"),
+      subtitle:
+        locale === "es"
+          ? t("featuredProjects.jarvisr.subtitleEs")
+          : t("featuredProjects.jarvisr.subtitleEn"),
       status: t("featuredProjects.jarvisr.status"),
       description:
         locale === "es"
@@ -389,6 +441,7 @@ export default function FeaturedProjects() {
           : t("featuredProjects.jarvisr.descEn"),
       tags: ["Python", "FastAPI", "llama.cpp", "Ollama", "Home Assistant", "Raspberry Pi"],
       landingHref: "/projects/jarvisr",
+      viewLabel,
       links: [
         {
           type: "github",
@@ -444,20 +497,29 @@ export default function FeaturedProjects() {
     };
 
     const tracker: CaseStudy = {
-      tag: "SOCIAL · ANALYTICS",
-      title: "Performance Tracker",
-      status: "EN PAUSA · PRIVADO",
+      tag: t("featuredProjects.tracker.tag"),
+      indexLabel: "03 / 03",
+      title:
+        locale === "es"
+          ? t("featuredProjects.tracker.titleEs")
+          : t("featuredProjects.tracker.titleEn"),
+      subtitle:
+        locale === "es"
+          ? t("featuredProjects.tracker.subtitleEs")
+          : t("featuredProjects.tracker.subtitleEn"),
+      status: t("featuredProjects.tracker.status"),
       description:
         locale === "es"
-          ? "Red social de rendimiento deportivo con ROI verificado, Kelly Criterion y rankings públicos."
-          : "A social performance network with verified ROI, Kelly sizing, and public rankings.",
-      tags: ["TypeScript", "Recharts", "Analytics", "Social", "ROI"],
+          ? t("featuredProjects.tracker.descEs")
+          : t("featuredProjects.tracker.descEn"),
+      tags: ["TypeScript", "Chart.js", "Analytics", "Social", "ROI"],
       landingHref: "/projects/performance-tracker",
+      viewLabel,
       links: [
         {
           type: "access",
-          label: locale === "es" ? "Privado · Solicitar acceso" : "Private · Request access",
-          href: "mailto:pascualpau04@gmail.com?subject=Performance Tracker - Acceso",
+          label: requestAccess,
+          href: "mailto:pascualpau04@gmail.com?subject=Performance%20Tracker%20-%20Acceso",
         },
       ],
       snippet: (
@@ -467,20 +529,24 @@ export default function FeaturedProjects() {
           </span>
           {"\n"}
           <span style={{ color: "oklch(from var(--color-accent) l c h / 0.92)" }}>
-            user
+            profile
           </span>{" "}
-          = "xavi_stats"{"\n"}
+          = "@trader.alpha"{"\n"}
           <span style={{ color: "oklch(from var(--color-accent) l c h / 0.92)" }}>
-            roi_total
+            roi_ytd
           </span>{" "}
           = +24.7%{"\n"}
           <span style={{ color: "oklch(from var(--color-accent) l c h / 0.92)" }}>
             kelly_avg
           </span>{" "}
           = 0.06{"\n"}
+          <span style={{ color: "oklch(from var(--color-accent) l c h / 0.92)" }}>
+            rank_global
+          </span>{" "}
+          = #142 / 5,800{"\n"}
           {"\n"}
           <span style={{ color: "var(--color-text-muted)" }}>
-            # historial inmutable · rankings públicos
+            # histórico inmutable · ranking público · perfiles verificados
           </span>
         </pre>
       ),

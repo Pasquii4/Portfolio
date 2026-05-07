@@ -46,67 +46,84 @@ const COMMANDS: Record<string, React.ReactNode> = {
 >   Solo una respuesta IA a la vez; espera a que termine antes de otra.`}
         </div>
     ),
-    whoami: "pau pascual — builder of systems that work: trading scanners, local AI agents, web products.",
-    skills: "Python, FastAPI, React/Next.js, Tailwind, SQL, Docker, APIs Financieras...",
-    projects: "Ejecutando escaneo profundo... Accediendo a Trading Scanner, RL Boosting ES y más. Ve a la sección 'Proyectos'.",
+    whoami: "pau pascual — product builder. AI local-first, automatización y trading systems. Backend-first, product-minded.",
+    skills: "Python, FastAPI, PostgreSQL, Next.js, TypeScript, Tailwind, Docker, Ollama, llama.cpp, Raspberry Pi.",
+    projects: "Cargando proyectos destacados... JARVISR (IA local-first), Trading Scanner, Performance Tracker. Más detalle en la sección 'Proyectos'.",
     contact: "Contactando... pascualpau04@gmail.com | github.com/Pasquii4",
     clear: "Limpiando terminal...",
     "sudo rm -rf /": "Permiso denegado. Este incidente será reportado.",
     "ls projects/": (
         <div className="whitespace-pre-wrap font-mono">
-            {`> trading_scanner/
-> jarvisr/
-> bettracker/
-> rlboosting/
-> storefront/`}
+            {`> jarvisr/             # IA local-first integrada en mi ecosistema
+> trading_scanner/     # scanner multi-activo para decisiones de trading
+> performance_tracker/ # plataforma social de ROI y rendimiento
+> storefront/          # SSG · Cloudflare · SEO/conversión
+> rlboosting/          # landing freelance · Cloudflare Pages`}
         </div>
     ),
     "ls proyectos/": (
         <div className="whitespace-pre-wrap font-mono">
-            {`> trading_scanner/
-> jarvisr/
-> bettracker/
-> rlboosting/
-> storefront/`}
+            {`> jarvisr/             # IA local-first integrada en mi ecosistema
+> trading_scanner/     # scanner multi-activo para decisiones de trading
+> performance_tracker/ # plataforma social de ROI y rendimiento
+> storefront/          # SSG · Cloudflare · SEO/conversión
+> rlboosting/          # landing freelance · Cloudflare Pages`}
         </div>
     ),
     "cat about.txt": (
         <div className="whitespace-pre-wrap font-mono">
             {`> Backend-first, product-minded.
-> I build from API to deploy.`}
+> Construyo asistentes de IA local-first, automatizaciones
+> y sistemas de analytics/trading — de la API al deploy.`}
         </div>
     ),
     "cat skills.txt": (
         <div className="whitespace-pre-wrap font-mono">
-            {`> ── Languages ─────────────────────
->   Python, JavaScript/TypeScript, SQL, Java
+            {`> ── Backend / Data ─────────────────────────
+>   Python · FastAPI · PostgreSQL · SQL
+>   APIs REST y WebSockets
+>   Node.js (servicios sencillos, integraciones)
 >
-> ── Frameworks ────────────────────
->   FastAPI, Next.js, Astro, React
+> ── IA & Agentes ───────────────────────────
+>   llama.cpp · Ollama (modelos locales)
+>   Groq · OpenRouter (cloud fallback)
+>   Agentes con herramientas y APIs propias
 >
-> ── Infra & Tools ─────────────────
->   Docker, PostgreSQL, MongoDB, Redis, AWS, GCP`}
+> ── Trading / FinTech ──────────────────────
+>   Indicadores técnicos: RSI, MACD, Bollinger
+>   Pipelines de backtesting y señales históricas
+>   Dashboards para decisiones reales
+>
+> ── Frontend / Web ─────────────────────────
+>   React · Next.js App Router · TypeScript
+>   Tailwind · Astro · Vite
+>
+> ── Infra ──────────────────────────────────
+>   Docker · Compose · Vercel · Cloudflare
+>   NAS · Raspberry Pi · VPN`}
         </div>
     ),
     experience: (
         <div className="whitespace-pre-wrap font-mono">
             {`> Proyectos destacados:
->   · Trading Scanner    — FastAPI + WebSockets + PostgreSQL [Privado]
->   · RL Boosting ES     — Astro + TypeScript + Cloudflare Pages [Live 🟢]
->   · Bet Tracker        — Vanilla JS + Chart.js [Privado]
->   · Tu Espacio Ideal   — Astro SSG + Cloudflare Workers [Live 🟢]
-> Rol actual: Junior Developer
-> Disponible para: Parcial Remoto · Prácticas`}
+>   · JARVISR             — Python + Ollama + Home Assistant [Activo]
+>   · Trading Scanner     — FastAPI + PostgreSQL + Docker [Open Source]
+>   · Performance Tracker — TypeScript + Chart.js [Beta privada]
+>   · Tu Espacio Ideal    — Astro SSG + Cloudflare Workers [Live 🟢]
+>   · RL Boosting ES      — Astro + TypeScript + Cloudflare Pages [Live 🟢]
+>
+> Disponible para: prácticas DAW · proyectos remotos · clientes freelance.`}
         </div>
     ),
     education: (
         <div className="whitespace-pre-wrap font-mono">
             {`> CFGM (Grado Medio) ————————————————— Completado ✓
 > CFGS DAW (Desarrollo de Aplicaciones Web) — En curso 📚
-> Centro d'Estudis Politècnics · Barcelona
+> Centre d'Estudis Politècnics · Barcelona
 > ─────────────────────────────────────────
-> Autodidacta: Trading algorítmico, APIs financieras,
->              arquitectura de microservicios`}
+> Autodidacta: IA local-first, agentes con tools,
+>              trading systems, automatización para
+>              autónomos y pymes, hardware y home labs.`}
         </div>
     ),
     languages: (
@@ -118,21 +135,22 @@ const COMMANDS: Record<string, React.ReactNode> = {
     ),
     interests: (
         <div className="whitespace-pre-wrap font-mono">
-            {`> · FinTech & Trading algorítmico
-> · Arquitectura de microservicios y sistemas escalables
-> · APIs financieras en tiempo real (Polygon, Alpha Vantage)
-> · Optimización de sistemas backend con Python/FastAPI
-> · Rocket League (jugador competitivo + coaching)`}
+            {`> · IA local-first, agentes y automatización privada
+> · Sistemas de trading, scanners y analytics de mercado
+> · Productos web orientados a negocio (SEO, conversión, dashboards)
+> · Hardware, home labs, NAS y Raspberry Pi
+> · Robótica y experimentación con sensores
+> · Trading como disciplina técnica y gimnasio como disciplina personal`}
         </div>
     ),
     availability: (
         <div className="whitespace-pre-wrap font-mono">
-            {`> ╔══════════════════════════════════════╗
-> ║  Estado: 🟢 DISPONIBLE               ║
-> ║  Modalidad: Parcial Remoto · Prácticas ║
-> ║  Ubicación: Barcelona, Catalunya, ES  ║
-> ║  Respuesta: < 24h                     ║
-> ╚══════════════════════════════════════╝
+            {`> ╔══════════════════════════════════════════╗
+> ║  Estado: 🟢 DISPONIBLE                   ║
+> ║  Para: Prácticas DAW · Remoto · Freelance ║
+> ║  Ubicación: Barcelona, ES                ║
+> ║  Respuesta: < 24h                        ║
+> ╚══════════════════════════════════════════╝
 > → pascualpau04@gmail.com`}
         </div>
     ),
@@ -145,14 +163,21 @@ const COMMANDS: Record<string, React.ReactNode> = {
     ),
     stack: (
         <div className="whitespace-pre-wrap font-mono">
-            {`> ── Backend ──────────────────────────────
->   Python 85% · FastAPI 72% · Docker 75%
->   SQL 80% · PostgreSQL 80%
-> ── Frontend ─────────────────────────────
->   HTML/CSS 90% · JS/TS 70%
->   Next.js 60% · Astro 60% · React 60%
-> ── Otros ────────────────────────────────
->   Java 65% · Git · Cloudflare · Vercel`}
+            {`> ── Backend / Data ───────────────────────
+>   Python · FastAPI · PostgreSQL · SQL
+>   APIs REST y WebSockets
+> ── IA & Agentes ─────────────────────────
+>   Ollama · llama.cpp · Groq · OpenRouter
+>   Agentes con tools y contexto propio
+> ── Trading / FinTech ────────────────────
+>   RSI · MACD · Bollinger · backtesting
+>   Dashboards para decisiones reales
+> ── Frontend / Web ───────────────────────
+>   React · Next.js · TypeScript · Tailwind
+>   Astro · Vite (SSG y conversión)
+> ── Infra ────────────────────────────────
+>   Docker · Vercel · Cloudflare
+>   Raspberry Pi · NAS · VPN`}
         </div>
     )
 };

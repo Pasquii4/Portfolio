@@ -134,11 +134,13 @@ export default function TerminalStats() {
             </div>
             <div className="stat-info">
               <p className="font-mono text-[0.7rem] text-[var(--color-text-secondary)] uppercase tracking-wider mb-2 m-0">
-                Estado
+                {t("terminalStats.statusLabel")}
               </p>
-              <p className="stat-value font-heading text-3xl mb-1 text-[var(--color-accent)]">Disponible</p>
+              <p className="stat-value font-heading text-3xl mb-1 text-[var(--color-accent)]">
+                {t("terminalStats.statusValue")}
+              </p>
               <p className="text-xs opacity-70 font-mono text-[var(--color-text-secondary)]">
-                Parcial Remoto · Prácticas
+                {t("terminalStats.statusSub")}
               </p>
             </div>
           </div>
@@ -146,22 +148,22 @@ export default function TerminalStats() {
       },
       {
         key: "degree",
-        label: "Grado de Ingeniería",
+        label: t("terminalStats.degreeLabel"),
         prefix: "● ",
         suffix: "",
-        value: "En Curso",
-        subtext: "CFGS Desarrollo de Aplicaciones Web",
+        value: t("terminalStats.degreeValue"),
+        subtext: t("terminalStats.degreeSub"),
       },
       {
         key: "bcn",
-        label: "Base de Operaciones",
+        label: t("terminalStats.locationLabel"),
         prefix: "📍 ",
         suffix: "",
-        value: "BCN",
-        subtext: "Barcelona, España",
+        value: t("terminalStats.locationValue"),
+        subtext: t("terminalStats.locationSub"),
       },
     ],
-    [githubRow, reduceMotion]
+    [githubRow, reduceMotion, t]
   );
 
   return (
