@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { motion, useReducedMotion, Variants } from "framer-motion";
 import ScanReveal from "./ui/ScanReveal";
 import { projects, ProjectBadge, ProjectLink } from "@/data/projects";
+import ProjectThumbnail from "./ProjectThumbnail";
 import { useTranslation } from "@/hooks/useTranslation";
 import { ChevronDown } from "lucide-react";
 
@@ -47,14 +48,7 @@ export default function ProjectsGrid() {
         [reduceMotion]
     );
 
-    const brokenThumbInitials: Record<string, string> = {
-        "Bet Tracker": "BT",
-        "RL Boosting ES": "RL",
-        "Tu Espacio Ideal": "TEI",
-    };
-
     const { mainProjects, academicProjects } = useMemo(() => {
-        const featuredTitles = new Set(["Trading Scanner", "JARVISR"]);
         const academicTitles = new Set([
             "Casino Python",
             "Fútbol Manager",
@@ -82,8 +76,8 @@ export default function ProjectsGrid() {
 
         const academic = projects.filter((p) => isAcademic(p.title));
         const main = projects
+            .filter((p) => !p.featured)
             .filter((p) => !isAcademic(p.title))
-            .filter((p) => !featuredTitles.has(p.title))
             .slice()
             .sort((a, b) => (priority[a.title] ?? 99) - (priority[b.title] ?? 99));
 
@@ -141,44 +135,11 @@ export default function ProjectsGrid() {
                             }`} style={{ padding: "1px", mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)", maskComposite: "exclude", WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)", WebkitMaskComposite: "xor", borderRadius: "0.75rem" }} />
 
                             <div className="relative z-10 flex flex-col h-full pointer-events-none">
-                                {brokenThumbInitials[proj.title] ? (
-                                    <div
-                                        className="w-full -mt-8 -mx-8 mb-6"
-                                        style={{
-                                            background: "linear-gradient(135deg, #1a1917 0%, #111010 100%)",
-                                            borderRadius: "var(--radius-md) var(--radius-md) 0 0",
-                                            height: "160px",
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            borderBottom: "1px solid oklch(from var(--color-text) l c h / 0.08)",
-                                        }}
-                                    >
-                                        <span
-                                            style={{
-                                                fontSize: "3rem",
-                                                fontWeight: 700,
-                                                color: "oklch(from var(--color-text) l c h / 0.08)",
-                                                fontFamily: "var(--font-mono)",
-                                                letterSpacing: "-0.02em",
-                                            }}
-                                        >
-                                            {brokenThumbInitials[proj.title]}
-                                        </span>
-                                    </div>
-                                ) : proj.image ? (
+                                {(proj.thumbnailType || proj.image === "/og-image.jpg") && (
                                     <div className="w-full h-40 -mt-8 -mx-8 mb-6 relative overflow-hidden rounded-t-[0.65rem] border-b border-[var(--color-border)] group-hover:border-[rgba(var(--color-accent-rgb),0.3)] transition-colors">
-                                        <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-surface)] to-transparent z-10 opacity-60"></div>
-                                        <div className="absolute inset-0 bg-[var(--color-accent)] mix-blend-overlay opacity-10 group-hover:opacity-20 transition-opacity z-10"></div>
-                                        <img
-                                            src={proj.image}
-                                            alt={`${t('projects.thumbAltPrefix')}: ${proj.title}`}
-                                            loading="lazy"
-                                            decoding="async"
-                                            className="w-full h-full object-cover grayscale-[50%] group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
-                                        />
+                                        <ProjectThumbnail type={proj.thumbnailType} />
                                     </div>
-                                ) : null}
+                                )}
                                 <div className={`flex flex-col xl:flex-row justify-between xl:items-start mb-6 gap-3 ${!proj.image ? '' : 'px-0'}`}>
                                     <div>
                                         <h3 className="text-2xl text-[var(--color-text)] font-sans group-hover:text-[var(--color-accent)] transition-colors m-0">{proj.title}</h3>

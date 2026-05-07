@@ -90,7 +90,7 @@ export default function HeroDashboard() {
                             <a href="#projects" className="inline-flex items-center justify-center px-6 py-3 rounded font-mono text-[0.9rem] font-bold text-[var(--color-accent)] border border-[var(--color-accent)] transition-all duration-300 hover:shadow-[inset_0_4rem_0_0_var(--color-accent)] hover:text-[var(--bg-primary)] no-underline">
                                 {t("hero.btnProjects")}
                             </a>
-                            <a href="/CV_PauPascual_2026.pdf" download="CV_PauPascual_2026.pdf" className="inline-flex items-center justify-center px-6 py-3 rounded font-mono text-[0.9rem] font-bold text-[var(--color-text)] bg-[var(--bg-surface)] border border-[var(--bg-hover)] transition-all duration-300 hover:bg-[var(--bg-hover)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)] no-underline">
+                            <a href="mailto:pascualpau04@gmail.com?subject=CV%20Pau%20Pascual%202026" className="inline-flex items-center justify-center px-6 py-3 rounded font-mono text-[0.9rem] font-bold text-[var(--color-text)] bg-[var(--bg-surface)] border border-[var(--bg-hover)] transition-all duration-300 hover:bg-[var(--bg-hover)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)] no-underline">
                                 {t("hero.btnCV")}
                             </a>
                         </div>

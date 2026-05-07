@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState, useCallback, useEffect } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import ScanReveal from "./ui/ScanReveal";
 import { useTranslation } from "@/hooks/useTranslation";
@@ -11,29 +11,82 @@ type CaseStudy = {
   status: string;
   description: string;
   tags: string[];
+  landingHref: string;
   links: Array<
     | { type: "github"; label: string; href: string }
+    | { type: "access"; label: string; href: string }
     | { type: "note"; label: string }
   >;
   snippet: React.ReactNode;
 };
 
+const SNIPPET_BG = "#0a0908";
+
 function TerminalSnippet({ children }: { children: React.ReactNode }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [showFade, setShowFade] = useState(false);
+
+  const checkOverflow = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const hasMore = el.scrollLeft + el.clientWidth < el.scrollWidth - 4;
+    setShowFade(hasMore);
+  }, []);
+
+  useEffect(() => {
+    checkOverflow();
+    const el = scrollRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(checkOverflow);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [checkOverflow]);
+
   return (
     <div
-      className="w-full font-mono leading-relaxed"
+      className="relative w-full font-mono leading-relaxed overflow-hidden"
       style={{
-        background: "#0a0908",
-        padding: "var(--space-6)",
         borderRadius: "var(--radius-md)",
         border: "1px solid oklch(from var(--color-text) l c h / 0.10)",
-        color: "var(--color-text)",
-        fontSize: "var(--text-base)",
-        overflowX: "auto",
       }}
-      aria-label="Code snippet"
     >
-      {children}
+      {/* Scrollable code area */}
+      <div
+        ref={scrollRef}
+        onScroll={checkOverflow}
+        aria-label="Code snippet"
+        style={{
+          background: SNIPPET_BG,
+          padding: "var(--space-6)",
+          color: "var(--color-text)",
+          fontSize: "var(--text-base)",
+          overflowX: "auto",
+        }}
+      >
+        {children}
+      </div>
+
+      {/* Right-edge fade — hides when scrolled to end */}
+      <div
+        className="pointer-events-none absolute inset-y-0 right-0 w-16 transition-opacity duration-300"
+        style={{
+          background: `linear-gradient(to right, transparent, ${SNIPPET_BG})`,
+          opacity: showFade ? 1 : 0,
+        }}
+        aria-hidden
+      />
+
+      {/* Scroll hint — bottom-right corner */}
+      <span
+        className="pointer-events-none absolute bottom-3 right-3 font-mono text-[0.65rem] tracking-wide transition-opacity duration-300 select-none"
+        style={{
+          color: "rgba(255,255,255,0.22)",
+          opacity: showFade ? 1 : 0,
+        }}
+        aria-hidden
+      >
+        scroll →
+      </span>
     </div>
   );
 }
@@ -120,18 +173,18 @@ function LinksRow({
           <a
             key={l.href}
             href={l.href}
-            target="_blank"
-            rel="noopener noreferrer"
+            target={l.href.startsWith("/") ? undefined : "_blank"}
+            rel={l.href.startsWith("/") ? undefined : "noopener noreferrer"}
             className="no-underline transition-colors duration-300"
             style={{
               fontSize: "var(--text-sm)",
-              color: "var(--color-text)",
+              color: "var(--color-text-muted)",
             }}
             onMouseEnter={(e) =>
               (e.currentTarget.style.color = "var(--color-accent)")
             }
             onMouseLeave={(e) =>
-              (e.currentTarget.style.color = "var(--color-text)")
+              (e.currentTarget.style.color = "var(--color-text-muted)")
             }
           >
             {l.label} <span aria-hidden="true">→</span>
@@ -198,7 +251,25 @@ function CaseStudyCard({ cs }: { cs: CaseStudy }) {
         </p>
 
         <TechPills tags={cs.tags} />
-        <LinksRow links={cs.links} />
+        <div className="flex flex-col gap-3 pt-1">
+          <a
+            href={cs.landingHref}
+            className="inline-flex w-fit items-center gap-2 no-underline transition-opacity duration-300"
+            style={{
+              borderRadius: "0.65rem",
+              padding: "0.8rem 1.1rem",
+              background: "var(--color-accent)",
+              color: "var(--bg-primary)",
+              fontSize: "var(--text-sm)",
+              fontWeight: 600,
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.9")}
+            onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+          >
+            Ver proyecto completo <span aria-hidden="true">→</span>
+          </a>
+          <LinksRow links={cs.links} />
+        </div>
       </div>
 
       {/* Right (40%) */}
@@ -233,6 +304,7 @@ export default function FeaturedProjects() {
         "Docker",
         "WebSockets",
       ],
+      landingHref: "/projects/trading-scanner",
       links: [
         {
           type: "github",
@@ -316,6 +388,7 @@ export default function FeaturedProjects() {
           ? t("featuredProjects.jarvisr.descEs")
           : t("featuredProjects.jarvisr.descEn"),
       tags: ["Python", "FastAPI", "llama.cpp", "Ollama", "Home Assistant", "Raspberry Pi"],
+      landingHref: "/projects/jarvisr",
       links: [
         {
           type: "github",
@@ -370,7 +443,50 @@ export default function FeaturedProjects() {
       ),
     };
 
-    return [jarvisr, trading];
+    const tracker: CaseStudy = {
+      tag: "SOCIAL · ANALYTICS",
+      title: "Performance Tracker",
+      status: "EN PAUSA · PRIVADO",
+      description:
+        locale === "es"
+          ? "Red social de rendimiento deportivo con ROI verificado, Kelly Criterion y rankings públicos."
+          : "A social performance network with verified ROI, Kelly sizing, and public rankings.",
+      tags: ["TypeScript", "Recharts", "Analytics", "Social", "ROI"],
+      landingHref: "/projects/performance-tracker",
+      links: [
+        {
+          type: "access",
+          label: locale === "es" ? "Privado · Solicitar acceso" : "Private · Request access",
+          href: "mailto:pascualpau04@gmail.com?subject=Performance Tracker - Acceso",
+        },
+      ],
+      snippet: (
+        <pre className="whitespace-pre">
+          <span style={{ color: "var(--color-text-muted)" }}>
+            # tracker — métricas verificadas
+          </span>
+          {"\n"}
+          <span style={{ color: "oklch(from var(--color-accent) l c h / 0.92)" }}>
+            user
+          </span>{" "}
+          = "xavi_stats"{"\n"}
+          <span style={{ color: "oklch(from var(--color-accent) l c h / 0.92)" }}>
+            roi_total
+          </span>{" "}
+          = +24.7%{"\n"}
+          <span style={{ color: "oklch(from var(--color-accent) l c h / 0.92)" }}>
+            kelly_avg
+          </span>{" "}
+          = 0.06{"\n"}
+          {"\n"}
+          <span style={{ color: "var(--color-text-muted)" }}>
+            # historial inmutable · rankings públicos
+          </span>
+        </pre>
+      ),
+    };
+
+    return [jarvisr, trading, tracker];
   }, [locale, t]);
 
   return (
