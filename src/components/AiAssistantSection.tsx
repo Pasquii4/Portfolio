@@ -83,13 +83,21 @@ export default function AiAssistantSection() {
   const [streaming, setStreaming] = useState(false);
   const [liveText, setLiveText] = useState<string | null>(null);
 
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesWrapRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const threadRef = useRef<Message[]>([]);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, liveText]);
+    // Importante: no usar scrollIntoView() aquí porque puede desplazar la página
+    // hasta esta sección en el primer render. Solo scrolleamos el contenedor.
+    if (messages.length === 0 && liveText === null) return;
+    const el = messagesWrapRef.current;
+    if (!el) return;
+    el.scrollTo({
+      top: el.scrollHeight,
+      behavior: reduceMotion ? "auto" : "smooth",
+    });
+  }, [messages, liveText, reduceMotion]);
 
   /* Auto-resize textarea */
   useEffect(() => {
@@ -232,6 +240,7 @@ export default function AiAssistantSection() {
           >
             {/* Messages area */}
             <div
+              ref={messagesWrapRef}
               className="flex flex-col gap-3 overflow-y-auto p-5"
               style={{ minHeight: "340px", maxHeight: "420px" }}
             >
@@ -299,8 +308,6 @@ export default function AiAssistantSection() {
                   </div>
                 </div>
               )}
-
-              <div ref={messagesEndRef} />
             </div>
 
             {/* Input row */}
