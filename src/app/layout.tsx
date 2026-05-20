@@ -4,6 +4,7 @@ import "./globals.css";
 import GrainOverlay from "@/components/ui/GrainOverlay";
 import CustomCursor from "@/components/ui/CustomCursor";
 import { Providers } from "@/components/Providers";
+import { Analytics } from "@vercel/analytics/next";
 
 const SITE_URL = "https://paupascual.dev";
 const OG_IMAGE_URL = `${SITE_URL}/api/og`;
@@ -173,6 +174,7 @@ export default function RootLayout({
           <CustomCursor />
           {children}
         </Providers>
+        <Analytics />
       </body>
     </html>
   );
