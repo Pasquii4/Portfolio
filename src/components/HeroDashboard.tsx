@@ -85,6 +85,9 @@ export default function HeroDashboard() {
                         <p className="text-[var(--color-text-secondary)] text-[1.1rem] mb-4 max-w-[560px] leading-relaxed">
                             {t('hero.desc')}
                         </p>
+                        <p className="text-[var(--color-text)] font-medium text-[1.05rem] mb-6 max-w-[560px] leading-relaxed border-l-2 border-[var(--color-accent)] pl-3">
+                            {t('hero.lookingFor')}
+                        </p>
                         <p className="font-mono text-[0.8rem] text-[var(--color-text-secondary)] opacity-80 mb-8 max-w-[560px] leading-relaxed">
                             {t('hero.availability')}
                         </p>

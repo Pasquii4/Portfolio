@@ -114,7 +114,13 @@ export default function ContactSection() {
             {t("contact.subtitle")}
           </p>
 
-          <p className="text-[1.2rem] text-[var(--color-text-secondary)] mb-10">{t("contact.desc")}</p>
+          <p className="text-[1.2rem] text-[var(--color-text-secondary)] mb-6">{t("contact.desc")}</p>
+
+          <div className="mb-10 p-4 bg-[rgba(var(--color-accent-rgb),0.05)] border border-[rgba(var(--color-accent-rgb),0.15)] rounded-lg inline-block text-left max-w-[480px]">
+            <p className="font-mono text-sm text-[var(--color-text)]">
+              {t("contact.recruiterNote")}
+            </p>
+          </div>
 
           <form
             onSubmit={handleSubmit}

@@ -19,7 +19,7 @@
  */
 export type StackLevel = "strong" | "comfortable" | "exploring";
 
-export type StackCategoryId = "backend" | "frontend" | "infra" | "ai" | "trading";
+export type StackCategoryId = "backend_data" | "ai_agents" | "trading_analytics" | "web_deploy";
 
 export interface StackTech {
   name: string;
@@ -34,64 +34,54 @@ export interface StackCategory {
 }
 
 export const techStackCategories: StackCategory[] = [
-  // 1 ── Backend (fuerte) ─────────────────────────────────────────────
+  // 1 ── Backend & Datos ─────────────────────────────────────────────
   {
-    id: "backend",
+    id: "backend_data",
     level: "strong",
     items: [
-      { name: "Python · FastAPI", level: "strong", note: "APIs, pipelines y agentes" },
-      { name: "PostgreSQL · SQL", level: "strong", note: "modelos, queries y persistencia" },
-      { name: "REST APIs", level: "strong", note: "diseño y patrones de arquitectura" },
-      { name: "WebSockets", level: "comfortable", note: "tiempo real y streaming" },
-      { name: "Node.js", level: "comfortable", note: "servicios e integraciones" },
-      { name: "Automatización · pipelines · jobs programados", level: "comfortable" },
+      { name: "Python · FastAPI", level: "strong" },
+      { name: "SQL · PostgreSQL", level: "strong" },
+      { name: "APIs REST", level: "strong" },
+      { name: "WebSockets", level: "comfortable" },
+      { name: "Jobs · colas básicas", level: "comfortable" },
     ],
   },
-  // 2 ── IA · Local-first (fuerte) ────────────────────────────────────
+  // 2 ── AI & Agents ──────────────────────────────────────────────────
   {
-    id: "ai",
+    id: "ai_agents",
     level: "strong",
     items: [
-      { name: "llama.cpp · Ollama", level: "strong", note: "modelos locales en hardware propio" },
-      { name: "Despliegue local-first e integración self-hosted", level: "strong", note: "Home Assistant, NAS, VPN" },
-      { name: "Agentes con tools, contexto y APIs propias", level: "strong" },
-      { name: "Groq · OpenRouter", level: "comfortable", note: "cloud fallback por coste y latencia" },
-      { name: "Python agents sin frameworks pesados", level: "comfortable" },
+      { name: "Trabajo con LLMs", level: "strong" },
+      { name: "Motores locales (llama.cpp/Ollama)", level: "strong" },
+      { name: "Diseño de agentes con herramientas", level: "strong" },
+      { name: "Proveedores cloud (cuando conviene)", level: "comfortable" },
+      { name: "Orquestación simple", level: "comfortable" },
     ],
   },
-  // 3 ── Trading · Analytics (fuerte) ────────────────────────────────
+  // 3 ── Trading & Analytics ──────────────────────────────────────────
   {
-    id: "trading",
+    id: "trading_analytics",
     level: "strong",
     items: [
-      { name: "Indicadores técnicos", level: "strong", note: "RSI · MACD · Bollinger · volumen" },
-      { name: "Backtesting y análisis de señales históricas", level: "strong" },
-      { name: "Generación de señales LONG/SHORT con contexto", level: "strong" },
-      { name: "Dashboards de análisis y performance", level: "strong", note: "ROI · capital · rachas" },
-      { name: "Pipelines de datos de mercado", level: "comfortable", note: "REST y WebSocket" },
+      { name: "Indicadores técnicos", level: "strong" },
+      { name: "Backtesting básico", level: "comfortable" },
+      { name: "Integración de datos de mercado", level: "strong" },
+      { name: "Dashboards de ROI y drawdown", level: "strong" },
+      { name: "Análisis de rendimiento", level: "strong" },
     ],
   },
-  // 4 ── Frontend (cómodo) ────────────────────────────────────────────
+  // 4 ── Web & Deploy ─────────────────────────────────────────────────
   {
-    id: "frontend",
+    id: "web_deploy",
     level: "comfortable",
     items: [
-      { name: "React · Next.js App Router", level: "comfortable", note: "dashboards y productos web" },
-      { name: "TypeScript", level: "comfortable" },
-      { name: "Tailwind CSS", level: "comfortable" },
-      { name: "Astro · Vite", level: "comfortable", note: "landings, SSG y conversión" },
-    ],
-  },
-  // 5 ── Infra · Deployment (cómodo / explorando) ────────────────────
-  {
-    id: "infra",
-    level: "comfortable",
-    items: [
-      { name: "Docker · Docker Compose", level: "comfortable", note: "entornos reproducibles" },
-      { name: "Vercel · Cloudflare Pages/Workers", level: "comfortable", note: "deploys low-cost" },
-      { name: "Raspberry Pi · NAS · VPN", level: "comfortable", note: "self-hosting ligero" },
-      { name: "Git · Linux · uv", level: "comfortable" },
-      { name: "CI/CD avanzado · MLOps · orquestación cloud", level: "exploring" },
+      { name: "JavaScript · TypeScript", level: "comfortable" },
+      { name: "React · Next.js", level: "comfortable" },
+      { name: "Astro · Vite", level: "comfortable" },
+      { name: "HTML · CSS · Tailwind", level: "comfortable" },
+      { name: "Docker", level: "comfortable" },
+      { name: "Vercel · Cloudflare", level: "comfortable" },
+      { name: "CI/CD avanzado · MLOps", level: "exploring", note: "En aprendizaje activo" },
     ],
   },
 ];

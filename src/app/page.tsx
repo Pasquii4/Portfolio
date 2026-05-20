@@ -7,6 +7,7 @@ import TerminalStats from "@/components/TerminalStats";
 import AboutSection from "@/components/AboutSection";
 import TechStack from "@/components/TechStack";
 import ProjectsGrid from "@/components/ProjectsGrid";
+import WhatImLookingForSection from "@/components/WhatImLookingForSection";
 import WhatIBuildSection from "@/components/WhatIBuildSection";
 import FeaturedProjects from "@/components/FeaturedProjects";
 import AiAssistantSection from "@/components/AiAssistantSection";
@@ -41,6 +42,7 @@ export default function Home() {
               <HeroDashboard />
               <TerminalStats />
               <AboutSection />
+              <WhatImLookingForSection />
               <WhatIBuildSection />
               <FeaturedProjects />
               <AiAssistantSection />

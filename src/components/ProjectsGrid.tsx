@@ -9,7 +9,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { ChevronDown } from "lucide-react";
 
 export default function ProjectsGrid() {
-    const { t } = useTranslation();
+    const { t, locale } = useTranslation();
     const reduceMotion = useReducedMotion();
     const [academicOpen, setAcademicOpen] = useState(true);
 
@@ -142,7 +142,9 @@ export default function ProjectsGrid() {
                                 )}
                                 <div className={`flex flex-col xl:flex-row justify-between xl:items-start mb-6 gap-3 ${!proj.image ? '' : 'px-0'}`}>
                                     <div>
-                                        <h3 className="text-2xl text-[var(--color-text)] font-sans group-hover:text-[var(--color-accent)] transition-colors m-0">{proj.title}</h3>
+                                        <h3 className="text-2xl text-[var(--color-text)] font-sans group-hover:text-[var(--color-accent)] transition-colors m-0">
+                                            {locale === 'en' && proj.titleEn ? proj.titleEn : proj.title}
+                                        </h3>
                                     </div>
                                     <div className="flex flex-wrap gap-2 items-center">
                                         {proj.status && (
@@ -163,8 +165,8 @@ export default function ProjectsGrid() {
                                         ))}
                                     </div>
                                 </div>
-                                <p className="text-[var(--color-text-secondary)] text-[0.95rem] mb-8 grow leading-[1.6]">
-                                    {proj.desc}
+                                <p className="text-[var(--color-text-secondary)] text-[0.95rem] mb-8 grow leading-[1.6] whitespace-pre-line">
+                                    {locale === 'en' && proj.descEn ? proj.descEn : proj.desc}
                                 </p>
 
                                 <div className="flex flex-wrap gap-2 mb-8 pointer-events-auto">
@@ -260,11 +262,13 @@ export default function ProjectsGrid() {
                                     <div className="relative z-10 flex flex-col h-full pointer-events-none">
                                         <div className="flex flex-col xl:flex-row justify-between xl:items-start mb-4 gap-3">
                                             <div>
-                                                <h3 className="text-xl text-[var(--color-text)] font-heading group-hover:text-[var(--color-accent)] transition-colors m-0">{proj.title}</h3>
+                                                <h3 className="text-xl text-[var(--color-text)] font-heading group-hover:text-[var(--color-accent)] transition-colors m-0">
+                                                    {locale === 'en' && proj.titleEn ? proj.titleEn : proj.title}
+                                                </h3>
                                             </div>
                                         </div>
-                                        <p className="text-[var(--color-text-secondary)] text-[0.9rem] mb-6 grow leading-[1.6]">
-                                            {proj.desc}
+                                        <p className="text-[var(--color-text-secondary)] text-[0.9rem] mb-6 grow leading-[1.6] whitespace-pre-line">
+                                            {locale === 'en' && proj.descEn ? proj.descEn : proj.desc}
                                         </p>
 
                                         <div className="flex flex-wrap gap-2 mb-6 pointer-events-auto">

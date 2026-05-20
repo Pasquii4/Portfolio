@@ -14,7 +14,9 @@ export interface ProjectBadge {
 
 export interface Project {
     title: string;
+    titleEn?: string;
     desc: string;
+    descEn?: string;
     longDesc?: string;
     tags: string[];
     links: ProjectLink[];
@@ -68,7 +70,8 @@ export const projects: Project[] = [
         title: "Tu Espacio Ideal",
         thumbnailType: "tu-espacio-ideal",
         badges: [{ label: "Público", type: "public" }, { label: "Live 🟢", type: "live" }],
-        desc: "Storefront aesthetic de productos para escritorio. SSG con Astro + Cloudflare Workers. SEO-first y optimizado para conversión.",
+        desc: "Storefront aesthetic de productos para escritorio. SSG con Astro + Cloudflare Workers. SEO-first y optimizado para conversión.\n\n• Resultado: Storefront de escritorio con Astro + Cloudflare, pensado para SEO-first y validación rápida de concepto.",
+        descEn: "Aesthetic desktop product storefront. SSG with Astro + Cloudflare Workers. SEO-first and optimized for conversion.\n\n• Outcome: Desktop storefront with Astro + Cloudflare, designed for SEO-first and fast concept validation.",
         tags: ["Astro", "SSG", "Cloudflare"],
         image: "/og-image.jpg",
         links: [
@@ -80,7 +83,8 @@ export const projects: Project[] = [
         title: "RL Boosting ES",
         thumbnailType: "rl-boosting",
         badges: [{ label: "Público", type: "public" }, { label: "Live 🟢", type: "live" }],
-        desc: "Landing page de servicio de boosting para Rocket League. Desplegada en Cloudflare Pages · TypeScript + Astro · Optimizada para conversión y Core Web Vitals.",
+        desc: "Landing page de servicio de boosting para Rocket League. Desplegada en Cloudflare Pages · TypeScript + Astro · Optimizada para conversión y Core Web Vitals.\n\n• Resultado: Landing para servicio real de boosting de Rocket League, optimizada para carga rápida y un flujo de contacto simple.",
+        descEn: "Landing page for a Rocket League boosting service. Deployed on Cloudflare Pages · TypeScript + Astro · Optimized for conversion and Core Web Vitals.\n\n• Outcome: Landing page for an actual Rocket League boosting service, optimized for fast loading and simple contact flow.",
         tags: ["TypeScript", "Astro", "Cloudflare Pages"],
         image: "/og-image.jpg",
         links: [

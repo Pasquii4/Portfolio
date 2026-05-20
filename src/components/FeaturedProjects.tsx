@@ -11,7 +11,17 @@ type CaseStudy = {
   title: string;
   subtitle?: string;
   status: string;
-  description: string;
+  description: {
+    problem: string;
+    stack: string;
+    learned: string;
+  };
+  labels: {
+    problem: string;
+    stack: string;
+    learned: string;
+  };
+  imagePlaceholderAlt: string;
   tags: string[];
   landingHref: string;
   viewLabel: string;
@@ -277,16 +287,28 @@ function CaseStudyCard({ cs }: { cs: CaseStudy }) {
           )}
         </div>
 
-        <p
+        <div
+          className="flex flex-col gap-4"
           style={{
             fontSize: "var(--text-base)",
             color: "var(--color-text-muted)",
             maxWidth: "60ch",
-            lineHeight: 1.7,
+            lineHeight: 1.6,
           }}
         >
-          {cs.description}
-        </p>
+          <div>
+            <strong className="text-[var(--color-text)] block mb-1">{cs.labels.problem}:</strong> 
+            {cs.description.problem}
+          </div>
+          <div>
+            <strong className="text-[var(--color-text)] block mb-1">{cs.labels.stack}:</strong> 
+            {cs.description.stack}
+          </div>
+          <div>
+            <strong className="text-[var(--color-text)] block mb-1">{cs.labels.learned}:</strong> 
+            {cs.description.learned}
+          </div>
+        </div>
 
         <TechPills tags={cs.tags} />
         <div className="flex flex-col gap-3 pt-1">
@@ -311,7 +333,22 @@ function CaseStudyCard({ cs }: { cs: CaseStudy }) {
       </div>
 
       {/* Right (40%) */}
-      <div className="md:col-span-2">
+      <div className="md:col-span-2 flex flex-col gap-6">
+        <div 
+          className="w-full aspect-video rounded-lg flex items-center justify-center overflow-hidden relative"
+          style={{ 
+            background: "oklch(from var(--color-accent) l c h / 0.04)",
+            border: "1px dashed oklch(from var(--color-accent) l c h / 0.25)" 
+          }}
+        >
+          {/* <!-- MOCKUP PLACEHOLDER: Replace this div with an actual <img src="..." alt={cs.imagePlaceholderAlt} className="absolute inset-0 w-full h-full object-cover" /> when images are generated --> */}
+          <span 
+            className="font-mono text-xs px-6 text-center opacity-60 uppercase tracking-widest"
+            style={{ color: "var(--color-accent)" }}
+          >
+            [ {cs.imagePlaceholderAlt} ]
+          </span>
+        </div>
         <TerminalSnippet>{cs.snippet}</TerminalSnippet>
       </div>
     </motion.article>
@@ -338,10 +375,17 @@ export default function FeaturedProjects() {
           ? t("featuredProjects.trading.subtitleEs")
           : t("featuredProjects.trading.subtitleEn"),
       status: t("featuredProjects.trading.status"),
-      description:
-        locale === "es"
-          ? t("featuredProjects.trading.descEs")
-          : t("featuredProjects.trading.descEn"),
+      description: {
+        problem: locale === "es" ? t("featuredProjects.trading.problemEs") : t("featuredProjects.trading.problemEn"),
+        stack: locale === "es" ? t("featuredProjects.trading.stackEs") : t("featuredProjects.trading.stackEn"),
+        learned: locale === "es" ? t("featuredProjects.trading.learnedEs") : t("featuredProjects.trading.learnedEn"),
+      },
+      labels: {
+        problem: t("featuredProjects.labels.problem"),
+        stack: t("featuredProjects.labels.stack"),
+        learned: t("featuredProjects.labels.learned"),
+      },
+      imagePlaceholderAlt: locale === "es" ? t("featuredProjects.trading.altEs") : t("featuredProjects.trading.altEn"),
       tags: [
         "FastAPI",
         "PostgreSQL",
@@ -435,10 +479,17 @@ export default function FeaturedProjects() {
           ? t("featuredProjects.jarvisr.subtitleEs")
           : t("featuredProjects.jarvisr.subtitleEn"),
       status: t("featuredProjects.jarvisr.status"),
-      description:
-        locale === "es"
-          ? t("featuredProjects.jarvisr.descEs")
-          : t("featuredProjects.jarvisr.descEn"),
+      description: {
+        problem: locale === "es" ? t("featuredProjects.jarvisr.problemEs") : t("featuredProjects.jarvisr.problemEn"),
+        stack: locale === "es" ? t("featuredProjects.jarvisr.stackEs") : t("featuredProjects.jarvisr.stackEn"),
+        learned: locale === "es" ? t("featuredProjects.jarvisr.learnedEs") : t("featuredProjects.jarvisr.learnedEn"),
+      },
+      labels: {
+        problem: t("featuredProjects.labels.problem"),
+        stack: t("featuredProjects.labels.stack"),
+        learned: t("featuredProjects.labels.learned"),
+      },
+      imagePlaceholderAlt: locale === "es" ? t("featuredProjects.jarvisr.altEs") : t("featuredProjects.jarvisr.altEn"),
       tags: ["Python", "FastAPI", "llama.cpp", "Ollama", "Home Assistant", "Raspberry Pi"],
       landingHref: "/projects/jarvisr",
       viewLabel,
@@ -508,10 +559,17 @@ export default function FeaturedProjects() {
           ? t("featuredProjects.tracker.subtitleEs")
           : t("featuredProjects.tracker.subtitleEn"),
       status: t("featuredProjects.tracker.status"),
-      description:
-        locale === "es"
-          ? t("featuredProjects.tracker.descEs")
-          : t("featuredProjects.tracker.descEn"),
+      description: {
+        problem: locale === "es" ? t("featuredProjects.tracker.problemEs") : t("featuredProjects.tracker.problemEn"),
+        stack: locale === "es" ? t("featuredProjects.tracker.stackEs") : t("featuredProjects.tracker.stackEn"),
+        learned: locale === "es" ? t("featuredProjects.tracker.learnedEs") : t("featuredProjects.tracker.learnedEn"),
+      },
+      labels: {
+        problem: t("featuredProjects.labels.problem"),
+        stack: t("featuredProjects.labels.stack"),
+        learned: t("featuredProjects.labels.learned"),
+      },
+      imagePlaceholderAlt: locale === "es" ? t("featuredProjects.tracker.altEs") : t("featuredProjects.tracker.altEn"),
       tags: ["TypeScript", "Chart.js", "Analytics", "Social", "ROI"],
       landingHref: "/projects/performance-tracker",
       viewLabel,

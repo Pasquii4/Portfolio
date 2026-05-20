@@ -11,11 +11,10 @@ import {
 } from "@/data/techstack";
 
 const CATEGORY_LABEL_KEY: Record<StackCategoryId, string> = {
-  backend: "stack.catBackend",
-  frontend: "stack.catFrontend",
-  infra: "stack.catInfra",
-  ai: "stack.catAI",
-  trading: "stack.catTrading",
+  backend_data: "stack.catBackendData",
+  ai_agents: "stack.catAIAgents",
+  trading_analytics: "stack.catTradingAnalytics",
+  web_deploy: "stack.catWebDeploy",
 };
 
 const LEVEL_LABEL_KEY: Record<StackLevel, string> = {
