@@ -1,193 +1,194 @@
 "use client";
 
-import { useEffect, useRef, useMemo } from "react";
-import { X } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { Github, Linkedin, ExternalLink } from "lucide-react";
+import ScanReveal from "./ui/ScanReveal";
 import { useTranslation } from "@/hooks/useTranslation";
-import { projects, type Project } from "@/data/projects";
 
+const GITHUB = "https://github.com/Pasquii4";
 const LINKEDIN = "https://www.linkedin.com/in/pau-pascual-vallverdu/";
-const EMAIL = "pascualpau04@gmail.com";
+const GROWTHOS = "https://growthos.paupascual.work/";
 
-function pickPublicLinks(project: Project) {
-  return project.links.filter((l) => l.url.startsWith("http") && !l.url.startsWith("mailto")).slice(0, 2);
-}
+const STACK_ITEMS = [
+  "Python / FastAPI",
+  "PostgreSQL",
+  "Docker",
+  "Next.js / Astro",
+  "Tailwind CSS",
+  "Local AI (Ollama / llama.cpp)",
+];
 
-type RecruiterModeProps = {
-  open: boolean;
-  onClose: () => void;
-};
+const LINKS = [
+  { href: GITHUB,   label: "GitHub",   Icon: Github,      rel: "me noopener noreferrer" },
+  { href: LINKEDIN, label: "LinkedIn", Icon: Linkedin,     rel: "me noopener noreferrer" },
+  { href: GROWTHOS, label: "GrowthOS", Icon: ExternalLink, rel: "noopener noreferrer" },
+] as const;
 
-export default function RecruiterMode({ open, onClose }: RecruiterModeProps) {
-  const { t, locale } = useTranslation();
-  const dialogRef = useRef<HTMLDivElement>(null);
-  const closeBtnRef = useRef<HTMLButtonElement>(null);
+export default function RecruiterMode() {
+  const { t } = useTranslation();
+  const reduceMotion = useReducedMotion();
 
-  const topProjects = useMemo(() => projects.filter((p) => p.featured).slice(0, 3), []);
-
-  const bullets = useMemo(() => [
-    { label: t("recruiter.whatIdoLabel"), text: t("recruiter.whatIdo") },
-    { label: t("recruiter.howIworkLabel"), text: t("recruiter.howIwork") },
-    { label: t("recruiter.lookingForLabel"), text: t("recruiter.lookingFor") },
-    { label: t("recruiter.whereIfitLabel"), text: t("recruiter.whereIfit") },
-    { label: t("recruiter.howWeStartLabel"), text: t("recruiter.howWeStart") },
-  ], [t]);
-
-  useEffect(() => {
-    if (!open) return;
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-
-    const getFocusable = () =>
-      Array.from(
-        dialog.querySelectorAll<HTMLElement>(
-          'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
-        )
-      );
-
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        e.preventDefault();
-        onClose();
-        return;
-      }
-      if (e.key !== "Tab") return;
-      const list = getFocusable();
-      if (list.length === 0) return;
-      const first = list[0];
-      const last = list[list.length - 1];
-      if (e.shiftKey) {
-        if (document.activeElement === first) {
-          e.preventDefault();
-          last.focus();
-        }
-      } else if (document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    };
-
-    dialog.addEventListener("keydown", handleKey);
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    requestAnimationFrame(() => {
-      closeBtnRef.current?.focus();
-    });
-
-    return () => {
-      dialog.removeEventListener("keydown", handleKey);
-      document.body.style.overflow = prevOverflow;
-    };
-  }, [open, onClose]);
-
-  if (!open) return null;
-
-  const titleId = "recruiter-dialog-title";
-  const descId = "recruiter-bullets-list";
+  const fade = (delay = 0) =>
+    reduceMotion
+      ? {}
+      : {
+          initial: { opacity: 0, y: 20 },
+          whileInView: { opacity: 1, y: 0 },
+          viewport: { once: true, amount: 0.15 },
+          transition: { duration: 0.5, delay, ease: "easeOut" as const },
+        };
 
   return (
-    <div
-      className="fixed inset-0 z-[2000] flex items-center justify-center p-4"
-      role="presentation"
-      onMouseDown={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
-    >
-      <div
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-        aria-hidden
-      />
-      <div
-        ref={dialogRef}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={titleId}
-        aria-describedby={descId}
-        className="relative z-[1] w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-xl border border-[var(--color-border)] bg-[var(--bg-surface)] p-6 shadow-2xl"
-      >
-        <div className="flex items-start justify-between gap-4 mb-4">
-          <div>
-            <h2 id={titleId} className="font-heading text-xl text-[var(--color-text)] tracking-tight">
-              {t("recruiter.dialogTitle")}
-            </h2>
-            <p className="font-mono text-xs text-[var(--color-accent)] mt-1">{t("recruiter.dialogSubtitle")}</p>
+    <section id="recruiters" className="py-16 md:py-20">
+      <ScanReveal className="w-[90%] max-w-[1200px] mx-auto">
+
+        {/* Heading */}
+        <motion.h2
+          initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: reduceMotion ? 0 : 0.5 }}
+          style={{
+            fontSize: "var(--text-2xl)",
+            fontWeight: 600,
+            color: "var(--color-text)",
+            fontFamily: "var(--font-sans)",
+            letterSpacing: "-0.02em",
+            borderBottom: "2px solid var(--color-accent)",
+            display: "inline-block",
+            paddingBottom: "var(--space-1)",
+            marginBottom: "2rem",
+          }}
+        >
+          {t("recruiter.sectionTitle")}
+        </motion.h2>
+
+        {/* Grid: content left · links card right */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_0.6fr] gap-8 lg:gap-12 items-start">
+
+          {/* ── Left column ── */}
+          <div className="flex flex-col gap-8">
+
+            {/* EN summary */}
+            <motion.div
+              {...fade(0)}
+              className="rounded-xl border p-6"
+              style={{
+                borderColor: "oklch(from var(--color-text) l c h / 0.10)",
+                background: "var(--bg-surface)",
+              }}
+            >
+              <span className="inline-block font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-accent)] bg-[rgba(var(--color-accent-rgb),0.08)] border border-[rgba(var(--color-accent-rgb),0.2)] px-2 py-0.5 rounded mb-3">
+                EN
+              </span>
+              <p
+                className="leading-relaxed"
+                style={{ color: "var(--color-text-secondary)", fontSize: "var(--text-base)" }}
+              >
+                Product-minded backend developer &amp; technical growth partner
+                based in Barcelona. I build backend systems, automation and
+                applied AI solutions focused on measurable business impact.
+              </p>
+            </motion.div>
+
+            {/* What I'm looking for */}
+            <motion.div {...fade(0.06)}>
+              <h3
+                className="font-mono uppercase tracking-[0.14em] mb-3"
+                style={{ fontSize: "0.7rem", color: "var(--color-accent)" }}
+              >
+                {t("recruiter.lookingForTitle")}
+              </h3>
+              <p
+                className="leading-relaxed mb-4"
+                style={{ color: "var(--color-text-secondary)", fontSize: "var(--text-sm)" }}
+              >
+                {t("recruiter.lookingForDesc")}
+              </p>
+              <p
+                className="font-mono border-l-2 border-[rgba(var(--color-accent-rgb),0.4)] pl-3 leading-relaxed"
+                style={{ fontSize: "var(--text-xs)", color: "var(--color-text-secondary)", opacity: 0.7 }}
+              >
+                {t("recruiter.notLookingFor")}
+              </p>
+            </motion.div>
+
+            {/* Stack */}
+            <motion.div {...fade(0.1)}>
+              <h3
+                className="font-mono uppercase tracking-[0.14em] mb-3"
+                style={{ fontSize: "0.7rem", color: "var(--color-accent)" }}
+              >
+                {t("recruiter.stackTitle")}
+              </h3>
+              <ul className="flex flex-wrap gap-2" aria-label={t("recruiter.stackTitle")}>
+                {STACK_ITEMS.map((item) => (
+                  <li
+                    key={item}
+                    className="font-mono px-2.5 py-1 rounded-md border"
+                    style={{
+                      fontSize: "0.75rem",
+                      color: "var(--color-text)",
+                      borderColor: "rgba(var(--color-accent-rgb), 0.2)",
+                      background: "rgba(var(--color-accent-rgb), 0.04)",
+                    }}
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
           </div>
-          <button
-            ref={closeBtnRef}
-            type="button"
-            onClick={onClose}
-            className="shrink-0 rounded-lg border border-[var(--color-border)] p-2 text-[var(--color-text-secondary)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors"
-            aria-label={t("recruiter.close")}
+
+          {/* ── Right column: links card ── */}
+          <motion.aside
+            {...fade(0.12)}
+            aria-label={t("recruiter.linksTitle")}
+            className="rounded-xl border p-6 flex flex-col gap-3 lg:sticky lg:top-[90px]"
+            style={{
+              borderColor: "oklch(from var(--color-text) l c h / 0.10)",
+              background: "var(--bg-surface)",
+            }}
           >
-            <X className="h-5 w-5" aria-hidden />
-          </button>
+            <h3
+              className="font-mono uppercase tracking-[0.14em] mb-1"
+              style={{ fontSize: "0.7rem", color: "var(--color-accent)" }}
+            >
+              {t("recruiter.linksTitle")}
+            </h3>
+
+            {LINKS.map(({ href, label, Icon, rel }) => (
+              <a
+                key={href}
+                href={href}
+                target="_blank"
+                rel={rel}
+                className="group flex items-center gap-3 rounded-lg border border-[var(--color-border)] px-4 py-3 font-mono text-sm text-[var(--color-text)] no-underline transition-all duration-200 hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] hover:-translate-y-[1px]"
+                style={{ background: "var(--bg-primary)" }}
+              >
+                <Icon className="h-4 w-4 shrink-0 opacity-60 group-hover:opacity-100 transition-opacity" aria-hidden />
+                {label}
+                <span
+                  className="ml-auto font-mono opacity-25 group-hover:opacity-60 transition-opacity"
+                  aria-hidden
+                  style={{ fontSize: "0.65rem" }}
+                >
+                  ↗
+                </span>
+              </a>
+            ))}
+
+            <p
+              className="mt-2 font-mono leading-relaxed"
+              style={{ fontSize: "var(--text-xs)", color: "var(--color-text-secondary)", opacity: 0.6 }}
+            >
+              {t("recruiter.responseTime")}
+            </p>
+          </motion.aside>
         </div>
 
-        <ul id={descId} className="space-y-4 mb-6 border-b border-[var(--color-border)] pb-6">
-          {bullets.map(({ label, text }) => (
-            <li key={label} className="text-sm leading-relaxed">
-              <span className="font-semibold text-[var(--color-text)]">{label}. </span>
-              <span className="text-[var(--color-text-secondary)]">{text}</span>
-            </li>
-          ))}
-        </ul>
-
-        <section className="mb-6" aria-labelledby="recruiter-projects-heading">
-          <h3 id="recruiter-projects-heading" className="font-mono text-xs uppercase tracking-wider text-[var(--color-text-secondary)] mb-3">
-            {t("recruiter.projectsTitle")}
-          </h3>
-          <ul className="space-y-4">
-            {topProjects.map((project) => {
-              const links = pickPublicLinks(project);
-              const shortDesc =
-                project.desc.length > 140 ? `${project.desc.slice(0, 137)}…` : project.desc;
-              return (
-                <li key={project.title} className="rounded-lg border border-[var(--color-border)] bg-[var(--bg-primary)] p-3">
-                  <div className="font-semibold text-[var(--color-text)]">{project.title}</div>
-                  <p className="text-xs text-[var(--color-text-secondary)] mt-1 leading-relaxed">{shortDesc}</p>
-                  {links.length > 0 && (
-                    <div className="mt-2 flex flex-wrap gap-2">
-                      {links.map((link) => (
-                        <a
-                          key={link.url}
-                          href={link.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="font-mono text-xs text-[var(--color-accent)] underline-offset-2 hover:underline"
-                        >
-                          {link.label}
-                        </a>
-                      ))}
-                    </div>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        </section>
-
-        <p className="text-sm text-[var(--color-text-secondary)] mb-5 leading-relaxed italic border-l-2 border-[rgba(var(--color-accent-rgb),0.4)] pl-3">
-          {t("recruiter.cta")}
-        </p>
-
-        <section aria-labelledby="recruiter-contact-heading">
-          <h3 id="recruiter-contact-heading" className="font-mono text-xs uppercase tracking-wider text-[var(--color-text-secondary)] mb-2">
-            {t("recruiter.contactTitle")}
-          </h3>
-          <div className="flex flex-col gap-2 font-mono text-sm">
-            <a href={`mailto:${EMAIL}`} className="text-[var(--color-accent)] hover:underline">
-              {EMAIL}
-            </a>
-            <a href={LINKEDIN} target="_blank" rel="me noopener noreferrer" className="text-[var(--color-accent)] hover:underline">
-              LinkedIn
-            </a>
-          </div>
-        </section>
-
-        <p className="mt-6 font-mono text-[10px] text-[var(--color-text-secondary)] opacity-70">
-          {t("recruiter.shortcut")}
-        </p>
-      </div>
-    </div>
+      </ScanReveal>
+    </section>
   );
 }
+

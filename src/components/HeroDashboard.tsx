@@ -97,13 +97,12 @@ export default function HeroDashboard() {
                                 {t("hero.btnProjects")}
                             </a>
                             <a
-                                href="/CV_PauPascual_2026.pdf"
+                                href="https://growthos.paupascual.work/"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                download
                                 className="inline-flex items-center justify-center px-6 py-3 rounded font-mono text-[0.9rem] font-bold text-[var(--color-text)] bg-[var(--bg-surface)] border border-[var(--bg-hover)] transition-all duration-300 hover:bg-[var(--bg-hover)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)] no-underline"
                             >
-                                {t("hero.btnCV")}
+                                {t("hero.btnGrowthOS")}
                             </a>
                         </div>
                     </div>

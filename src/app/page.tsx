@@ -13,6 +13,7 @@ import FeaturedProjects from "@/components/FeaturedProjects";
 import AiAssistantSection from "@/components/AiAssistantSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import RecruiterMode from "@/components/RecruiterMode";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "@/hooks/useTranslation";
 
@@ -48,6 +49,7 @@ export default function Home() {
               <AiAssistantSection />
               <ProjectsGrid />
               <TechStack />
+              <RecruiterMode />
               <ContactSection />
               <Footer />
             </article>

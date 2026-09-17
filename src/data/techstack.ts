@@ -19,7 +19,7 @@
  */
 export type StackLevel = "strong" | "comfortable" | "exploring";
 
-export type StackCategoryId = "backend_data" | "ai_agents" | "trading_analytics" | "web_deploy";
+export type StackCategoryId = "core" | "ai" | "devops" | "exploring";
 
 export interface StackTech {
   name: string;
@@ -34,54 +34,50 @@ export interface StackCategory {
 }
 
 export const techStackCategories: StackCategory[] = [
-  // 1 ── Backend & Datos ─────────────────────────────────────────────
+  // 1 ── Core diario ─────────────────────────────────────────────
   {
-    id: "backend_data",
+    id: "core",
     level: "strong",
     items: [
-      { name: "Python · FastAPI", level: "strong" },
-      { name: "SQL · PostgreSQL", level: "strong" },
-      { name: "APIs REST", level: "strong" },
-      { name: "WebSockets", level: "comfortable" },
-      { name: "Jobs · colas básicas", level: "comfortable" },
+      { name: "Python", level: "strong" },
+      { name: "FastAPI", level: "strong" },
+      { name: "PostgreSQL", level: "strong" },
+      { name: "Docker", level: "strong" },
+      { name: "Next.js / Astro", level: "comfortable" },
+      { name: "Tailwind CSS", level: "strong" },
     ],
   },
-  // 2 ── AI & Agents ──────────────────────────────────────────────────
+  // 2 ── IA local y agentes ──────────────────────────────────────
   {
-    id: "ai_agents",
+    id: "ai",
     level: "strong",
     items: [
-      { name: "Trabajo con LLMs", level: "strong" },
-      { name: "Motores locales (llama.cpp/Ollama)", level: "strong" },
-      { name: "Diseño de agentes con herramientas", level: "strong" },
-      { name: "Proveedores cloud (cuando conviene)", level: "comfortable" },
-      { name: "Orquestación simple", level: "comfortable" },
+      { name: "llama.cpp", level: "strong" },
+      { name: "Ollama", level: "strong" },
+      { name: "Modelos locales", level: "strong" },
+      { name: "Groq / OpenRouter", level: "comfortable" },
     ],
   },
-  // 3 ── Trading & Analytics ──────────────────────────────────────────
+  // 3 ── DevOps / deploy ──────────────────────────────────────────
   {
-    id: "trading_analytics",
-    level: "strong",
-    items: [
-      { name: "Indicadores técnicos", level: "strong" },
-      { name: "Backtesting básico", level: "comfortable" },
-      { name: "Integración de datos de mercado", level: "strong" },
-      { name: "Dashboards de ROI y drawdown", level: "strong" },
-      { name: "Análisis de rendimiento", level: "strong" },
-    ],
-  },
-  // 4 ── Web & Deploy ─────────────────────────────────────────────────
-  {
-    id: "web_deploy",
+    id: "devops",
     level: "comfortable",
     items: [
-      { name: "JavaScript · TypeScript", level: "comfortable" },
-      { name: "React · Next.js", level: "comfortable" },
-      { name: "Astro · Vite", level: "comfortable" },
-      { name: "HTML · CSS · Tailwind", level: "comfortable" },
-      { name: "Docker", level: "comfortable" },
-      { name: "Vercel · Cloudflare", level: "comfortable" },
-      { name: "CI/CD avanzado · MLOps", level: "exploring", note: "En aprendizaje activo" },
+      { name: "Cloudflare Pages", level: "comfortable" },
+      { name: "Vercel", level: "comfortable" },
+      { name: "Contenedores Docker", level: "strong" },
+      { name: "GitHub Actions", level: "comfortable" },
+    ],
+  },
+  // 4 ── Explorando ───────────────────────────────────────────────
+  {
+    id: "exploring",
+    level: "exploring",
+    items: [
+      { name: "Go", level: "exploring", note: "En aprendizaje activo" },
+      { name: "GCP", level: "exploring" },
+      { name: "MongoDB", level: "exploring" },
+      { name: "Otras DBs NoSQL", level: "exploring" },
     ],
   },
 ];

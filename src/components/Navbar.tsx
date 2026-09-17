@@ -1,18 +1,23 @@
 "use client";
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { useReducedMotion } from 'framer-motion';
 import Link from 'next/link';
 import ThemeToggle from './ThemeToggle';
-import RecruiterMode from './RecruiterMode';
 import { useTranslation } from '@/hooks/useTranslation';
 import { availability } from '@/data/status';
 
-const navItems = [
+type NavItem = {
+    href: string;
+    labelKey: string;
+    external?: boolean;
+};
+
+const navItems: NavItem[] = [
     { href: '#dashboard', labelKey: 'nav.dashboard' },
-    { href: '#stack', labelKey: 'nav.stack' },
     { href: '#projects', labelKey: 'nav.projects' },
-    { href: '#about', labelKey: 'nav.about' },
+    { href: 'https://growthos.paupascual.work/', labelKey: 'nav.growthos', external: true },
+    { href: '#recruiters', labelKey: 'nav.recruiters' },
     { href: '#contact', labelKey: 'nav.contact' },
 ];
 
@@ -34,28 +39,10 @@ export default function Navbar() {
     const reduceMotion = useReducedMotion();
     const [activeSection, setActiveSection] = useState('#dashboard');
     const [scrollProgress, setScrollProgress] = useState(0);
-    const [recruiterOpen, setRecruiterOpen] = useState(false);
     const { locale, setLocale, t } = useTranslation();
 
     const availabilityLabel = locale === 'en' ? availability.messageEn : availability.messageEs;
     const availabilityTooltip = `${availability.messageEs} — ${availability.messageEn}`;
-
-    const toggleRecruiter = useCallback(() => {
-        setRecruiterOpen((v) => !v);
-    }, []);
-
-    useEffect(() => {
-        const onKey = (e: KeyboardEvent) => {
-            if (e.key !== 'r' && e.key !== 'R') return;
-            if (e.ctrlKey || e.metaKey || e.altKey) return;
-            const el = e.target as HTMLElement | null;
-            if (el?.closest('input, textarea, select, [contenteditable="true"]')) return;
-            e.preventDefault();
-            setRecruiterOpen((v) => !v);
-        };
-        window.addEventListener('keydown', onKey);
-        return () => window.removeEventListener('keydown', onKey);
-    }, []);
 
     useEffect(() => {
         // Scroll Progress
@@ -95,7 +82,6 @@ export default function Navbar() {
 
     return (
         <header className="fixed top-0 w-full bg-[var(--bg-primary)]/85 backdrop-blur-[10px] z-[1000] border-b border-[rgba(var(--color-accent-rgb),0.1)] transition-colors duration-500 relative">
-            <RecruiterMode open={recruiterOpen} onClose={() => setRecruiterOpen(false)} />
             <div className="w-[90%] max-w-[1200px] mx-auto flex justify-between items-center h-[70px]">
                 <div className="flex items-center gap-3 sm:gap-4 flex-wrap min-w-0">
                     <Link href="#dashboard" className="font-mono text-xl font-bold text-[var(--color-text)] flex items-center gap-2 no-underline">
@@ -111,26 +97,6 @@ export default function Navbar() {
                 </div>
 
                 <div className="flex items-center gap-2 sm:gap-4 shrink-0">
-                    <button
-                        type="button"
-                        onClick={toggleRecruiter}
-                        className="hidden sm:inline-flex h-9 px-3 items-center rounded-lg border border-[var(--color-border)] font-mono text-[11px] font-medium text-[var(--color-text-secondary)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors"
-                        aria-expanded={recruiterOpen}
-                        aria-haspopup="dialog"
-                        title={`${t('nav.recruiterMode')} · R`}
-                    >
-                        {t('nav.recruiterMode')}
-                    </button>
-                    <button
-                        type="button"
-                        onClick={toggleRecruiter}
-                        className="sm:hidden h-9 px-2 rounded-lg border border-[var(--color-border)] font-mono text-[10px] font-medium text-[var(--color-text-secondary)]"
-                        aria-expanded={recruiterOpen}
-                        aria-haspopup="dialog"
-                        aria-label={t('nav.recruiterMode')}
-                    >
-                        R
-                    </button>
                     <button
                         onClick={() => setLocale(locale === 'es' ? 'en' : 'es')}
                         className="h-10 px-3 flex items-center justify-center font-mono text-sm font-bold rounded-md border border-[var(--color-border)] shrink-0"
@@ -166,6 +132,8 @@ export default function Navbar() {
                             key={item.href}
                             href={item.href}
                             onClick={() => setIsOpen(false)}
+                            target={item.external ? "_blank" : undefined}
+                            rel={item.external ? "noopener noreferrer" : undefined}
                             className={`font-mono transition-all duration-300 no-underline text-lg md:text-[0.9rem] w-full md:w-auto text-center md:text-left py-2 md:py-0 ${activeSection === item.href
                                 ? 'text-[var(--color-accent)] border-b-2 md:border-b border-[var(--color-accent)] pb-[2px]'
                                 : 'text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] hover:translate-x-2 md:hover:translate-x-0'

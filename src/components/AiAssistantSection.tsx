@@ -150,10 +150,9 @@ export default function AiAssistantSection() {
   };
 
   const isEmpty = messages.length === 0 && liveText === null;
-  const bullets: string[] = [
-    t("aiAssistant.bullet1"),
-    t("aiAssistant.bullet2"),
-    t("aiAssistant.bullet3"),
+  const promptExamples: string[] = [
+    t("aiAssistant.promptExample1"),
+    t("aiAssistant.promptExample2"),
   ];
 
   return (
@@ -199,7 +198,7 @@ export default function AiAssistantSection() {
             </p>
 
             <ul className="space-y-3.5">
-              {bullets.map((bullet, i) => (
+              {promptExamples.map((example, i) => (
                 <li
                   key={i}
                   className="flex items-start gap-3"
@@ -212,7 +211,7 @@ export default function AiAssistantSection() {
                   >
                     —
                   </span>
-                  {bullet}
+                  {example}
                 </li>
               ))}
             </ul>
